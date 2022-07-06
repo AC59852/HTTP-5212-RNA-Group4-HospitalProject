@@ -191,10 +191,16 @@
     <Compile Include="Migrations\202207061439239_EmptyMigration.designer.cs">
       <DependentUpon>202207061439239_EmptyMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207061537193_PharmacyPrescriptionMigration.cs" />
+    <Compile Include="Migrations\202207061537193_PharmacyPrescriptionMigration.designer.cs">
+      <DependentUpon>202207061537193_PharmacyPrescriptionMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Pharmacy.cs" />
+    <Compile Include="Models\Prescription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -274,6 +280,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202207061439239_EmptyMigration.resx">
       <DependentUpon>202207061439239_EmptyMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207061537193_PharmacyPrescriptionMigration.resx">
+      <DependentUpon>202207061537193_PharmacyPrescriptionMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
