@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HTTP_5212_RNA_Group4_HospitalProject</RootNamespace>
     <AssemblyName>HTTP-5212-RNA-Group4-HospitalProject</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -26,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,11 +55,7 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -195,14 +192,22 @@
     <Compile Include="Migrations\202207061537193_PharmacyPrescriptionMigration.designer.cs">
       <DependentUpon>202207061537193_PharmacyPrescriptionMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207112249252_Staff-Appointment-Migration.cs" />
+    <Compile Include="Migrations\202207112249252_Staff-Appointment-Migration.designer.cs">
+      <DependentUpon>202207112249252_Staff-Appointment-Migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Pharmacy.cs" />
     <Compile Include="Models\Prescription.cs" />
+    <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\ViewModels\DetailsAppointment.cs" />
     <Compile Include="Models\ViewModels\DetailsPharmacy.cs" />
     <Compile Include="Models\ViewModels\DetailsPrescription.cs" />
+    <Compile Include="Models\ViewModels\DetailsStaff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -285,6 +290,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207061537193_PharmacyPrescriptionMigration.resx">
       <DependentUpon>202207061537193_PharmacyPrescriptionMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207112249252_Staff-Appointment-Migration.resx">
+      <DependentUpon>202207112249252_Staff-Appointment-Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
