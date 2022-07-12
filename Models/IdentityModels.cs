@@ -28,6 +28,9 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         public DbSet<Pharmacy> Pharmacies { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
 
+        public DbSet<Staff> Staffs { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

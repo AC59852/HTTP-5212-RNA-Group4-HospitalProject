@@ -16,6 +16,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         public int PharmacyCloseTime { get; set; }
         public bool PharmacyDelivery { get; set; }
 
+        public ICollection<Staff> Staffs { get; set; }
+
     }
 
     public class PharmacyDto

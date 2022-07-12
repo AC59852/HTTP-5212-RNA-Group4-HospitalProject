@@ -197,6 +197,10 @@
     <Compile Include="Migrations\202207061537193_PharmacyPrescriptionMigration.designer.cs">
       <DependentUpon>202207061537193_PharmacyPrescriptionMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207101703029_AddServiceClass.cs" />
+    <Compile Include="Migrations\202207101703029_AddServiceClass.Designer.cs">
+      <DependentUpon>202207101703029_AddServiceClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\202207112249252_Staff-Appointment-Migration.cs" />
     <Compile Include="Migrations\202207112249252_Staff-Appointment-Migration.designer.cs">
       <DependentUpon>202207112249252_Staff-Appointment-Migration.cs</DependentUpon>
@@ -213,6 +217,10 @@
     <Compile Include="Migrations\202207121843291_FixingCode.designer.cs">
       <DependentUpon>202207121843291_FixingCode.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207121935089_PharmacyStaffBridge.cs" />
+    <Compile Include="Migrations\202207121935089_PharmacyStaffBridge.designer.cs">
+      <DependentUpon>202207121935089_PharmacyStaffBridge.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -223,12 +231,18 @@
     <Compile Include="Models\Prescription.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\ViewModels\DetailsAppointment.cs" />
+    <Compile Include="Models\ViewModels\DetailsDepartment.cs" />
     <Compile Include="Models\ViewModels\DetailsPharmacy.cs" />
     <Compile Include="Models\ViewModels\DetailsPrescription.cs" />
+    <Compile Include="Models\ViewModels\DetailsService.cs" />
+    <Compile Include="Models\ViewModels\DetailsStaff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -309,6 +323,9 @@
     <EmbeddedResource Include="Migrations\202207061537193_PharmacyPrescriptionMigration.resx">
       <DependentUpon>202207061537193_PharmacyPrescriptionMigration.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207101703029_AddServiceClass.resx">
+      <DependentUpon>202207101703029_AddServiceClass.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207112249252_Staff-Appointment-Migration.resx">
       <DependentUpon>202207112249252_Staff-Appointment-Migration.cs</DependentUpon>
     </EmbeddedResource>
@@ -320,6 +337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207121843291_FixingCode.resx">
       <DependentUpon>202207121843291_FixingCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207121935089_PharmacyStaffBridge.resx">
+      <DependentUpon>202207121935089_PharmacyStaffBridge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

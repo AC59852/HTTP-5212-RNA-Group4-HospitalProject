@@ -16,6 +16,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         public string Image { get; set; }
 
         //TO-DO add department foreign key when the model is available 
+
+        public ICollection<Pharmacy> Pharmacies { get; set; }
     }
 
     public class StaffDto
