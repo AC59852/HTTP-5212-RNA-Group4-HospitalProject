@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -14,6 +15,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         public int PharmacyOpenTime { get; set; }
         public int PharmacyCloseTime { get; set; }
         public bool PharmacyDelivery { get; set; }
+
+        public ICollection<Staff> Staffs { get; set; }
 
     }
 

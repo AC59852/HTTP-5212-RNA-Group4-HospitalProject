@@ -23,6 +23,13 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         public int PharmacyID { get; set; }
         public string PharmacyName { get; set; }
         public virtual Pharmacy Pharmacy { get; set; }
+
+        [ForeignKey("Staff")]
+        public int? StaffId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Title { get; set; }
+        public virtual Staff Staff { get; set; }
     }
 
     public class PrescriptionDto
@@ -36,5 +43,10 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
 
         public int PharmacyID { get; set; }
         public string PharmacyName { get; set; }
+
+        public int StaffId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Title { get; set; }
     }
 }
