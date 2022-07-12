@@ -40,20 +40,35 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: api/PharmacyData/5
-        [ResponseType(typeof(Pharmacy))]
-        public IHttpActionResult GetPharmacy(int id)
+        [HttpGet]
+        [ResponseType(typeof(PharmacyDto))]
+        [Route("api/pharmacydata/findpharmacy/{id}")]
+        public IHttpActionResult FindPharmacy(int id)
         {
-            Pharmacy pharmacy = db.Pharmacies.Find(id);
-            if (pharmacy == null)
+            Pharmacy Pharmacy = db.Pharmacies.Find(id);
+            PharmacyDto PharmacyDto = new PharmacyDto()
+            {
+                PharmacyID = Pharmacy.PharmacyID,
+                PharmacyName = Pharmacy.PharmacyName,
+                PharmacyLocation = Pharmacy.PharmacyLocation,
+                PharmacyWaitTime = Pharmacy.PharmacyWaitTime,
+                PharmacyOpenTime = Pharmacy.PharmacyOpenTime,
+                PharmacyCloseTime = Pharmacy.PharmacyCloseTime,
+                PharmacyDelivery = Pharmacy.PharmacyDelivery,
+            };
+
+            if (Pharmacy == null)
             {
                 return NotFound();
             }
 
-            return Ok(pharmacy);
+            return Ok(PharmacyDto);
         }
 
         // PUT: api/PharmacyData/5
         [ResponseType(typeof(void))]
+        [HttpPost]
+        [Route("api/pharmacydata/updatepharmacy/{id}")]
         public IHttpActionResult PutPharmacy(int id, Pharmacy pharmacy)
         {
             if (!ModelState.IsValid)
@@ -89,6 +104,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         // POST: api/PharmacyData
         [ResponseType(typeof(Pharmacy))]
+        [Route("api/pharmacydata/addpharmacy")]
         public IHttpActionResult PostPharmacy(Pharmacy pharmacy)
         {
             if (!ModelState.IsValid)
