@@ -18,7 +18,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         static PharmacyController()
         {
             client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44381/api/");
+            client.BaseAddress = new Uri("https://localhost:44353/api/");
         }
 
         // GET: Pharmacy
@@ -35,7 +35,22 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         // GET: Pharmacy/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            DetailsPharmacy ViewModel = new DetailsPharmacy();
+
+            string url = "pharmacydata/findpharmacy/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+
+            PharmacyDto SelectedPharmacy = response.Content.ReadAsAsync<PharmacyDto>().Result;
+
+            ViewModel.SelectedPharmacy = SelectedPharmacy;
+
+            url = "prescriptiondata/listprescriptionsforpharmacy" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<PrescriptionDto> RelatedPrescriptions = response.Content.ReadAsAsync<IEnumerable<PrescriptionDto>>().Result;
+
+            ViewModel.RelatedPrescriptions = RelatedPrescriptions;
+
+            return View(ViewModel);
         }
 
         // GET: Pharmacy/Create

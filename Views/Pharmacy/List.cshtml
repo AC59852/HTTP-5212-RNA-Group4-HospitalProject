@@ -1,0 +1,19 @@
+﻿@model IEnumerable<HTTP_5212_RNA_Group4_HospitalProject.Models.PharmacyDto>
+@{
+    ViewBag.Title = "Pharmacies";
+}
+
+<main>
+    <div class="anime__wrapper">
+        <div class="anime__icons">
+            @foreach (var Pharmacy in Model)
+            {
+                <a href="/Anime/Details/@Pharmacy.PharmacyID" class="anime__icon">
+                    <img src="/" alt="Small Clickable Icon of @Pharmacy.PharmacyName" />
+                    <h3>@Pharmacy.PharmacyName</h3>
+                </a>
+            }
+        </div>
+        <a href="/Pharmacy/New" class="">Add New</a>
+    </div>
+</main>

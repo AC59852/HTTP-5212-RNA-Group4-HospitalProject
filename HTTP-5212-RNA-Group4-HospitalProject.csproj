@@ -186,6 +186,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PharmacyController.cs" />
     <Compile Include="Controllers\PharmacyDataController.cs" />
+    <Compile Include="Controllers\PrescriptionController.cs" />
+    <Compile Include="Controllers\PrescriptionDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -221,13 +223,9 @@
     <Compile Include="Migrations\202207121935089_PharmacyStaffBridge.designer.cs">
       <DependentUpon>202207121935089_PharmacyStaffBridge.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202207140536053_Added_HUpdate_Model.cs" />
-    <Compile Include="Migrations\202207140536053_Added_HUpdate_Model.designer.cs">
-      <DependentUpon>202207140536053_Added_HUpdate_Model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202207140541532_Added_Article_Model.cs" />
-    <Compile Include="Migrations\202207140541532_Added_Article_Model.designer.cs">
-      <DependentUpon>202207140541532_Added_Article_Model.cs</DependentUpon>
+    <Compile Include="Migrations\202207140850528_ArticleHUpdates.cs" />
+    <Compile Include="Migrations\202207140850528_ArticleHUpdates.designer.cs">
+      <DependentUpon>202207140850528_ArticleHUpdates.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -242,7 +240,9 @@
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\ViewModels\DetailsAppointment.cs" />
+    <Compile Include="Models\ViewModels\DetailsArticle.cs" />
     <Compile Include="Models\ViewModels\DetailsDepartment.cs" />
+    <Compile Include="Models\ViewModels\DetailsHUpdate.cs" />
     <Compile Include="Models\ViewModels\DetailsPharmacy.cs" />
     <Compile Include="Models\ViewModels\DetailsPrescription.cs" />
     <Compile Include="Models\ViewModels\DetailsService.cs" />
@@ -308,10 +308,18 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Pharmacy\List.cshtml" />
+    <Content Include="Views\Pharmacy\Details.cshtml" />
+    <Content Include="Views\Prescriptions\Create.cshtml" />
+    <Content Include="Views\Prescriptions\Delete.cshtml" />
+    <Content Include="Views\Prescriptions\Details.cshtml" />
+    <Content Include="Views\Prescriptions\Edit.cshtml" />
+    <Content Include="Views\Prescriptions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Pharmacy\" />
+    <Folder Include="Views\PrescriptionData\" />
+    <Folder Include="Views\Prescription\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -351,11 +359,8 @@
     <EmbeddedResource Include="Migrations\202207121935089_PharmacyStaffBridge.resx">
       <DependentUpon>202207121935089_PharmacyStaffBridge.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207140536053_Added_HUpdate_Model.resx">
-      <DependentUpon>202207140536053_Added_HUpdate_Model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207140541532_Added_Article_Model.resx">
-      <DependentUpon>202207140541532_Added_Article_Model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202207140850528_ArticleHUpdates.resx">
+      <DependentUpon>202207140850528_ArticleHUpdates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
