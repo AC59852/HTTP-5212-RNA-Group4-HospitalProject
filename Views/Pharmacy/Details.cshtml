@@ -1,0 +1,33 @@
+﻿
+@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.DetailsPharmacy
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<main>
+    <div class="pharmacy__wrapper">
+        <section class="pharmacy__info">
+            <h2>@Model.SelectedPharmacy.PharmacyName</h2>
+            <div class="pharmacy__content">
+                <h2>Pharmacy Info</h2>
+                <ul class="pharmacy__text">
+                    <li>Location: @Model.SelectedPharmacy.PharmacyLocation</li>
+                    <li>Prescription Amount: @Model.RelatedPrescriptions.Count()</li>
+                    <li>Avg Wait Time: @Model.SelectedPharmacy.PharmacyWaitTime minutes</li>
+                    <li>Hours: @Model.SelectedPharmacy.PharmacyOpenTime - @Model.SelectedPharmacy.PharmacyCloseTime</li>
+                    <li>Delivery: @Model.SelectedPharmacy.PharmacyDelivery</li>
+                    <li><a href="#">View Prescriptions</a></li>
+                </ul>
+            </div>
+        </section>
+        <section class="pharmacy__staff">
+            <ul>
+                <li></li>
+            </ul>
+        </section>
+    </div>
+</main>
+<script type="text/javascript">
+</script>
+
