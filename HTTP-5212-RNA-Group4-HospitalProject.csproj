@@ -221,6 +221,14 @@
     <Compile Include="Migrations\202207121935089_PharmacyStaffBridge.designer.cs">
       <DependentUpon>202207121935089_PharmacyStaffBridge.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207140536053_Added_HUpdate_Model.cs" />
+    <Compile Include="Migrations\202207140536053_Added_HUpdate_Model.designer.cs">
+      <DependentUpon>202207140536053_Added_HUpdate_Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207140541532_Added_Article_Model.cs" />
+    <Compile Include="Migrations\202207140541532_Added_Article_Model.designer.cs">
+      <DependentUpon>202207140541532_Added_Article_Model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -230,6 +238,8 @@
     <Compile Include="Models\Pharmacy.cs" />
     <Compile Include="Models\Prescription.cs" />
     <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\HUpdate.cs" />
+    <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\ViewModels\DetailsAppointment.cs" />
     <Compile Include="Models\ViewModels\DetailsDepartment.cs" />
@@ -340,6 +350,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207121935089_PharmacyStaffBridge.resx">
       <DependentUpon>202207121935089_PharmacyStaffBridge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207140536053_Added_HUpdate_Model.resx">
+      <DependentUpon>202207140536053_Added_HUpdate_Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207140541532_Added_Article_Model.resx">
+      <DependentUpon>202207140541532_Added_Article_Model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
