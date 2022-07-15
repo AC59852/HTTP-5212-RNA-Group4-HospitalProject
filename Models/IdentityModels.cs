@@ -34,6 +34,9 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         public DbSet<HUpdate> HUpdates { get; set; }
         public DbSet<Article> Articles { get; set; }
 
+        public DbSet<Research> Researches { get; set; }
+        public DbSet<Donar> Donars { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
