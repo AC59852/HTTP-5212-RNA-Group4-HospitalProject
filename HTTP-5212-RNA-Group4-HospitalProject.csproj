@@ -184,9 +184,13 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ServiceDataController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\PharmacyController.cs" />
     <Compile Include="Controllers\PharmacyDataController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\PrescriptionController.cs" />
+    <Compile Include="Controllers\DepartmentDataController .cs" />
     <Compile Include="Controllers\PrescriptionDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -198,10 +202,6 @@
     <Compile Include="Migrations\202207061537193_PharmacyPrescriptionMigration.cs" />
     <Compile Include="Migrations\202207061537193_PharmacyPrescriptionMigration.designer.cs">
       <DependentUpon>202207061537193_PharmacyPrescriptionMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202207101703029_AddServiceClass.cs" />
-    <Compile Include="Migrations\202207101703029_AddServiceClass.Designer.cs">
-      <DependentUpon>202207101703029_AddServiceClass.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202207112249252_Staff-Appointment-Migration.cs" />
     <Compile Include="Migrations\202207112249252_Staff-Appointment-Migration.designer.cs">
@@ -230,6 +230,10 @@
     <Compile Include="Migrations\202207142348153_donationReasearch.cs" />
     <Compile Include="Migrations\202207142348153_donationReasearch.designer.cs">
       <DependentUpon>202207142348153_donationReasearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207151756480_AddService.cs" />
+    <Compile Include="Migrations\202207151756480_AddService.designer.cs">
+      <DependentUpon>202207151756480_AddService.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -347,9 +351,6 @@
     <EmbeddedResource Include="Migrations\202207061537193_PharmacyPrescriptionMigration.resx">
       <DependentUpon>202207061537193_PharmacyPrescriptionMigration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207101703029_AddServiceClass.resx">
-      <DependentUpon>202207101703029_AddServiceClass.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207112249252_Staff-Appointment-Migration.resx">
       <DependentUpon>202207112249252_Staff-Appointment-Migration.cs</DependentUpon>
     </EmbeddedResource>
@@ -370,6 +371,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207142348153_donationReasearch.resx">
       <DependentUpon>202207142348153_donationReasearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207151756480_AddService.resx">
+      <DependentUpon>202207151756480_AddService.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -26,8 +26,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         }
 
         public DbSet<Pharmacy> Pharmacies { get; set; }
-        public DbSet<Prescription> Prescriptions { get; set; }
-
+        public DbSet<Prescription> Prescriptions { get; set; } 
+       
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
 
@@ -36,6 +36,9 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
 
         public DbSet<Research> Researches { get; set; }
         public DbSet<Donar> Donars { get; set; }
+        public DbSet<Service> Services { get; set; }
+
+        public DbSet<Department> Departments { get; set; }
 
         public static ApplicationDbContext Create()
         {

@@ -7,13 +7,13 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class AddServiceClass : IMigrationMetadata
+    public sealed partial class AddService : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddServiceClass));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddService));
         
         string IMigrationMetadata.Id
         {
-            get { return "202207101703029_AddServiceClass"; }
+            get { return "202207151756480_AddService"; }
         }
         
         string IMigrationMetadata.Source
