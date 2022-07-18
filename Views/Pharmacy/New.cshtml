@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Create Pharmacy</h2>
+<form action="/Pharmacy/Create" method="POST">
+    <div>
+        <label for="PharmacyName">Enter Pharmacy Name</label>
+        <input type="text" name="PharmacyName" placeholder="E.g: Riverside Healthcare Pharmacy" value=""/>
+    </div>
+    <div>
+        <label for="PharmacyLocation">Enter Pharmacy Location</label>
+        <input type="text" name="PharmacyLocation" placeholder="E.g: 123 Some St, Toronto" value=""/>
+    </div>
+    <div>
+        <label for="PharmacyWaitTime">Enter Pharmacy Wait Time (Minutes)</label>
+        <input type="number" name="PharmacyWaitTime" placeholder="E.g: 25" value=""/>
+    </div>
+    <div>
+        <label for="PharmacyOpenTime">Enter Pharmacy Open Time (Military Time)</label>
+        <input type="number" name="PharmacyOpenTime" placeholder="Example: 0900" value=""/>
+    </div>
+    <div>
+        <label for="PharmacyCloseTime">Enter Pharmacy Close Time (Military Time)</label>
+        <input type="number" name="PharmacyCloseTime" placeholder="Example: 1800" value=""/>
+    </div>
+    <div>
+        <label for="PharmacyDelivery">Is There Delivery?</label>
+        <input type="checkbox" name="PharmacyDelivery" value="true"/>
+    </div>
+    <input type="submit" name="Submit" value="Create" />
+</form>
+

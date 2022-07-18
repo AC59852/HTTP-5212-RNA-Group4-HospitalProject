@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 {
-    public class PrescriptionController : Controller
+    public class DepartmentController : Controller
     {
         // GET: Prescription
         public ActionResult Index()

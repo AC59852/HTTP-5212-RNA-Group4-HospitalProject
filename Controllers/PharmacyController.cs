@@ -53,69 +53,88 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View(ViewModel);
         }
 
-        // GET: Pharmacy/Create
-        public ActionResult Create()
+        //GET: Pharmacy/New
+        public ActionResult New()
         {
             return View();
         }
 
         // POST: Pharmacy/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Pharmacy Pharmacy)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            string url = "pharmacydata/addpharmacy";
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            string jsonpayload = jss.Serialize(Pharmacy);
+
+            HttpContent content = new StringContent(jsonpayload);
+            content.Headers.ContentType.MediaType = "application/json";
+
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            return RedirectToAction("List");
         }
 
         // GET: Pharmacy/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            string url = "pharmacydata/findpharmacy/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+
+            PharmacyDto selectedpharmacy = response.Content.ReadAsAsync<PharmacyDto>().Result;
+
+            return View(selectedpharmacy);
         }
 
-        // POST: Pharmacy/Edit/5
+        // POST: Pharmacy/Update/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Pharmacy Pharmacy)
         {
-            try
-            {
-                // TODO: Add update logic here
+            string url = "pharmacydata/updatepharmacy/" + id;
+            string jsonpayload = jss.Serialize(Pharmacy);
 
-                return RedirectToAction("Index");
-            }
-            catch
+            HttpContent content = new StringContent(jsonpayload);
+            content.Headers.ContentType.MediaType = "application/json";
+
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("/Details/" + Pharmacy.PharmacyID);
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
 
-        // GET: Pharmacy/Delete/5
+        public ActionResult DeleteConfirm(int id)
+        {
+            string url = "pharmacydata/findpharmacy/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+
+            PharmacyDto selectedpharmacy = response.Content.ReadAsAsync<PharmacyDto>().Result;
+
+            return View(selectedpharmacy);
+        }
+
+        // POST: Anime/Delete/5
+        [HttpPost]
         public ActionResult Delete(int id)
         {
-            return View();
-        }
+            string url = "pharmacydata/deletepharmacy/" + id;
+            HttpContent content = new StringContent("");
 
-        // POST: Pharmacy/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsJsonAsync(url, content).Result;
+
+            if (response.IsSuccessStatusCode)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
-            catch
+            else
             {
-                return View();
+                return RedirectToAction("Error");
             }
         }
     }
