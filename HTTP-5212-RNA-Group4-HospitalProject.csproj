@@ -182,6 +182,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppointmentController.cs" />
+    <Compile Include="Controllers\AppointmentDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ServiceDataController.cs" />
@@ -192,6 +194,8 @@
     <Compile Include="Controllers\PrescriptionController.cs" />
     <Compile Include="Controllers\DepartmentDataController .cs" />
     <Compile Include="Controllers\PrescriptionDataController.cs" />
+    <Compile Include="Controllers\StaffController.cs" />
+    <Compile Include="Controllers\StaffDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -234,6 +238,10 @@
     <Compile Include="Migrations\202207151756480_AddService.cs" />
     <Compile Include="Migrations\202207151756480_AddService.designer.cs">
       <DependentUpon>202207151756480_AddService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202207192255374_Added-Department-To-Staff.cs" />
+    <Compile Include="Migrations\202207192255374_Added-Department-To-Staff.designer.cs">
+      <DependentUpon>202207192255374_Added-Department-To-Staff.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -329,8 +337,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\AppointmentData\" />
+    <Folder Include="Views\Appointment\" />
     <Folder Include="Views\PrescriptionData\" />
     <Folder Include="Views\Prescription\" />
+    <Folder Include="Views\StaffData\" />
+    <Folder Include="Views\Staff\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -375,6 +387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207151756480_AddService.resx">
       <DependentUpon>202207151756480_AddService.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207192255374_Added-Department-To-Staff.resx">
+      <DependentUpon>202207192255374_Added-Department-To-Staff.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

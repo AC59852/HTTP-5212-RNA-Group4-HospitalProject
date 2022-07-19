@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -15,8 +16,13 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         public string Title { get; set; }
         public string Image { get; set; }
 
-        //TO-DO add department foreign key when the model is available 
+       
+        // A staff belongs to a department
+        // An department can have one or more staffs
 
+        [ForeignKey("Department")]
+        public int DepartmentID { get; set; }
+        public virtual Department Department { get; set; }
         public ICollection<Pharmacy> Pharmacies { get; set; }
     }
 
