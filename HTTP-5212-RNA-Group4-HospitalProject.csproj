@@ -334,15 +334,23 @@
     <Content Include="Views\Prescriptions\Edit.cshtml" />
     <Content Include="Views\Prescriptions\Index.cshtml" />
     <Content Include="Views\Pharmacy\New.cshtml" />
+    <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\Staff\Create.cshtml" />
+    <Content Include="Views\Staff\Edit.cshtml" />
+    <Content Include="Views\Staff\Delete.cshtml" />
+    <Content Include="Views\Staff\Details.cshtml" />
+    <Content Include="Views\Appointment\Index.cshtml" />
+    <Content Include="Views\Appointment\Create.cshtml" />
+    <Content Include="Views\Appointment\Edit.cshtml" />
+    <Content Include="Views\Appointment\Details.cshtml" />
+    <Content Include="Views\Appointment\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\AppointmentData\" />
-    <Folder Include="Views\Appointment\" />
     <Folder Include="Views\PrescriptionData\" />
     <Folder Include="Views\Prescription\" />
     <Folder Include="Views\StaffData\" />
-    <Folder Include="Views\Staff\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<HTTP_5212_RNA_Group4_HospitalProject.Models.Staff>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Staff</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Name")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department.DepartmentName)
+        </th>
+        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName + item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.StaffId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.StaffId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.StaffId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
