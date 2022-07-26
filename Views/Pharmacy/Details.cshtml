@@ -7,25 +7,35 @@
 
 <main>
     <div class="pharmacy__wrapper">
-        <section class="pharmacy__info">
-            <h2>@Model.SelectedPharmacy.PharmacyName</h2>
-            <div class="pharmacy__content">
-                <h2>Pharmacy Info</h2>
-                <ul class="pharmacy__text">
-                    <li>Location: @Model.SelectedPharmacy.PharmacyLocation</li>
-                    <li>Prescription Amount: @Model.RelatedPrescriptions.Count()</li>
-                    <li>Avg Wait Time: @Model.SelectedPharmacy.PharmacyWaitTime minutes</li>
-                    <li>Hours: @Model.SelectedPharmacy.PharmacyOpenTime - @Model.SelectedPharmacy.PharmacyCloseTime</li>
-                    <li>Delivery: @Model.SelectedPharmacy.PharmacyDelivery</li>
-                    <li><a href="#">View Prescriptions</a></li>
+        <div class="pharmacy__content">
+            <section class="pharmacy__info">
+                <h2>@Model.SelectedPharmacy.PharmacyName</h2>
+                <div class="pharmacy__content">
+                    <h2>Pharmacy Info</h2>
+                    <ul class="pharmacy__text">
+                        <li>Location: @Model.SelectedPharmacy.PharmacyLocation</li>
+                        <li>Prescription Amount: @Model.RelatedPrescriptions.Count()</li>
+                        <li>Avg Wait Time: @Model.SelectedPharmacy.PharmacyWaitTime minutes</li>
+                        <li>Hours: @Model.SelectedPharmacy.PharmacyOpenTime - @Model.SelectedPharmacy.PharmacyCloseTime</li>
+                        <li>Delivery: @Model.SelectedPharmacy.PharmacyDelivery</li>
+                        <li><a href="/pharmacy/prescriptions/@Model.SelectedPharmacy.PharmacyID">View Prescriptions</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section class="pharmacy__staff">
+                <h2>Staff Working Here</h2>
+                <ul>
+                    @foreach (var staff in Model.RelatedStaff)
+                    {
+                        <li>@staff.FirstName @staff.LastName</li>
+                    }
                 </ul>
-            </div>
-        </section>
-        <section class="pharmacy__staff">
-            <ul>
-                <li></li>
-            </ul>
-        </section>
+            </section>
+        </div>
+        <div class="pharmacy__links">
+            <a href="/pharmacy/edit/@Model.SelectedPharmacy.PharmacyID">Edit</a>
+            <a href="/pharmacy/deleteconfirm/@Model.SelectedPharmacy.PharmacyID">Delete</a>
+        </div>
     </div>
 </main>
 <script type="text/javascript">

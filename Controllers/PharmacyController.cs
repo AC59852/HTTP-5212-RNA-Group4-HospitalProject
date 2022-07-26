@@ -7,6 +7,7 @@ using HTTP_5212_RNA_Group4_HospitalProject.Models;
 using HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels;
 using System.Web.Script.Serialization;
 using System.Net.Http;
+using System.Diagnostics;
 
 namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 {
@@ -22,6 +23,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: Pharmacy
+        /// <summary>
+        /// Returns all pharmacies in the system
+        /// </summary>
+        /// <returns>
+        /// CONTENT: all pharmacies in the database
+        /// </returns>
         public ActionResult List()
         {
             string url = "pharmacydata/listpharmacies";
@@ -32,22 +39,70 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View(Pharmacies);
         }
 
-        // GET: Pharmacy/Details/5
+        /// <summary>
+        /// Returns a single pharmacy from the database, 
+        /// including the associated prescriptions and staff
+        /// </summary>
+        /// <param name="id">Pharmacy Primary Key</param>
+        /// <returns>
+        /// CONTENT: A single pharmacy including prescriptions and staff
+        /// </returns>
+        /// <example>
+        /// GET: api/pharmacydata/details/5
+        /// </example>
         public ActionResult Details(int id)
         {
             DetailsPharmacy ViewModel = new DetailsPharmacy();
 
+            //objective: communicate with our pharmacy data api to retrieve one pharmacy
+
             string url = "pharmacydata/findpharmacy/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
+            Debug.WriteLine("The response code is ");
+            Debug.WriteLine(response.StatusCode);
+
+            // Get the content from the selected pharmacy
             PharmacyDto SelectedPharmacy = response.Content.ReadAsAsync<PharmacyDto>().Result;
 
+            // Set the data in the ViewModel to be able to use in render
             ViewModel.SelectedPharmacy = SelectedPharmacy;
 
+            url = "staffdata/liststaffforpharmacy/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<StaffDto> RelatedStaff = response.Content.ReadAsAsync<IEnumerable<StaffDto>>().Result;
+
+            ViewModel.RelatedStaff = RelatedStaff;
+
+
+            //show associated prescriptions with this pharmacy
             url = "prescriptiondata/listprescriptionsforpharmacy" + id;
+
+            // Get the prescriptions results related to the chosen pharmacy
             response = client.GetAsync(url).Result;
             IEnumerable<PrescriptionDto> RelatedPrescriptions = response.Content.ReadAsAsync<IEnumerable<PrescriptionDto>>().Result;
 
+            // Set the data in the ViewModel to be able to use in render
+            ViewModel.RelatedPrescriptions = RelatedPrescriptions;
+
+            return View(ViewModel);
+        }
+
+        public ActionResult Prescriptions(int id)
+        {
+
+            DetailsPharmacy ViewModel = new DetailsPharmacy();
+
+            //objective: communicate with our pharmacy data api to retrieve one pharmacy
+
+            //show associated prescriptions with this pharmacy
+            string url = "prescriptiondata/listprescriptionsforpharmacy" + id;
+
+            // Get the prescriptions results related to the chosen pharmacy
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            IEnumerable<PrescriptionDto> RelatedPrescriptions = response.Content.ReadAsAsync<IEnumerable<PrescriptionDto>>().Result;
+
+            // Set the data in the ViewModel to be able to use in render
             ViewModel.RelatedPrescriptions = RelatedPrescriptions;
 
             return View(ViewModel);
@@ -88,7 +143,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         // POST: Pharmacy/Update/5
         [HttpPost]
-        public ActionResult Edit(int id, Pharmacy Pharmacy)
+        public ActionResult Update(int id, Pharmacy Pharmacy)
         {
             string url = "pharmacydata/updatepharmacy/" + id;
             string jsonpayload = jss.Serialize(Pharmacy);
@@ -104,6 +159,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             }
             else
             {
+                Debug.WriteLine(response.StatusCode);
                 return RedirectToAction("Error");
             }
         }
@@ -118,7 +174,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View(selectedpharmacy);
         }
 
-        // POST: Anime/Delete/5
+        // POST: Pharmacy/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
         {

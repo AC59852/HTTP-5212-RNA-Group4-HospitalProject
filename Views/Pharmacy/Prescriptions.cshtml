@@ -1,0 +1,13 @@
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.DetailsPharmacy
+@{
+    ViewBag.Title = "Prescriptions";
+}
+
+<h2>Prescriptions</h2>
+<ul>
+    @foreach (var prescription in Model.RelatedPrescriptions)
+    {
+        <li><a href="/prescription/details/@prescription.PrescriptionID">ID: @prescription.PrescriptionID | Name: @prescription.PatientName</a></li>
+    }
+</ul>
+

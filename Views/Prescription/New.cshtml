@@ -1,0 +1,39 @@
+﻿@model IEnumerable<HTTP_5212_RNA_Group4_HospitalProject.Models.PharmacyDto>
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Edit</h2>
+<form action="/Prescription/Create" method="POST">
+    <div>
+        <label for="PatientName">Enter Patient Name</label>
+        <input type="text" name="PatientName" placeholder="E.g: John Doe" value="" />
+    </div>
+    <div>
+        <label for="PrescriptionDrug">Enter Drug Name</label>
+        <input type="text" name="PrescriptionDrug" placeholder="E.g Antibacterial Eardrops" value="" />
+    </div>
+    <div>
+        <label for="PrescriptionRefills">Enter Prescription Refills</label>
+        <input type="number" name="PrescriptionRefills" placeholder="E.g 2" value="" />
+    </div>
+
+    <div>
+        <label for="PrescriptionDosage">Enter Prescription Dosage</label>
+        <input type="text" name="PrescriptionDosage" placeholder="E.g 200ml" value="" />
+    </div>
+    <div>
+        <label for="PrescriptionInstructions">Enter Prescription Instructions</label>
+        <textarea name="PrescriptionInstructions" value=""></textarea>
+    </div>
+    <div class="">
+        <label>Choose a Pharmacy</label>
+        <select name="PharmacyID">
+            @foreach (var pharmacy in Model)
+            {
+                <option value="@pharmacy.PharmacyID">@pharmacy.PharmacyName</option>
+            }
+        </select>
+    </div>
+    <input type="submit" name="Submit" value="Update" />
+</form>

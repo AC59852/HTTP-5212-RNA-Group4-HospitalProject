@@ -1,0 +1,12 @@
+﻿
+@model HTTP_5212_RNA_Group4_HospitalProject.Models.PharmacyDto 
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h1>Delete @Model.PharmacyName</h1>
+<h2>Are you sure you want to delete @Model.PharmacyName Pharmacy?</h2>
+<form action="/Pharmacy/Delete/@Model.PharmacyID" method="POST">
+    <input type="submit" value="Delete" />
+</form>
+

@@ -120,6 +120,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         // DELETE: api/PharmacyData/5
         [ResponseType(typeof(Pharmacy))]
+        [HttpPost]
+        [Route("api/pharmacydata/deletepharmacy/{id}")]
         public IHttpActionResult DeletePharmacy(int id)
         {
             Pharmacy pharmacy = db.Pharmacies.Find(id);

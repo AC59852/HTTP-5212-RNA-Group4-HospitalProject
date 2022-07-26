@@ -1,0 +1,50 @@
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.UpdatePrescription
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<form action="/Prescription/Update/@Model.SelectedPrescription.PrescriptionID" method="POST">
+    <div style="display:none;">
+        <input type="text" name="PrescriptionID" value="@Model.SelectedPrescription.PrescriptionID" />
+    </div>
+    <div>
+        <label for="PatientName">Enter Patient Name</label>
+        <input type="text" name="PatientName" placeholder="E.g: John Doe" value="@Model.SelectedPrescription.PatientName" />
+    </div>
+    <div>
+        <label for="PrescriptionDrug">Enter Drug Name</label>
+        <input type="text" name="PrescriptionDrug" placeholder="E.g Antibacterial Eardrops" value="@Model.SelectedPrescription.PrescriptionDrug" />
+    </div>
+    <div>
+        <label for="PrescriptionRefills">Enter Prescription Refills</label>
+        <input type="number" name="PrescriptionRefills" placeholder="E.g 2" value="@Model.SelectedPrescription.PrescriptionRefills" />
+    </div>
+    <div>
+        <label for="PrescriptionRefills">Enter Prescription Refills</label>
+        <input type="number" name="PrescriptionRefills" placeholder="E.g 2" value="@Model.SelectedPrescription.PrescriptionRefills" />
+    </div>
+    <div>
+        <label for="PrescriptionDosage">Enter Prescription Dosage</label>
+        <input type="number" name="PrescriptionDosage" placeholder="E.g 200ml" value="@Model.SelectedPrescription.PrescriptionDosage" />
+    </div>
+    <div>
+        <label for="PrescriptionRefills">Enter Prescription Instructions</label>
+        <textarea name="PrescriptionRefills" value="@Model.SelectedPrescription.PrescriptionInstructions"></textarea>
+    </div>
+    <div class="">
+        <label>Choose a Pharmacy</label>
+        <select name="PharmacyID">
+            @foreach (var pharmacy in Model.PharmacyOptions)
+            {
+                string selected = "";
+                if (pharmacy.PharmacyID == Model.SelectedPrescription.PharmacyID)
+                {
+                    selected = "selected";
+                }
+                <option value="@pharmacy.PharmacyID" @selected>@pharmacy.PharmacyName</option>
+            }
+        </select>
+    </div>
+    <input type="submit" name="Submit" value="Update" />
+</form>

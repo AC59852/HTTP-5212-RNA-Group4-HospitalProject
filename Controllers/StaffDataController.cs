@@ -132,6 +132,27 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(staff);
         }
 
+        [HttpGet]
+        [ResponseType(typeof(StaffDto))]
+        [Route("api/staffdata/liststaffforpharmacy/{id}")]
+        public IHttpActionResult ListStaffForPharmacy(int id)
+        {
+            List<Staff> Staffs = db.Staffs.Where(
+                s => s.Pharmacies.Any(
+                    p => p.PharmacyID == id)
+                ).ToList();
+            List<StaffDto> StaffDtos = new List<StaffDto>();
+
+            Staffs.ForEach(s => StaffDtos.Add(new StaffDto()
+            {
+                StaffId = s.StaffId,
+                FirstName = s.FirstName,
+                LastName = s.LastName
+            }));
+
+            return Ok(StaffDtos);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
