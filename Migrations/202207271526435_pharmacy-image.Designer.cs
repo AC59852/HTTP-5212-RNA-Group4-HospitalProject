@@ -7,13 +7,13 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class dbupdate : IMigrationMetadata
+    public sealed partial class pharmacyimage : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(dbupdate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(pharmacyimage));
         
         string IMigrationMetadata.Id
         {
-            get { return "202207260655354_dbupdate"; }
+            get { return "202207271526435_pharmacy-image"; }
         }
         
         string IMigrationMetadata.Source

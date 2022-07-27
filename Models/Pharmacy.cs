@@ -18,6 +18,9 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
 
         public ICollection<Staff> Staffs { get; set; }
 
+        public bool PharmacyHasPic { get; set; }
+        public string PicExtension { get; set; }
+
     }
 
     public class PharmacyDto
@@ -29,5 +32,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         public int PharmacyOpenTime { get; set; }
         public int PharmacyCloseTime { get; set; }
         public bool PharmacyDelivery { get; set; }
+
+        public bool PharmacyHasPic { get; set; }
+        public string PicExtension { get; set; }
     }
 }

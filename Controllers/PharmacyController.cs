@@ -59,9 +59,6 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             string url = "pharmacydata/findpharmacy/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            Debug.WriteLine("The response code is ");
-            Debug.WriteLine(response.StatusCode);
-
             // Get the content from the selected pharmacy
             PharmacyDto SelectedPharmacy = response.Content.ReadAsAsync<PharmacyDto>().Result;
 
@@ -88,6 +85,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View(ViewModel);
         }
 
+        /// <summary>
+        /// Returns the prescriptions page containing all prescriptions
+        /// related to the selected pharmacy
+        /// </summary>
+        /// <param name="id">Pharmacy Primary Key</param>
+        /// <returns>All prescriptions related to the chosen pharmacy</returns>
         public ActionResult Prescriptions(int id)
         {
 
@@ -133,17 +136,20 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         // GET: Pharmacy/Edit/5
         public ActionResult Edit(int id)
         {
+            UpdatePharmacy ViewModel = new UpdatePharmacy();
+
             string url = "pharmacydata/findpharmacy/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            PharmacyDto selectedpharmacy = response.Content.ReadAsAsync<PharmacyDto>().Result;
+            PharmacyDto SelectedPharmacy = response.Content.ReadAsAsync<PharmacyDto>().Result;
+            ViewModel.SelectedPharmacy = SelectedPharmacy;
 
-            return View(selectedpharmacy);
+            return View(ViewModel);
         }
 
         // POST: Pharmacy/Update/5
         [HttpPost]
-        public ActionResult Update(int id, Pharmacy Pharmacy)
+        public ActionResult Update(int id, Pharmacy Pharmacy, HttpPostedFileBase PharmacyPic)
         {
             string url = "pharmacydata/updatepharmacy/" + id;
             string jsonpayload = jss.Serialize(Pharmacy);
@@ -152,9 +158,29 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             content.Headers.ContentType.MediaType = "application/json";
 
             HttpResponseMessage response = client.PostAsync(url, content).Result;
+            Debug.WriteLine(response);
 
-            if (response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode && PharmacyPic != null)
             {
+                url = "pharmacydata/UploadPharmacyPic/" + id;
+
+                Debug.WriteLine(url);
+                Debug.WriteLine(PharmacyPic.InputStream);
+
+
+                MultipartFormDataContent requestcontent = new MultipartFormDataContent();
+                HttpContent imagecontent = new StreamContent(PharmacyPic.InputStream);
+
+                requestcontent.Add(imagecontent, "PharmacyPic", PharmacyPic.FileName);
+                response = client.PostAsync(url, requestcontent).Result;
+
+                Debug.WriteLine(response);
+
+                return RedirectToAction("/Details/" + Pharmacy.PharmacyID);
+            }
+            else if (response.IsSuccessStatusCode)
+            {
+                //No image upload, but update still successful
                 return RedirectToAction("/Details/" + Pharmacy.PharmacyID);
             }
             else

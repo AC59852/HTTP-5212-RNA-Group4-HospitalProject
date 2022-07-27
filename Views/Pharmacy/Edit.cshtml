@@ -1,36 +1,39 @@
-﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.PharmacyDto
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.UpdatePharmacy
 @{
     ViewBag.Title = "Edit";
 }
 
 <h2>Edit</h2>
-<form action="/Pharmacy/Update/@Model.PharmacyID" method="POST">
+<form action="/Pharmacy/Update/@Model.SelectedPharmacy.PharmacyID" method="POST" enctype="multipart/form-data">
     <div style="display:none;">
-        <input type="text" name="PharmacyID" value="@Model.PharmacyID" />
+        <input type="text" name="PharmacyID" value="@Model.SelectedPharmacy.PharmacyID" />
     </div>
     <div>
         <label for="PharmacyName">Enter Pharmacy Name</label>
-        <input type="text" name="PharmacyName" placeholder="E.g: Riverside Healthcare Pharmacy" value="@Model.PharmacyName" />
+        <input type="text" name="PharmacyName" placeholder="E.g: Riverside Healthcare Pharmacy" value="@Model.SelectedPharmacy.PharmacyName" />
     </div>
     <div>
         <label for="PharmacyLocation">Enter Pharmacy Location</label>
-        <input type="text" name="PharmacyLocation" placeholder="E.g: 123 Some St, Toronto" value="@Model.PharmacyLocation" />
+        <input type="text" name="PharmacyLocation" placeholder="E.g: 123 Some St, Toronto" value="@Model.SelectedPharmacy.PharmacyLocation" />
     </div>
     <div>
         <label for="PharmacyWaitTime">Enter Pharmacy Wait Time (Minutes)</label>
-        <input type="number" name="PharmacyWaitTime" placeholder="E.g: 25" value="@Model.PharmacyWaitTime" />
+        <input type="number" name="PharmacyWaitTime" placeholder="E.g: 25" value="@Model.SelectedPharmacy.PharmacyWaitTime" />
     </div>
     <div>
         <label for="PharmacyOpenTime">Enter Pharmacy Open Time (Military Time)</label>
-        <input type="number" name="PharmacyOpenTime" placeholder="Example: 0900" value="@Model.PharmacyOpenTime" />
+        <input type="number" name="PharmacyOpenTime" placeholder="Example: 0900" value="@Model.SelectedPharmacy.PharmacyOpenTime" />
     </div>
     <div>
         <label for="PharmacyCloseTime">Enter Pharmacy Close Time (Military Time)</label>
-        <input type="number" name="PharmacyCloseTime" placeholder="Example: 1800" value="@Model.PharmacyCloseTime" />
+        <input type="number" name="PharmacyCloseTime" placeholder="Example: 1800" value="@Model.SelectedPharmacy.PharmacyCloseTime" />
     </div>
     <div>
         <label for="PharmacyDelivery">Is There Delivery?</label>
-        <input class="pharmacy__checkbox" type="checkbox" name="PharmacyDelivery" value="true" data-delivery="@Model.PharmacyDelivery"/>
+        <input class="pharmacy__checkbox" type="checkbox" name="PharmacyDelivery" value="true" data-delivery="@Model.SelectedPharmacy.PharmacyDelivery" />
+    </div>
+    <div>
+        <input type="file" name="PharmacyPic" />
     </div>
     <input type="submit" name="Submit" value="Update" />
 </form>

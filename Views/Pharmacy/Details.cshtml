@@ -8,6 +8,19 @@
 <main>
     <div class="pharmacy__wrapper">
         <div class="pharmacy__content">
+            <div class="pharmacy__photo">
+                @{
+                    string pic = "/Content/Images/Pharmacies/default.jpg";
+                    string alt = "No Pharmacy Photo Provided";
+
+                    if (Model.SelectedPharmacy.PharmacyHasPic)
+                    {
+                        pic = "/Content/Images/Pharmacies/" + Model.SelectedPharmacy.PharmacyID + "." + Model.SelectedPharmacy.PicExtension;
+                        alt = "Photo of " + Model.SelectedPharmacy.PharmacyName + " Located at " + Model.SelectedPharmacy.PharmacyLocation;
+                    }
+                }
+                <img src="@pic" alt="@alt" />
+            </div>
             <section class="pharmacy__info">
                 <h2>@Model.SelectedPharmacy.PharmacyName</h2>
                 <div class="pharmacy__content">

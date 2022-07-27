@@ -43,21 +43,32 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             string url = "prescriptiondata/findprescription/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            PrescriptionDto SelectedCharacter = response.Content.ReadAsAsync<PrescriptionDto>().Result;
+            PrescriptionDto SelectedPrescription = response.Content.ReadAsAsync<PrescriptionDto>().Result;
 
-            ViewModel.SelectedPrescription = SelectedCharacter;
+            ViewModel.SelectedPrescription = SelectedPrescription;
 
             return View(ViewModel);
         }
 
         public ActionResult New()
         {
+            UpdatePrescription ViewModel = new UpdatePrescription();
+
             string url = "pharmacydata/listpharmacies";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             IEnumerable<PharmacyDto> PharmacyOptions = response.Content.ReadAsAsync<IEnumerable<PharmacyDto>>().Result;
 
-            return View(PharmacyOptions);
+            ViewModel.PharmacyOptions = PharmacyOptions;
+
+            url = "staffdata/liststaffs";
+            response = client.GetAsync(url).Result;
+
+            IEnumerable<StaffDto> StaffOptions = response.Content.ReadAsAsync<IEnumerable<StaffDto>>().Result;
+
+            ViewModel.StaffOptions = StaffOptions;
+
+            return View(ViewModel);
         }
 
         // POST: Character/Create

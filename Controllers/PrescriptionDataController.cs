@@ -72,7 +72,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
                 PrescriptionRefills= Prescription.PrescriptionRefills,
                 PrescriptionInstructions = Prescription.PrescriptionInstructions,
                 PharmacyID = Prescription.Pharmacy.PharmacyID,
-                PharmacyName = Prescription.Pharmacy.PharmacyName
+                PharmacyName = Prescription.Pharmacy.PharmacyName,
+                StaffId = Prescription.Staff.StaffId,
+                FirstName = Prescription.Staff.FirstName,
+                LastName = Prescription.Staff.LastName,
+                Title = Prescription.Staff.Title,
             };
 
             if (Prescription == null)

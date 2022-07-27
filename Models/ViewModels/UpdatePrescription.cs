@@ -10,5 +10,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels
         public PrescriptionDto SelectedPrescription { get; set; }
 
         public IEnumerable<PharmacyDto> PharmacyOptions { get; set; }
+
+        public IEnumerable<StaffDto> StaffOptions { get; set; }
     }
 }
