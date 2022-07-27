@@ -7,6 +7,8 @@ using HTTP_5212_RNA_Group4_HospitalProject.Models;
 using HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels;
 using System.Web.Script.Serialization;
 using System.Net.Http;
+using System.Diagnostics;
+
 
 namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 {
@@ -47,69 +49,108 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View(ViewModel);
         }
 
-        // GET: Service/Create
-        public ActionResult Create()
+        // GET: Service/New
+        public ActionResult New()
         {
             return View();
         }
 
         // POST: Service/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Service Service)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            string url = "Servicedata/addService";
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            string jsonpayload = jss.Serialize(Service);
+
+            HttpContent content = new StringContent(jsonpayload);
+            content.Headers.ContentType.MediaType = "application/json";
+
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+           
+            return RedirectToAction("List");
         }
 
         // GET: Service/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            DetailsService ViewModel = new DetailsService();
+
+            string url = "Servicedata/findService/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+
+            ServiceDto SelectedService = response.Content.ReadAsAsync<ServiceDto>().Result;
+
+            ViewModel.SelectedService = SelectedService;
+
+            return View(ViewModel);
         }
 
-        // POST: Service/Edit/5
+        // POST: Service/Update/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Update(int id, Service service, HttpPostedFileBase ServiceImage)
         {
-            try
-            {
-                // TODO: Add update logic here
+            
+            string url = "servicedata/updateservice/" + id;
+            string jsonpayload = jss.Serialize(service);
+            HttpContent content = new StringContent(jsonpayload);
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+           
 
-                return RedirectToAction("Index");
-            }
-            catch
+            //update request is successful, and we have image data
+            if (response.IsSuccessStatusCode && ServiceImage != null)
             {
-                return View();
+
+                //Updating the service image as a separate request
+                //Send over image data for player
+                url = "ServiceData/UploadServiceImage/" + id;
+
+                MultipartFormDataContent requestcontent = new MultipartFormDataContent();
+                HttpContent imagecontent = new StreamContent(ServiceImage.InputStream);
+                requestcontent.Add(imagecontent, "ServiceImage", ServiceImage.FileName);
+                response = client.PostAsync(url, requestcontent).Result;
+
+                return RedirectToAction("/Details/" + id);
+            }
+            else if (response.IsSuccessStatusCode)
+            {
+                //No image upload, but update still successful
+                return RedirectToAction("/Details/" + id);
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
 
-        // GET: Service/Delete/5
-        public ActionResult Delete(int id)
+        // GET: Service/DeleteConfirm/5
+        public ActionResult DeleteConfirm(int id)
         {
-            return View();
+            string url = "Servicedata/findService/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            ServiceDto selectedservice = response.Content.ReadAsAsync<ServiceDto>().Result;
+            return View(selectedservice);
         }
 
         // POST: Service/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
+            string url = "Servicedata/deleteservice/" + id;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
     }

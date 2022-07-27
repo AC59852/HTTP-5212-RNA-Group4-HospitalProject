@@ -358,6 +358,16 @@
     <Content Include="Views\Prescription\Edit.cshtml" />
     <Content Include="Views\Prescription\List.cshtml" />
     <Content Include="Views\Prescription\New.cshtml" />
+    <Content Include="Views\Department\DeleteConfirm.cshtml" />
+    <Content Include="Views\Department\Details.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Department\List.cshtml" />
+    <Content Include="Views\Department\New.cshtml" />
+    <Content Include="Views\Service\DeleteConfirm.cshtml" />
+    <Content Include="Views\Service\Details.cshtml" />
+    <Content Include="Views\Service\Edit.cshtml" />
+    <Content Include="Views\Service\List.cshtml" />
+    <Content Include="Views\Service\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
