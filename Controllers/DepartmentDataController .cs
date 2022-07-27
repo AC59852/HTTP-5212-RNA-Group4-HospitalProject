@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using HTTP_5212_RNA_Group4_HospitalProject.Models;
+using System.Diagnostics;
 
 namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 {
@@ -57,8 +58,10 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
 
-        // PUT: api/DepartmentData/updateDepartment/5
+        // POST: api/DepartmentData/updateDepartment/5
         [ResponseType(typeof(void))]
+        [HttpPost]
+        [Route("api/DepartmentData/updateDepartment/{id}")]
         public IHttpActionResult updateDepartment(int id, Department Department)
         {
             if (!ModelState.IsValid)
@@ -94,13 +97,17 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         // POST: api/DepartmentData/AddDepartment
         [ResponseType(typeof(Department))]
+        [HttpPost]
+        [Route("api/DepartmentData/AddDepartment")]
         public IHttpActionResult AddDepartment(Department Department)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            Debug.WriteLine("am there");
 
+            Debug.WriteLine(Department);
             db.Departments.Add(Department);
             db.SaveChanges();
 
@@ -109,6 +116,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         // DELETE: api/DepartmentData/DeleteDepartment/5
         [ResponseType(typeof(Department))]
+        [HttpPost]
+        [Route("api/departmentdata/deletedepartment/{id}")]
         public IHttpActionResult DeleteDepartment(int id)
         {
             Department Department = db.Departments.Find(id);

@@ -1,0 +1,41 @@
+﻿
+@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.DetailsService
+
+@{
+    ViewBag.Title = "Edit Service";
+}
+<div class="row">
+
+    <div class="col-md-5 col-md-offset-3 form-bg">
+        <h2>Update Service</h2>
+        <nav>
+            <ul>
+                <li><a href="/Service/List">Go back to list</a></li>
+
+                <li><a style="color:#ab2020;" href="/Service/DeleteConfirm/@Model.SelectedService.ServiceID">Delete</a></li>
+            </ul>
+        </nav>
+        <form action="/Service/Update/@Model.SelectedService.ServiceID" method="POST" enctype="multipart/form-data">
+            <div style="display:none;">
+                @* Pass through the Service ID *@
+                <input type="text" name="ServiceId" value="@Model.SelectedService.ServiceID" />
+            </div>
+            <div>
+                <label for="ServiceName">Enter Name</label>
+                <input type="text" name="ServiceName" placeholder="" value="@Model.SelectedService.ServiceName" />
+            </div>
+
+            <div>
+                <label for="ServiceDescription">Enter Description</label>
+                <textarea rows="12" cols="100" id="ServiceDescription" name="ServiceDescription">@Model.SelectedService.ServiceDescription</textarea>
+            </div>
+            <div>
+                <label for="ServiceImage">Upload Image</label>
+                <input type="file" name="ServiceImage" id="ServiceImage" />
+            </div>
+            <div>
+                <input type="submit" name="Submit" value="Update" />
+            </div>
+         </form>
+    </div>
+</div>

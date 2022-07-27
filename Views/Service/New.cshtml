@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "New Service";
+}
+<div id="tenants" class="row">
+
+    <div class="col-md-5 col-md-offset-3 form-bg">
+        <h2>Create Service</h2>
+        <form action="/Service/Create" method="POST">
+            <div>
+                <label for="ServiceName">Enter Name</label>
+                <input type="text" name="ServiceName" placeholder="" value="" />
+            </div>
+
+            <div>
+                <label for="ServiceDescription">Enter Description</label>
+                <textarea id="ServiceDescription" name="ServiceDescription"></textarea>
+            </div>
+           
+            <div>
+                <input type="submit" name="Submit" value="Create" />
+            </div>
+        </form>
+    </div>
+</div>
+

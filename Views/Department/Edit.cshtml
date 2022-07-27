@@ -1,0 +1,33 @@
+﻿
+@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.DetailsDepartment
+
+@{
+    ViewBag.Title = "Edit Department";
+}
+<div class="row">
+
+    <div class="col-md-5 col-md-offset-3 form-bg">
+        <h2>Update Department</h2>
+        <nav>
+            <ul>
+                <li><a href="/Department/List">Go back to list</a></li>
+
+                <li><a style="color:#ab2020;" href="/Department/DeleteConfirm/@Model.SelectedDepartment.DepartmentID">Delete</a></li>
+            </ul>
+        </nav>
+        <form action="/Department/Update/@Model.SelectedDepartment.DepartmentID" method="POST" enctype="multipart/form-data">
+            <div style="display:none;">
+                @* Pass through the Department ID *@
+                <input type="text" name="DepartmentId" value="@Model.SelectedDepartment.DepartmentID" />
+            </div>
+            <div>
+                <label for="DepartmentName">Enter Name</label>
+                <input type="text" name="DepartmentName" placeholder="" value="@Model.SelectedDepartment.DepartmentName" />
+            </div>
+          
+            <div>
+                <input type="submit" name="Submit" value="Update" />
+            </div>
+         </form>
+    </div>
+</div>
