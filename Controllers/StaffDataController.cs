@@ -32,7 +32,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
                 LastName = st.LastName,
                 Title = st.Title,
                 Image = st.Image,
-                Department = st.Department.DepartmentName,
+                DepartmentName = st.Department.DepartmentName,
             }));
 
             return Ok(StaffsDtos);
@@ -52,7 +52,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
                 LastName = Staff.LastName,
                 Title = Staff.Title,
                 Image = Staff.Image,
-                Department = Staff.Department.DepartmentName,
+                DepartmentName = Staff.Department.DepartmentName,
             };
 
             if (Staff == null)
