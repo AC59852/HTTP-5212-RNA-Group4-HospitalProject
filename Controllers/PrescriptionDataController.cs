@@ -26,8 +26,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             Prescriptions.ForEach(p => PrescriptionDtos.Add(new PrescriptionDto()
             {
                 PrescriptionID = p.PrescriptionID,
-                PrescriptionDrug = p.PrescriptionDrug,
-                PrescriptionDosage = p.PrescriptionDosage,
+                PatientName = p.PatientName,
                 PharmacyName = p.Pharmacy.PharmacyName
             }));
 
@@ -45,6 +44,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             Prescriptions.ForEach(p => PrescriptionDtos.Add(new PrescriptionDto()
             {
                 PrescriptionID = p.PrescriptionID,
+                PatientName= p.PatientName,
                 PrescriptionDosage = p.PrescriptionDosage,
                 PrescriptionDrug = p.PrescriptionDrug,
                 PrescriptionInstructions = p.PrescriptionInstructions,
@@ -66,12 +66,17 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             PrescriptionDto PrescriptionDto = new PrescriptionDto()
             {
                 PrescriptionID = Prescription.PrescriptionID,
+                PatientName = Prescription.PatientName,
                 PrescriptionDosage = Prescription.PrescriptionDosage,
                 PrescriptionDrug = Prescription.PrescriptionDrug,
                 PrescriptionRefills= Prescription.PrescriptionRefills,
                 PrescriptionInstructions = Prescription.PrescriptionInstructions,
                 PharmacyID = Prescription.Pharmacy.PharmacyID,
-                PharmacyName = Prescription.Pharmacy.PharmacyName
+                PharmacyName = Prescription.Pharmacy.PharmacyName,
+                StaffId = Prescription.Staff.StaffId,
+                FirstName = Prescription.Staff.FirstName,
+                LastName = Prescription.Staff.LastName,
+                Title = Prescription.Staff.Title,
             };
 
             if (Prescription == null)
@@ -82,10 +87,10 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(PrescriptionDto);
         }
 
-
-        // PUT: api/PrescriptionData/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPrescription(int id, Prescription prescription)
+        [HttpPost]
+        [Route("api/prescriptiondata/updateprescription/{id}")]
+        public IHttpActionResult UpdatePrescription(int id, Prescription prescription)
         {
             if (!ModelState.IsValid)
             {
@@ -118,9 +123,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/PrescriptionData
+
         [ResponseType(typeof(Prescription))]
-        public IHttpActionResult PostPrescription(Prescription prescription)
+        [HttpPost]
+        [Route("api/prescriptiondata/addprescription")]
+        public IHttpActionResult AddPrescription(Prescription prescription)
         {
             if (!ModelState.IsValid)
             {
@@ -133,8 +140,9 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return CreatedAtRoute("DefaultApi", new { id = prescription.PrescriptionID }, prescription);
         }
 
-        // DELETE: api/PrescriptionData/5
         [ResponseType(typeof(Prescription))]
+        [HttpPost]
+        [Route("api/prescriptiondata/deleteprescription/{id}")]
         public IHttpActionResult DeletePrescription(int id)
         {
             Prescription prescription = db.Prescriptions.Find(id);
@@ -146,7 +154,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             db.Prescriptions.Remove(prescription);
             db.SaveChanges();
 
-            return Ok(prescription);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

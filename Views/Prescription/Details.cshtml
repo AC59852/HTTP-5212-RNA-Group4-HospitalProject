@@ -1,0 +1,35 @@
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.DetailsPrescription
+@{
+    ViewBag.Title = "Details";
+}
+<section class="prescription">
+    <div class="prescription__wrapper">
+        <h2>@Model.SelectedPrescription.PatientName</h2>
+        <div class="prescription__content">
+            <div class="prescription__data">
+                <div class="prescription__drug">
+                    <h3>Drug Information</h3>
+                    <ul>
+                        <li><h4>Drug: @Model.SelectedPrescription.PrescriptionDrug</h4></li>
+                        <li><h4>Dosage: @Model.SelectedPrescription.PrescriptionDosage</h4></li>
+                        <li><h4>Refills: @Model.SelectedPrescription.PrescriptionRefills</h4></li>
+                    </ul>
+                    <p>Instructions: @Model.SelectedPrescription.PrescriptionInstructions</p>
+                    <div class="prescription__links">
+                        <a href="/prescription/edit/@Model.SelectedPrescription.PrescriptionID">Edit</a>
+                        <a href="/prescription/deleteconfirm/@Model.SelectedPrescription.PrescriptionID">Delete</a>
+                    </div>
+                </div>
+                <div class="prescription__pharmacy">
+                    <h3>Pharmacy Information</h3>
+                    <ul>
+                        <li><h4>Pharmacy ID: @Model.SelectedPrescription.PharmacyID</h4></li>
+                        <li><h4>Pharmacy Name: @Model.SelectedPrescription.PharmacyName</h4></li>
+                        <li><h4>Pharmacist: @Model.SelectedPrescription.FirstName @Model.SelectedPrescription.LastName | @Model.SelectedPrescription.Title</h4></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
