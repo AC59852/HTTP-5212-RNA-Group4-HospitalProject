@@ -22,6 +22,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: Appointment
+        /// <summary>
+        /// Returns all appointments in the system
+        /// </summary>
+        /// <returns>
+        /// CONTENT: all appointments in the database
+        /// </returns>
         public ActionResult List()
         {
             string url = "appointmentdata/listappointments";
@@ -32,7 +38,15 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View(Appointments);
         }
 
+        /// <summary>
+        /// Returns a single appointment from the database, 
+        /// </summary>
+        /// <param name="id">Appointment Primary Key</param>
+        /// <returns>
+        /// </returns>
+        /// <example>
         // GET: Appointment/Details/5
+        /// </example>
         public ActionResult Details(int id)
         {
             DetailsAppointment ViewModel = new DetailsAppointment();
@@ -54,6 +68,10 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         //GET: Appointment/New
+        /// <summary>
+        /// Returns the appointments page containing all appointments
+        /// </summary>
+        /// <param name="id">appointment Primary Key</param>
         public ActionResult New()
         {
             return View();
