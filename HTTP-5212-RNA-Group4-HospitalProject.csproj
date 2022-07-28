@@ -235,9 +235,9 @@
     <Compile Include="Migrations\202207142348153_donationReasearch.designer.cs">
       <DependentUpon>202207142348153_donationReasearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202207151756480_AddService.cs" />
-    <Compile Include="Migrations\202207151756480_AddService.designer.cs">
-      <DependentUpon>202207151756480_AddService.cs</DependentUpon>
+    <Compile Include="Migrations\202207101703029_AddService.cs" />
+    <Compile Include="Migrations\202207101703029_AddService.designer.cs">
+      <DependentUpon>202207101703029_AddService.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202207192255374_Added-Department-To-Staff.cs" />
     <Compile Include="Migrations\202207192255374_Added-Department-To-Staff.designer.cs">
@@ -417,8 +417,8 @@
     <EmbeddedResource Include="Migrations\202207142348153_donationReasearch.resx">
       <DependentUpon>202207142348153_donationReasearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202207151756480_AddService.resx">
-      <DependentUpon>202207151756480_AddService.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202207101703029_AddService.resx">
+      <DependentUpon>202207101703029_AddService.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207192255374_Added-Department-To-Staff.resx">
       <DependentUpon>202207192255374_Added-Department-To-Staff.cs</DependentUpon>

@@ -1,0 +1,36 @@
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.DetailsHUpdate
+@{
+    ViewBag.Title = "Details";
+
+    var type = "";
+
+    if (@Model.SelectedUpdate.HUpdateType == 1)
+    {
+        type = "Update";
+    }
+    else
+    {
+        type = "Event";
+    }
+}
+
+
+<h1>Details of @type: @Model.SelectedUpdate.HUpdateTitle </h1>
+<p>Taking place on: <strong>@Model.SelectedUpdate.HUpdateDate.ToLongDateString()</strong></p>
+<p>By the Department of: <strong>@Model.SelectedUpdate.DepartmentName</strong></p>
+
+<h2>@type Description</h2>
+<p>@Model.SelectedUpdate.HUpdateDesc</p>
+
+@*listing all the article for following update or event*@
+
+<h2>Articles on this @type</h2>
+@foreach(var article in Model.ArticlesForHUpdate)
+            {
+    <h3><a href="/Article/Details/@article.ArticleID">@article.ArticleTitle</a></h3>
+
+            }
+<hr />
+
+<a href="/HUpdate/EditPage/@Model.SelectedUpdate.HUpdateId">Edit this @type</a> <br />
+<a href="/HUpdate/DeletePage/@Model.SelectedUpdate.HUpdateId" style="color:red">Delete</a>

@@ -24,6 +24,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: Department
+        /// <summary>
+        /// Returns all departments in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         public ActionResult List()
         {
             string url = "departmentdata/listdepartments";
@@ -35,6 +40,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: Department/Details/5
+        /// <summary>
+        /// Returns a department by id in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         public ActionResult Details(int id)
         {
             DetailsDepartment ViewModel = new DetailsDepartment();
@@ -50,12 +60,22 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         //GET: Department/New
+        /// <summary>
+        /// Returns a page to add a new department
+        /// </summary>
+        /// <returns>
+        /// </returns>
         public ActionResult New()
         {
             return View();
         }
 
         // POST: Department/Create
+        /// <summary>
+        ///save a new  departments in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [HttpPost]
         public ActionResult Create(Department Department)
         {
@@ -72,6 +92,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: Department/Edit/5
+        /// <summary>
+        /// Returns a page to edit a department
+        /// </summary>
+        /// <returns>
+        /// </returns>
         public ActionResult Edit(int id)
         {
             DetailsDepartment ViewModel = new DetailsDepartment();
@@ -87,6 +112,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // POST: Department/Update/5
+        /// <summary>
+        ///updates a department in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [HttpPost]
         public ActionResult Update(int id, Department Department)
         {
@@ -108,6 +138,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             }
         }
 
+        /// <summary>
+        /// Returns a department delete confirmation page
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [HttpGet]
         public ActionResult DeleteConfirm(int id)
         {
@@ -120,6 +155,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // POST: Anime/Delete/5
+        /// <summary>
+        /// delete a department in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [HttpPost]
         public ActionResult Delete(int id)
         {

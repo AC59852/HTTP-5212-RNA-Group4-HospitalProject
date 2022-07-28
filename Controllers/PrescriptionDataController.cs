@@ -16,7 +16,15 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/PrescriptionData
+        /// <summary>
+        /// Returns all prescriptions in the database
+        /// </summary>
+        /// <returns>
+        /// CONTENT: All prescriptions in the database
+        /// </returns>
+        /// <example>
+        /// api/PrescriptionData/ListPrescriptions
+        /// </example>
         [HttpGet]
         public IEnumerable<PrescriptionDto> ListPrescriptions()
         {
@@ -33,6 +41,16 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return PrescriptionDtos;
         }
 
+        /// <summary>
+        /// List all prescriptions for a chosen pharmacy
+        /// </summary>
+        /// <param name="id">Pharmacy Primary Key</param>
+        /// <returns>
+        /// CONTENT: All prescriptions related to the chosen pharmacy
+        /// </returns>
+        /// <example>
+        /// api/PrescriptionData/ListPrescriptionsForPharmacy/8
+        /// </example>
         [HttpGet]
         [ResponseType(typeof(PrescriptionDto))]
         [Route("api/prescriptiondata/listprescriptionsforpharmacy/{id}")]
@@ -56,7 +74,16 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(PrescriptionDtos);
         }
 
-        // GET: api/PrescriptionData/5
+        /// <summary>
+        /// Returns a chosen prescription in the database
+        /// </summary>
+        /// <param name="id">Prescription Primary Key</param>
+        /// <returns>
+        /// CONTENT: A specific prescription in the database
+        /// </returns>
+        /// <example>
+        /// api/PrescriptionData/FindPrescription/8
+        /// </example>
         [ResponseType(typeof(Prescription))]
         [HttpGet]
         [Route("api/Prescriptiondata/findPrescription/{id}")]
@@ -87,6 +114,17 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(PrescriptionDto);
         }
 
+        /// <summary>
+        /// Updates a chosen prescription in the database using POST data provided
+        /// </summary>
+        /// <param name="prescription">Prescription Object Model with data from form</param>
+        /// <param name="id">Prescription Primary Key</param>
+        /// <returns>
+        /// CONTENT: Newly updated information for the specific prescription
+        /// </returns>
+        /// <example>
+        /// api/PrescriptionData/UpdatePrescription/8
+        /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
         [Route("api/prescriptiondata/updateprescription/{id}")]
@@ -123,7 +161,16 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-
+        /// <summary>
+        /// Adds a prescription into the database
+        /// </summary>
+        /// <param name="prescription">Prescription Object Model with data from form</param>
+        /// <returns>
+        /// CONTENT: A new prescription with provided POST data
+        /// </returns>
+        /// <example>
+        /// api/PrescriptionData/AddPrescription
+        /// </example>
         [ResponseType(typeof(Prescription))]
         [HttpPost]
         [Route("api/prescriptiondata/addprescription")]
@@ -140,6 +187,16 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return CreatedAtRoute("DefaultApi", new { id = prescription.PrescriptionID }, prescription);
         }
 
+        /// <summary>
+        /// Deletes a prescription from the system by it's ID.
+        /// </summary>
+        /// <param name="id">Prescription Primary Key</param>
+        /// <returns>
+        /// CONTENT: No content, as the prescription is being deleted
+        /// </returns>
+        /// <example>
+        /// POST: api/PrescriptionData/DeletePrescription/8
+        /// </example>
         [ResponseType(typeof(Prescription))]
         [HttpPost]
         [Route("api/prescriptiondata/deleteprescription/{id}")]

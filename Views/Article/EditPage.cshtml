@@ -1,0 +1,37 @@
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.EditArticle
+@{
+    ViewBag.Title = "EditPage";
+}
+
+<h2>Edit Article @Model.editArticle.ArticleTitle</h2>
+<form action="/Article/Edit/@Model.editArticle.ArticleID" method="post">
+    <input type="number" name="ArticleId" value="@Model.editArticle.ArticleID" style="display:none"/>
+    <div>
+        <label for="article_ForHUpdate">Article is on which Update or Event?</label>
+        <select id="article_ForHUpdate" name="HUpdateId">
+            @foreach (var update in Model.editHUpdates)
+            {
+                // fetching previous update title and selecting prior
+                string selected = "";
+
+                    if(update.HUpdateId == Model.editArticle.HUpdateId)
+                {
+                    selected = "selected";
+                }
+                <option value="@update.HUpdateId" @selected>@update.HUpdateTitle</option>
+            }
+        </select>
+    </div>
+    <div>
+        <lable for="article_Title">Article Title:</lable>
+        <input type="text" id="article_Title" name="ArticleTitle" value="@Model.editArticle.ArticleTitle"/>
+    </div>
+
+    <div>
+        <label for="article_Content">Article Content:</label>
+        <textarea id="article_Content" name="ArticleContent" rows="4">@Model.editArticle.ArticleContent</textarea>
+    </div>
+
+    <button type="submit">Edit Article</button>
+</form>
+

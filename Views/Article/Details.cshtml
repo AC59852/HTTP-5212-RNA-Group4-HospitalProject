@@ -1,0 +1,15 @@
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.DetailsArticle
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details of Article on @Model.SelectedArticle.HUpdateTitle</h2>
+<h3>Article Title: @Model.SelectedArticle.ArticleTitle</h3>
+<h3>Article Content</h3>
+<p>@Model.SelectedArticle.ArticleContent</p>
+
+<hr />
+<a href="/Article/EditPage/@Model.SelectedArticle.ArticleID">Edit Article</a>
+<br />
+<a href="/Article/DeletePage/@Model.SelectedArticle.ArticleID" style="color:red">Delete</a>
+

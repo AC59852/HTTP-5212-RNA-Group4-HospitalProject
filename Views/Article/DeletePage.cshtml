@@ -1,0 +1,14 @@
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ArticleDto
+@{
+    ViewBag.Title = "DeletePage";
+}
+
+<h2>Are you sure you want to delete: @Model.ArticleTitle</h2>
+
+<form action="/Article/Delete/@Model.ArticleID" method="post">
+    <input type="number" name="ArticleID" value="@Model.ArticleID" style="display:none" />
+
+    <a href="/Article/List">Cancel</a>
+    <button type="submit" style="color:red">Confirm Delete</button>
+</form>
+

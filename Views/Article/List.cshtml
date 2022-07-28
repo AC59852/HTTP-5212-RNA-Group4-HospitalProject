@@ -1,0 +1,13 @@
+﻿@model IEnumerable<HTTP_5212_RNA_Group4_HospitalProject.Models.ArticleDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of all articles</h2>
+
+@foreach(var article in Model)
+            {
+                <h3><a href="/Article/Details/@article.ArticleID">@article.ArticleTitle</a></h3>
+            }
+<a href="/Article/AddArticle">Add an Article</a>
+
