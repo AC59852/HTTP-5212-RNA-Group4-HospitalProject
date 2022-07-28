@@ -8,6 +8,10 @@
 <main>
     <div class="pharmacy__wrapper">
         <div class="pharmacy__content">
+            <div class="pharmacy__links">
+                <a href="/pharmacy/edit/@Model.SelectedPharmacy.PharmacyID">Edit</a>
+                <a href="/pharmacy/deleteconfirm/@Model.SelectedPharmacy.PharmacyID">Delete</a>
+            </div>
             <div class="pharmacy__photo">
                 @{
                     string pic = "/Content/Images/Pharmacies/default.jpg";
@@ -40,14 +44,24 @@
                 <ul>
                     @foreach (var staff in Model.RelatedStaff)
                     {
-                        <li>@staff.FirstName @staff.LastName</li>
+                        <li>
+                            <a href="/Staff/Details/@staff.StaffId">@staff.FirstName @staff.LastName</a>
+                            <span>|</span>
+                            <a href="/Pharmacy/Unassociate/@Model.SelectedPharmacy.PharmacyID?StaffId=@staff.StaffId">Remove</a>
+                        </li>
                     }
                 </ul>
+                <form action="/Pharmacy/Associate/@Model.SelectedPharmacy.PharmacyID" method="POST">
+                    <select name="StaffId">
+                        <option value="">Select Staff</option>
+                        @foreach (var staff in Model.AvailableStaff)
+                        {
+                            <option value="@staff.StaffId">@staff.FirstName @staff.LastName | @staff.Title</option>
+                        }
+                    </select>
+                    <input type="submit" value="Add Staff" />
+                </form>
             </section>
-        </div>
-        <div class="pharmacy__links">
-            <a href="/pharmacy/edit/@Model.SelectedPharmacy.PharmacyID">Edit</a>
-            <a href="/pharmacy/deleteconfirm/@Model.SelectedPharmacy.PharmacyID">Delete</a>
         </div>
     </div>
 </main>

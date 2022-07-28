@@ -156,6 +156,46 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(pharmacy);
         }
 
+        [HttpPost]
+        [Route("api/PharmacyData/AssociatePharmacyWithStaff/{PharmacyID}/{StaffId}")]
+        public IHttpActionResult AssociateAnimalWithKeeper(int PharmacyID, int StaffId)
+        {
+
+            Pharmacy SelectedPharmacy = db.Pharmacies.Include(p => p.Staffs).Where(p => p.PharmacyID == PharmacyID).FirstOrDefault();
+            Staff SelectedStaff = db.Staffs.Find(StaffId);
+
+            if (SelectedPharmacy == null || SelectedStaff == null)
+            {
+                return NotFound();
+            }
+
+
+            SelectedPharmacy.Staffs.Add(SelectedStaff);
+            db.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("api/PharmacyData/UnAssociatePharmacyWithStaff/{PharmacyID}/{StaffId}")]
+        public IHttpActionResult UnAssociateAnimalWithKeeper(int PharmacyID, int StaffId)
+        {
+
+            Pharmacy SelectedPharmacy = db.Pharmacies.Include(p => p.Staffs).Where(p => p.PharmacyID == PharmacyID).FirstOrDefault();
+            Staff SelectedStaff = db.Staffs.Find(StaffId);
+
+            if (SelectedPharmacy == null || SelectedStaff == null)
+            {
+                return NotFound();
+            }
+
+
+            SelectedPharmacy.Staffs.Remove(SelectedStaff);
+            db.SaveChanges();
+
+            return Ok();
+        }
+
 
         [HttpPost]
         [Route("api/pharmacydata/uploadpharmacypic/{id}")]

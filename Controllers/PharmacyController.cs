@@ -41,11 +41,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         /// <summary>
         /// Returns a single pharmacy from the database, 
-        /// including the associated prescriptions and staff
+        /// including the associated prescriptions and staff, as well as the staff not currently working here
         /// </summary>
         /// <param name="id">Pharmacy Primary Key</param>
         /// <returns>
-        /// CONTENT: A single pharmacy including prescriptions and staff
+        /// CONTENT: A single pharmacy including prescriptions and staff both working and not working here
         /// </returns>
         /// <example>
         /// GET: api/pharmacydata/details/5
@@ -70,6 +70,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             IEnumerable<StaffDto> RelatedStaff = response.Content.ReadAsAsync<IEnumerable<StaffDto>>().Result;
 
             ViewModel.RelatedStaff = RelatedStaff;
+
+            url = "staffdata/liststaffnotatpharmacy/" + id;
+            response = client.GetAsync(url).Result;
+            IEnumerable<StaffDto> AvailableStaff = response.Content.ReadAsAsync<IEnumerable<StaffDto>>().Result;
+
+            ViewModel.AvailableStaff = AvailableStaff;
 
 
             //show associated prescriptions with this pharmacy
@@ -109,6 +115,31 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             ViewModel.RelatedPrescriptions = RelatedPrescriptions;
 
             return View(ViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Associate(int id, int StaffId)
+        {
+            //call our api to associate animal with keeper
+            string url = "pharmacydata/associatepharmacywithstaff/" + id + "/" + StaffId;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            return RedirectToAction("Details/" + id);
+        }
+
+        [HttpGet]
+        public ActionResult UnAssociate(int id, int StaffId)
+        {
+
+            //call our api to unassociate animal with keeper
+            string url = "pharmacydata/unassociatepharmacywithstaff/" + id + "/" + StaffId;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            return RedirectToAction("Details/" + id);
         }
 
         //GET: Pharmacy/New
