@@ -20,6 +20,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/ServiceData/listservice
+        /// <summary>
+        /// returns a list of service in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [HttpGet]
         [Route("api/ServiceData/ListServices")]
         [ResponseType(typeof(ServiceDto))]
@@ -41,6 +46,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: api/ServiceData/findservice/5
+        /// <summary>
+        /// returns a service based on id in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [HttpGet]
         [ResponseType(typeof(ServiceDto))]
         [Route("api/Servicedata/findService/{id}")]
@@ -65,6 +75,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // PUT: api/ServiceData/updateservice/5
+        /// <summary>
+        /// updates a service in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [ResponseType(typeof(void))]
         [HttpPost]
         [Route("api/Servicedata/updateService/{id}")]
@@ -104,6 +119,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // POST: api/ServiceData/addservice
+        /// <summary>
+        /// adds a service in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [ResponseType(typeof(Service))]
         [Route("api/Servicedata/addService")]
         public IHttpActionResult PostService(Service Service)
@@ -121,6 +141,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
 
         // DELETE: api/ServiceData/deleteservice/5
+        /// <summary>
+        /// deletes a service in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>        
         [ResponseType(typeof(Service))]
         [HttpPost]
         [Route("api/ServiceData/deleteservice/{id}")]
@@ -241,7 +266,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             }
             base.Dispose(disposing);
         }
-
+        /// <summary>
+        /// checks if a service exists in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         private bool ServiceExists(int id)
         {
             return db.Services.Count(e => e.ServiceID == id) > 0;

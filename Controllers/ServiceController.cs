@@ -24,6 +24,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: Service
+        /// <summary>
+        /// returns a list of services in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         public ActionResult List()
         {
             string url = "Servicedata/listservices";
@@ -35,6 +40,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: Service/Details/5
+        /// <summary>
+        /// returns a single service in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         public ActionResult Details(int id)
         {
             DetailsService ViewModel = new DetailsService();
@@ -50,12 +60,22 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: Service/New
+        /// <summary>
+        /// returns a page to add a service
+        /// </summary>
+        /// <returns>
+        /// </returns>
         public ActionResult New()
         {
             return View();
         }
 
         // POST: Service/Create
+        /// <summary>
+        /// saves a new service in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [HttpPost]
         public ActionResult Create(Service Service)
         {
@@ -73,6 +93,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: Service/Edit/5
+        /// <summary>
+        /// returns a page to edit a service in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         public ActionResult Edit(int id)
         {
             DetailsService ViewModel = new DetailsService();
@@ -88,6 +113,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // POST: Service/Update/5
+        /// <summary>
+        /// updates a service in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [HttpPost]
         public ActionResult Update(int id, Service service, HttpPostedFileBase ServiceImage)
         {
@@ -126,6 +156,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: Service/DeleteConfirm/5
+        /// <summary>
+        /// returns a service delete confirmation page
+        /// </summary>
+        /// <returns>
+        /// </returns>
         public ActionResult DeleteConfirm(int id)
         {
             string url = "Servicedata/findService/" + id;
@@ -135,6 +170,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // POST: Service/Delete/5
+        /// <summary>
+        /// deletes a service in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [HttpPost]
         public ActionResult Delete(int id)
         {

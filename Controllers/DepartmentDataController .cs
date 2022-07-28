@@ -18,7 +18,13 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/DepartmentData/listdepartments
+        /// <summary>
+        /// Returns a list of department in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [HttpGet]
+        [Route("api/DepartmentData/listdepartments")]
         public IEnumerable<DepartmentDto> ListDepartments()
         {
             List<Department> Departments = db.Departments.ToList();
@@ -36,6 +42,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
 
         // GET: api/DepartmentData/findDepartment/5
+        /// <summary>
+        /// Returns a page a department based on id in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [ResponseType(typeof(Department))]
         [HttpGet]
         [Route("api/Departmentdata/findDepartment/{id}")]
@@ -59,6 +70,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
 
         // POST: api/DepartmentData/updateDepartment/5
+        /// <summary>
+        ///Updates a department in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [ResponseType(typeof(void))]
         [HttpPost]
         [Route("api/DepartmentData/updateDepartment/{id}")]
@@ -96,6 +112,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // POST: api/DepartmentData/AddDepartment
+        /// <summary>
+        /// Adds a new department in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [ResponseType(typeof(Department))]
         [HttpPost]
         [Route("api/DepartmentData/AddDepartment")]
@@ -115,6 +136,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // DELETE: api/DepartmentData/DeleteDepartment/5
+        /// <summary>
+        /// deletes a department in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [ResponseType(typeof(Department))]
         [HttpPost]
         [Route("api/departmentdata/deletedepartment/{id}")]
@@ -141,6 +167,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// checks if a department exists in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         private bool DepartmentExists(int id)
         {
             return db.Departments.Count(e => e.DepartmentID == id) > 0;
