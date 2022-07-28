@@ -25,5 +25,6 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         public string ArticleContent { get; set; }
         public int HUpdateId { get; set; }
         public string HUpdateTitle { get; set; }
+        public int HUpdateType  { get; set; }
     }
 }

@@ -5,9 +5,9 @@ using System.Web;
 
 namespace HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels
 {
-    public class DetailsHUpdate
+    public class EditArticle
     {
-        public HUpdate SelectedUpdate { get; set; }
-        public IEnumerable<ArticleDto> ArticlesForHUpdate  { get; set; }
+        public ArticleDto editArticle { get; set; }
+        public IEnumerable<HUpdate> editHUpdates { get; set; }
     }
 }

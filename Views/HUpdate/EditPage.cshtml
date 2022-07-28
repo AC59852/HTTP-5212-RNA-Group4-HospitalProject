@@ -1,0 +1,42 @@
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.HUpdate
+@{
+    ViewBag.Title = "EditPage";
+    var type = "";
+
+    if (@Model.HUpdateType == 1)
+    {
+        type = "Update";
+    }
+    else
+    {
+        type = "Event";
+    }
+}
+
+<h2>Edit @type</h2>
+
+<form action="/HUpdate/Edit/@Model.HUpdateId" method="post">
+    <input type="number" name="HUpdateId" value="@Model.HUpdateId" style="display:none" />
+    <div>
+        <label for="update_type">Update Type: </label>
+        <select id="update_type" name="HUpdateType" value="@Model.HUpdateType">
+            <option value="1">Update</option>
+            <option value="2">Event</option>
+        </select>
+    </div>
+    <div>
+        <label for="update_Title">Title: </label>
+        <input type="text" id="update_Title" name="HUpdateTitle" value="@Model.HUpdateTitle"/>
+    </div>
+    <div>
+        <label for="update_Desc">Description: </label>
+        <input type="text" id="update_Desc" name="HUpdateDesc" value="@Model.HUpdateDesc"/>
+    </div>
+    <div>
+        <label for="update_Date">Date: </label>
+        <input type="date" id="update_Date" name="HUpdateDate" value="@Model.HUpdateDate.ToShortDateString()"/>
+    </div>
+
+    <button type="submit">Edit</button>
+</form>
+

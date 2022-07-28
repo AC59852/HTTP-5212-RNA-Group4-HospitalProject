@@ -1,0 +1,13 @@
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.HUpdate
+@{
+    ViewBag.Title = "DeletePage";
+}
+
+<h2>Are you sure you want to delete: @Model.HUpdateTitle</h2>
+
+<form action="/HUpdate/Delete/@Model.HUpdateId" method="post">
+    <input type="number" name="HUpdateId" value="@Model.HUpdateId" style="display:none" />
+    <a href="/HUpdate/List">Cancel</a>
+    <button type="submit" style="color:red">Confirm Delete</button>
+</form>
+
