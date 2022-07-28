@@ -22,6 +22,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: Staff
+        /// <summary>
+        /// Returns all staffs in the system
+        /// </summary>
+        /// <returns>
+        /// CONTENT: all staffs in the database
+        /// </returns>
         public ActionResult List()
         {
             string url = "staffdata/liststaffs";
@@ -32,7 +38,14 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View(Staffs);
         }
 
+        /// <summary>
+        /// Returns a single data from the database, 
+        /// </summary>
+        /// <param name="id">Staff Primary Key</param>
+        /// <returns>
+        /// <example>
         // GET: Staff/Details/5
+        /// </example>
         public ActionResult Details(int id)
         {
             DetailsStaff ViewModel = new DetailsStaff();
