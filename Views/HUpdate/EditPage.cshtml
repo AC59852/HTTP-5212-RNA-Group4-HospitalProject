@@ -1,9 +1,9 @@
-﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.HUpdate
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.EditHUpdate
 @{
     ViewBag.Title = "EditPage";
     var type = "";
 
-    if (@Model.HUpdateType == 1)
+    if (@Model.editHUpdate.HUpdateType == 1)
     {
         type = "Update";
     }
@@ -15,26 +15,43 @@
 
 <h2>Edit @type</h2>
 
-<form action="/HUpdate/Edit/@Model.HUpdateId" method="post">
-    <input type="number" name="HUpdateId" value="@Model.HUpdateId" style="display:none" />
+<form action="/HUpdate/Edit/@Model.editHUpdate.HUpdateId" method="post">
+    <input type="number" name="HUpdateId" value="@Model.editHUpdate.HUpdateId" style="display:none" />
     <div>
         <label for="update_type">Update Type: </label>
-        <select id="update_type" name="HUpdateType" value="@Model.HUpdateType">
+        <select id="update_type" name="HUpdateType" value="@Model.editHUpdate.HUpdateType">
             <option value="1">Update</option>
             <option value="2">Event</option>
         </select>
     </div>
     <div>
+        <label for="update_department">By which Department?</label>
+        <select id="update_department" name="DepartmentId">
+            @foreach (var department in Model.editDepartments)
+            {
+                // fetching previous department name and selecting prior
+                string selected = "";
+
+                if (department.DepartmentID == Model.editHUpdate.DepartmentId)
+                {
+                    selected = "selected";
+                }
+                <option value="@department.DepartmentID" @selected>@department.DepartmentName</option>
+            }
+        </select>
+    </div>
+
+    <div>
         <label for="update_Title">Title: </label>
-        <input type="text" id="update_Title" name="HUpdateTitle" value="@Model.HUpdateTitle"/>
+        <input type="text" id="update_Title" name="HUpdateTitle" value="@Model.editHUpdate.HUpdateTitle" />
     </div>
     <div>
         <label for="update_Desc">Description: </label>
-        <input type="text" id="update_Desc" name="HUpdateDesc" value="@Model.HUpdateDesc"/>
+        <input type="text" id="update_Desc" name="HUpdateDesc" value="@Model.editHUpdate.HUpdateDesc" />
     </div>
     <div>
         <label for="update_Date">Date: </label>
-        <input type="date" id="update_Date" name="HUpdateDate" value="@Model.HUpdateDate.ToShortDateString()"/>
+        <input type="date" id="update_Date" name="HUpdateDate" value="@Model.editHUpdate.HUpdateDate.ToShortDateString()" />
     </div>
 
     <button type="submit">Edit</button>

@@ -32,10 +32,28 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         [HttpGet]
         [Route("api/HUpdateData/ListHUpdates")]
-        public IQueryable<HUpdate> ListHUpdates()
+        [ResponseType(typeof(HUpdateDto))]
+        public IEnumerable<HUpdateDto> ListHUpdates()
         {
 
-            return db.HUpdates;
+            List<HUpdate> HUpdates = db.HUpdates.ToList();
+            List<HUpdateDto> hUpdateDtos = new List<HUpdateDto>();
+
+            HUpdates.ForEach(u => hUpdateDtos.Add(new HUpdateDto()
+            {
+                HUpdateId = u.HUpdateId,
+                HUpdateTitle = u.HUpdateTitle,
+                HUpdateDate = u.HUpdateDate,
+                HUpdateType = u.HUpdateType,
+                HUpdateDesc = u.HUpdateDesc,
+                
+                // info related to department
+                DepartmentId = u.Department.DepartmentID,
+                DepartmentName = u.Department.DepartmentName,
+
+            }));
+
+            return hUpdateDtos;
         }
 
 
@@ -60,13 +78,25 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         public IHttpActionResult FindHUpdate(int id)
         {
             HUpdate hUpdate = db.HUpdates.Find(id);
+            HUpdateDto hUpdateDto = new HUpdateDto()
+            {
+                HUpdateId = hUpdate.HUpdateId,
+                HUpdateTitle = hUpdate.HUpdateTitle,
+                HUpdateDate = hUpdate.HUpdateDate,
+                HUpdateType = hUpdate.HUpdateType,
+                HUpdateDesc = hUpdate.HUpdateDesc,
+
+                // info related to department
+                DepartmentId = hUpdate.Department.DepartmentID,
+                DepartmentName = hUpdate.Department.DepartmentName,
+            };
 
             if (hUpdate == null)
             {
                 return NotFound();
             }
 
-            return Ok(hUpdate);
+            return Ok(hUpdateDto);
         }
 
 

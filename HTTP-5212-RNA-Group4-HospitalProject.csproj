@@ -255,6 +255,10 @@
     <Compile Include="Migrations\202207280008173_Change_in_HUpdate_model.designer.cs">
       <DependentUpon>202207280008173_Change_in_HUpdate_model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207280809312_Connected_HUpdate_and_Department.cs" />
+    <Compile Include="Migrations\202207280809312_Connected_HUpdate_and_Department.designer.cs">
+      <DependentUpon>202207280809312_Connected_HUpdate_and_Department.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -278,6 +282,7 @@
     <Compile Include="Models\ViewModels\DetailsService.cs" />
     <Compile Include="Models\ViewModels\DetailsStaff.cs" />
     <Compile Include="Models\ViewModels\EditArticle.cs" />
+    <Compile Include="Models\ViewModels\EditHUpdate.cs" />
     <Compile Include="Models\ViewModels\UpdatePharmacy.cs" />
     <Compile Include="Models\ViewModels\UpdatePrescription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -447,6 +452,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207280008173_Change_in_HUpdate_model.resx">
       <DependentUpon>202207280008173_Change_in_HUpdate_model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207280809312_Connected_HUpdate_and_Department.resx">
+      <DependentUpon>202207280809312_Connected_HUpdate_and_Department.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

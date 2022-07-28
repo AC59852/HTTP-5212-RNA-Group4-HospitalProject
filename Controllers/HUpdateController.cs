@@ -50,7 +50,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             // getting details of Update
             string url = "HUpdateData/FindHUpdate/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            HUpdate SelectedHUpdate = response.Content.ReadAsAsync<HUpdate>().Result;
+            HUpdateDto SelectedHUpdate = response.Content.ReadAsAsync<HUpdateDto>().Result;
             ViewModel.SelectedUpdate = SelectedHUpdate;
 
             // getting list of all articles for this Update
@@ -70,17 +70,20 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         [HttpGet]
         public ActionResult AddHUpdate()
         {
-            return View();
+            string url = "DepartmentData/listdepartments";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            IEnumerable<Department> Departments = response.Content.ReadAsAsync<IEnumerable<Department>>().Result;
+
+            return View(Departments);
         }
 
         // POST: HUpdate/Add
 
         [HttpPost]
-        public ActionResult Add(HUpdate hUpdate)
+        public ActionResult Add(HUpdateDto hUpdateDto)
         {
             string url = "HUpdateData/AddHUpdate";
-
-            string jsonpayload = jss.Serialize(hUpdate);
+            string jsonpayload = jss.Serialize(hUpdateDto);
 
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
@@ -99,21 +102,32 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         [HttpGet]
         public ActionResult EditPage(int id)
         {
+            // our view will also contain list of Departments so creating new ViewModel containg HUpdateDTO and Department
+            EditHUpdate ViewModel =  new EditHUpdate();
+
+            // finding HUpdate of given id
             string url = "HUpdateData/FindHUpdate/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
+            HUpdateDto SelectedHUpdate = response.Content.ReadAsAsync<HUpdateDto>().Result;
+            ViewModel.editHUpdate = SelectedHUpdate;
 
-            HUpdate SelectedHUpdate = response.Content.ReadAsAsync<HUpdate>().Result;
+            // getting list of all departments
+            url = "DepartmentData/listdepartments";
+            response = client.GetAsync(url).Result;
+            IEnumerable<Department> Departments = response.Content.ReadAsAsync<IEnumerable<Department>>().Result;
+            ViewModel.editDepartments =  Departments;
+            
 
-            return View(SelectedHUpdate);
+            return View(ViewModel);
         }
 
         // POST: HUpdate/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, HUpdate hUpdate)
+        public ActionResult Edit(int id, HUpdateDto hUpdateDto)
         {
             string url = "HUpdateData/EditHUpdate/" + id;
-            string jsonpayload = jss.Serialize(hUpdate);
+            string jsonpayload = jss.Serialize(hUpdateDto);
 
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
@@ -138,7 +152,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            HUpdate SelectedHUpdate = response.Content.ReadAsAsync<HUpdate>().Result;
+            HUpdateDto SelectedHUpdate = response.Content.ReadAsAsync<HUpdateDto>().Result;
 
             return View(SelectedHUpdate);
         }
@@ -146,7 +160,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         // POST: HUpdate/Delete/5
 
         [HttpPost]
-        public ActionResult Delete(int id, HUpdate hUpdate)
+        public ActionResult Delete(int id, HUpdateDto hUpdateDto)
         {
             string url = "HUpdateData/DeleteHUpdate/" + id;
 
