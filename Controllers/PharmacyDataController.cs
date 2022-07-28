@@ -19,7 +19,15 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/PharmacyData
+        /// <summary>
+        /// Returns all pharmacies in the database
+        /// </summary>
+        /// <returns>
+        /// CONTENT: All pharmacies in the database
+        /// </returns>
+        /// <example>
+        /// api/PharmacyData/ListPharmacies
+        /// </example>
         [HttpGet]
         [Route("api/PharmacyData/ListPharmacies")]
         [ResponseType(typeof(PharmacyDto))]
@@ -44,7 +52,16 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(PharmaciesDtos);
         }
 
-        // GET: api/PharmacyData/5
+        /// <summary>
+        /// Returns a chosen pharmacy in the database
+        /// </summary>
+        /// <param name="id">Pharmacy Primary Key</param>
+        /// <returns>
+        /// CONTENT: A specific pharmacy in the database
+        /// </returns>
+        /// <example>
+        /// api/PharmacyData/FindPharmacy/8
+        /// </example>
         [HttpGet]
         [ResponseType(typeof(PharmacyDto))]
         [Route("api/pharmacydata/findpharmacy/{id}")]
@@ -72,7 +89,17 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(PharmacyDto);
         }
 
-        // PUT: api/PharmacyData/5
+        /// <summary>
+        /// Updates a chosen pharmacy in the database using POST data provided
+        /// </summary>
+        /// <param name="pharmacy">Pharmacy Object Model with data from form</param>
+        /// <param name="id">Pharmacy Primary Key</param>
+        /// <returns>
+        /// CONTENT: Newly updated information for the specific pharmacy
+        /// </returns>
+        /// <example>
+        /// api/PharmacyData/UpdatePharmacy/8
+        /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
         [Route("api/pharmacydata/updatepharmacy/{id}")]
@@ -112,7 +139,16 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/PharmacyData
+        /// <summary>
+        /// Adds a pharmacy into the database
+        /// </summary>
+        /// <param name="pharmacy">Pharmacy Object Model with data from form</param>
+        /// <returns>
+        /// CONTENT: A new pharmacy with provided POST data
+        /// </returns>
+        /// <example>
+        /// api/PharmacyData/AddPharmacy
+        /// </example>
         [ResponseType(typeof(Pharmacy))]
         [Route("api/pharmacydata/addpharmacy")]
         public IHttpActionResult PostPharmacy(Pharmacy pharmacy)
@@ -128,7 +164,16 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return CreatedAtRoute("DefaultApi", new { id = pharmacy.PharmacyID }, pharmacy);
         }
 
-        // DELETE: api/PharmacyData/5
+        /// <summary>
+        /// Deletes a pharmacy from the system by it's ID.
+        /// </summary>
+        /// <param name="id">Pharmacy Primary Key</param>
+        /// <returns>
+        /// CONTENT: No content, as the pharmacy is being deleted
+        /// </returns>
+        /// <example>
+        /// POST: api/PharmacyData/DeletePharmacy/8
+        /// </example>
         [ResponseType(typeof(Pharmacy))]
         [HttpPost]
         [Route("api/pharmacydata/deletepharmacy/{id}")]
@@ -156,6 +201,17 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(pharmacy);
         }
 
+        /// <summary>
+        /// Associates a chosen staff member with a specific pharmacy
+        /// </summary>
+        /// <param name="PharmacyID">Pharmacy Primary Key</param>
+        /// <param name="StaffId">Staff Primary Key</param>
+        /// <returns>
+        /// CONTENT: A new bridge between a staff member and pharmacy
+        /// </returns>
+        /// <example>
+        /// POST api/PharmacyData/AssociatePharmacyWithStaff/8/3
+        /// </example>
         [HttpPost]
         [Route("api/PharmacyData/AssociatePharmacyWithStaff/{PharmacyID}/{StaffId}")]
         public IHttpActionResult AssociateAnimalWithKeeper(int PharmacyID, int StaffId)
@@ -176,6 +232,17 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Unassociates a chosen staff member with a specific pharmacy
+        /// </summary>
+        /// <param name="PharmacyID">Pharmacy Primary Key</param>
+        /// <param name="StaffId">Staff Primary Key</param>
+        /// <returns>
+        /// CONTENT: A removed bridge between a staff member and pharmacy
+        /// </returns>
+        /// <example>
+        /// POST api/PharmacyData/UnAssociatePharmacyWithStaff/8/3
+        /// </example>
         [HttpPost]
         [Route("api/PharmacyData/UnAssociatePharmacyWithStaff/{PharmacyID}/{StaffId}")]
         public IHttpActionResult UnAssociateAnimalWithKeeper(int PharmacyID, int StaffId)
@@ -196,7 +263,16 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok();
         }
 
-
+        /// <summary>
+        /// Receives pharmacy picture data, uploads it to the webserver and updates the pharmacies HasPic option
+        /// </summary>
+        /// <param name="id">Pharmacy Primary Key</param>
+        /// <returns>status code 200 if successful.</returns>
+        /// <example>
+        /// curl -F pharmacypic=@file.jpg "https://localhost:xx/api/PharmacyData/UploadPharmacyPic/8"
+        /// HEADER: enctype=multipart/form-data
+        /// Content: input image from form
+        /// </example>
         [HttpPost]
         [Route("api/pharmacydata/uploadpharmacypic/{id}")]
         public IHttpActionResult UploadPharmacyPic(int id)
@@ -217,7 +293,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
                     //Check if the file is empty
                     if (PharmacyPic.ContentLength > 0)
                     {
-                        //establish valid file types (can be changed to other file extensions if desired!)
+                        //establish valid file types
                         var valtypes = new[] { "jpeg", "jpg", "png", "gif" };
                         var extension = Path.GetExtension(PharmacyPic.FileName).Substring(1);
                         //Check the extension of the file
@@ -228,7 +304,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
                                 //file name is the id of the image
                                 string fn = id + "." + extension;
 
-                                //get a direct file path to ~/Content/animals/{id}.{extension}
+                                //get a direct file path to ~/Content/Images/Pharmacies/{id}.{extension}
                                 string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Images/Pharmacies/"), fn);
 
                                 //save the file
@@ -238,7 +314,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
                                 haspic = true;
                                 picextension = extension;
 
-                                //Update the animal haspic and picextension fields in the database
+                                //Update the pharmacy haspic and picextension fields in the database
                                 Pharmacy SelectedPharmacy = db.Pharmacies.Find(id);
                                 SelectedPharmacy.PharmacyHasPic = haspic;
                                 SelectedPharmacy.PicExtension = extension;
