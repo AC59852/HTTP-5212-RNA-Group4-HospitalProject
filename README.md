@@ -29,4 +29,5 @@ Below are the tables in the Hosiptal Project.
 1- Brian Ssekalegga: Developer for Services and Departments Module
 <br>
 2 - Austin Caron: Developer for CRUD Pharmacy/Prescriptions, as well as linking staff with pharmacy/prescriptions
-3. Temi Babalola: Developer for CRUD for Staff and appointments, linked staff to department.
+<br>
+3 - Temi Babalola: Developer for CRUD for Staff and appointments, linked staff to department.
