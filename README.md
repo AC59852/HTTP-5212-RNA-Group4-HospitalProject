@@ -27,4 +27,5 @@ Below are the tables in the Hosiptal Project.
 ## Team Members and their input
 
 1- Brian Ssekalegga: Developer for Services and Departments Module
+<br>
 2 - Austin Caron: Developer for CRUD Pharmacy/Prescriptions, as well as linking staff with pharmacy/prescriptions
