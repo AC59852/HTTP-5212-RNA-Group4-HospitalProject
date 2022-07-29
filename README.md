@@ -20,7 +20,11 @@ A 7 week project creating a new website based on the existing Riverside Healthca
 Below are the tables in the Hosiptal Project.
 - Services
 - Departments
+- Pharmacies
+- Prescriptions
+- Staff
 
 ## Team Members and their input
 
-1- Brian Ssekalegga Worked on Services and Departments Module
+1- Brian Ssekalegga: Developer for Services and Departments Module
+2 - Austin Caron: Developer for CRUD Pharmacy/Prescriptions, as well as linking staff with pharmacy/prescriptions
