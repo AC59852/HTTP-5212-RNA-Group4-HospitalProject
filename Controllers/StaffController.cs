@@ -57,12 +57,6 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
             ViewModel.SelectedStaff = SelectedStaff;
 
-            //url = "prescriptiondata/listprescriptionsforpharmacy" + id;
-            //response = client.GetAsync(url).Result;
-            //IEnumerable<PrescriptionDto> RelatedPrescriptions = response.Content.ReadAsAsync<IEnumerable<PrescriptionDto>>().Result;
-
-            //ViewModel.RelatedPrescriptions = RelatedPrescriptions;
-
             return View(ViewModel);
         }
 
