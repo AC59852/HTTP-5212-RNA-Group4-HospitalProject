@@ -23,6 +23,8 @@ Below are the tables in the Hosiptal Project.
 - Pharmacies
 - Prescriptions
 - Staff
+- Research
+- Donar
 
 ## Team Members and their input
 
@@ -31,3 +33,5 @@ Below are the tables in the Hosiptal Project.
 2 - Austin Caron: Developer for CRUD Pharmacy/Prescriptions, as well as linking staff with pharmacy/prescriptions
 <br>
 3 - Temi Babalola: Developer for CRUD for Staff and appointments, linked staff to department.
+<br>
+4 - Akhilender Vallab: Developer for Research and Donar CRUD.
