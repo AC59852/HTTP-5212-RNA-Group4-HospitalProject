@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Add a new Research program</h2>
+
+<form action="/Research/Create" method="POST">
+  
+    <div>
+        <label for="ResearchHead">Enter Research head</label>
+        <input type="text" name="ResearchHead" placeholder="E.g: John Hopkins" value="" />
+    </div>
+    <div>
+        <label for="ResearchDesc">Enter Research Description</label>
+        <textarea name="ResearchDesc" placeholder="Type the description here" rows="5" cols="30"></textarea>
+    </div>
+    <div>
+        <label for="Cohorts">Enter Number of cohorts</label>
+        <input type="number" name="Cohorts" placeholder="5" value="" />
+    </div>
+
+    <input type="submit" name="Submit" value="Create" />
+</form>
+

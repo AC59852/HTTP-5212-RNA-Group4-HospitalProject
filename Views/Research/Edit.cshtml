@@ -1,0 +1,24 @@
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.UpdateResearch
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+<form action="/Research/Update/@Model.SelectedResearch.ResearchID" method="POST" enctype="multipart/form-data">
+
+    <div>
+        <label for="ResearchHead">Enter Research head</label>
+        <input type="text" name="ResearchHead" placeholder="E.g: John Hopkins" value="@Model.SelectedResearch.ResearchHead" />
+    </div>
+    <div>
+        <label for="ResearchDesc">Enter Research Description</label>
+        <textarea name="ResearchDesc" placeholder="Type the description here" rows="5" cols="30"  value="@Model.SelectedResearch.ResearchDesc"></textarea>
+    </div>
+    <div>
+        <label for="Cohorts">Enter Number of cohorts</label>
+        <input type="number" name="Cohorts" placeholder="5" value="@Model.SelectedResearch.NoOfCohorts" />
+    </div>
+
+    <input type="submit" name="Submit" value="Create" />
+</form>

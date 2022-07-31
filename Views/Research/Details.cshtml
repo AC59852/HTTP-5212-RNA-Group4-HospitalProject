@@ -1,0 +1,24 @@
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.DetailsResearch
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<main>
+    <div class="main_div">
+        <div class="donar_links">
+            <a href="/Research/List">Back to Research List</a>
+            <a href="/Research/Edit/@Model.SelectedResearch.ResearchID">Edit</a>
+            <a style="color:#ff0000"; href="/Donar/DeleteConfirm/@Model.SelectedResearch.ResearchID">Delete</a>
+        </div>
+
+        <div class="donar_details">
+            <div>Research ID: @Model.SelectedResearch.ResearchID</div>
+            <div>Name: @Model.SelectedResearch.ResearchName</div>
+            <div>ResearchHead: @Model.SelectedResearch.ResearchHead</div>
+            <div>Description: @Model.SelectedResearch.ResearchDesc</div>
+            <div>Number of Cohorts: @Model.SelectedResearch.NoOfCohorts</div>
+            @*<div>Staff:</div>*@
+        </div>
+    </div>
+</main>

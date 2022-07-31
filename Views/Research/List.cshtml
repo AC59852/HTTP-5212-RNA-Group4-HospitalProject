@@ -1,0 +1,26 @@
+﻿@model IEnumerable<HTTP_5212_RNA_Group4_HospitalProject.Models.ResearchDto>
+
+@{
+    ViewBag.Title = "Researches";
+}
+
+<h1>Research List</h1>
+
+<main>
+    <div class="main__div">
+        <a href="/Research/New" class="add_new">Add New</a>
+
+        <div class="sub__div">
+
+            @foreach (var Research in Model)
+            {
+                @*<div><a href="/Donar/Details/@Donar.DonarID">Details</a></div>*@
+
+                <a href="/Research/Details/@Research.ResearchID"><h2>@Research.ResearchName</h2></a>
+                <div>Research head : @Research.ResearchHead</div>
+            }
+
+        </div>
+
+    </div>
+</main>

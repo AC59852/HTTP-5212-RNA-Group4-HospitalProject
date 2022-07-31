@@ -184,8 +184,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="Controllers\AppointmentDataController.cs" />
+    <Compile Include="Controllers\DonarController.cs" />
+    <Compile Include="Controllers\DonarDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ResearchController.cs" />
+    <Compile Include="Controllers\ResearchDataController.cs" />
     <Compile Include="Controllers\ServiceDataController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
     <Compile Include="Controllers\PharmacyController.cs" />
@@ -243,6 +247,10 @@
     <Compile Include="Migrations\202207192255374_Added-Department-To-Staff.designer.cs">
       <DependentUpon>202207192255374_Added-Department-To-Staff.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202207260602576_donationReasearch1.cs" />
+    <Compile Include="Migrations\202207260602576_donationReasearch1.designer.cs">
+      <DependentUpon>202207260602576_donationReasearch1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -260,11 +268,15 @@
     <Compile Include="Models\ViewModels\DetailsAppointment.cs" />
     <Compile Include="Models\ViewModels\DetailsArticle.cs" />
     <Compile Include="Models\ViewModels\DetailsDepartment.cs" />
+    <Compile Include="Models\ViewModels\DetailsDonar.cs" />
     <Compile Include="Models\ViewModels\DetailsHUpdate.cs" />
     <Compile Include="Models\ViewModels\DetailsPharmacy.cs" />
     <Compile Include="Models\ViewModels\DetailsPrescription.cs" />
+    <Compile Include="Models\ViewModels\DetailsResearch.cs" />
     <Compile Include="Models\ViewModels\DetailsService.cs" />
     <Compile Include="Models\ViewModels\DetailsStaff.cs" />
+    <Compile Include="Models\ViewModels\UpdateDonar.cs" />
+    <Compile Include="Models\ViewModels\UpdateResearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -344,6 +356,16 @@
     <Content Include="Views\Appointment\Edit.cshtml" />
     <Content Include="Views\Appointment\Details.cshtml" />
     <Content Include="Views\Appointment\Delete.cshtml" />
+    <Content Include="Views\Donar\List.cshtml" />
+    <Content Include="Views\Donar\Details.cshtml" />
+    <Content Include="Views\Donar\New.cshtml" />
+    <Content Include="Views\Donar\Edit.cshtml" />
+    <Content Include="Views\Donar\DeleteConfirm.cshtml" />
+    <Content Include="Views\Research\List.cshtml" />
+    <Content Include="Views\Research\Details.cshtml" />
+    <Content Include="Views\Research\New.cshtml" />
+    <Content Include="Views\Research\Edit.cshtml" />
+    <Content Include="Views\Research\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -398,6 +420,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202207192255374_Added-Department-To-Staff.resx">
       <DependentUpon>202207192255374_Added-Department-To-Staff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202207260602576_donationReasearch1.resx">
+      <DependentUpon>202207260602576_donationReasearch1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

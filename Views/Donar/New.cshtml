@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Add a new Donar</h2>
+
+<form action="/Donar/Create" method="POST">
+    <div>
+        <label for="DonarName">Enter Donar Name</label>
+        <input type="text" name="DonarName" placeholder="E.g: John Hopkins" value="" />
+    </div>
+    <div>
+        <label for="DonarBio">Enter Donar Bio here</label>
+        <textarea name="DonarBio" placeholder="Type your bio here" rows="5" cols="30"></textarea>
+    </div>
+    <div>
+        <label for="Donation">Enter Donation Amount</label>
+        <input type="number" name="Donation" placeholder="10000" value="" />
+    </div>
+   
+    <input type="submit" name="Submit" value="Create" />
+</form>
+

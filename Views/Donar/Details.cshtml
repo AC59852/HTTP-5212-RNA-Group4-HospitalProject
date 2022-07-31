@@ -1,0 +1,21 @@
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.DetailsDonar
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<main>
+    <div class="main_div">
+        <div class="donar_links">
+            <a href="/Donar/List">Back to Donars List</a>
+            <a href="/Donar/Edit/@Model.SelectedDonar.DonarID">Edit</a>
+            <a style="color:#ff0000"; href="/Donar/DeleteConfirm/@Model.SelectedDonar.DonarID">Delete</a>
+        </div>
+        
+        <div class="donar_details">
+            <div>Donar Name: @Model.SelectedDonar.DonarName</div>
+            <div>Donated Amount: @Model.SelectedDonar.Donation</div>
+            <div>Donar Bio: @Model.SelectedDonar.DonarBio</div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,27 @@
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.UpdateDonar
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form action="/Donar/Update/@Model.SelectedDonar.DonarID" method="POST" enctype="multipart/form-data">
+    <div>
+        <label for="DonarName">Enter Donar Name</label>
+        <input type="text" name="DonarName" placeholder="E.g: John Hopkins" value="@Model.SelectedDonar.DonarName" />
+    </div>
+    <div>
+        <label for="DonarBio">Enter Donar Bio here</label>
+        <textarea name="DonarBio" placeholder="Type your bio here" rows="5" cols="30" value="@Model.SelectedDonar.DonarBio"></textarea>
+    </div>
+    <div>
+        <label for="Donation">Enter Donation Amount</label>
+        <input type="number" name="Donation" placeholder="10000" value="@Model.SelectedDonar.Donation" />
+    </div>
+
+    <input type="submit" name="Submit" value="Update" />
+</form>
+
+
+

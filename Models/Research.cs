@@ -16,6 +16,16 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         public string ResearchDesc { get; set; }
         public int NoOfCohorts { get; set; }
 
+        [ForeignKey("Staff")]
+        public int StaffId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Title { get; set; }
+
+        public virtual Staff Staff { get; set; }
+
+
+
         public ICollection<Donar> Donars { get; set; }
 
     }
@@ -27,6 +37,10 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         public string ResearchHead { get; set; }
         public string ResearchDesc { get; set; }
         public int NoOfCohorts { get; set; }
+        public int StaffId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Title { get; set; }
 
     }
 }

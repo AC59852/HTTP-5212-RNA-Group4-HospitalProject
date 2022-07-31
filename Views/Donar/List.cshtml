@@ -1,0 +1,25 @@
+﻿@model IEnumerable<HTTP_5212_RNA_Group4_HospitalProject.Models.DonarDto>
+@{
+    ViewBag.Title = "Donars";
+}
+
+<h1>Donar List</h1>
+
+<main>
+    <div class="main__div">
+        <a href="/Donar/New" class="add_new">Add New</a>
+
+        <div class="sub__div">
+
+            @foreach (var Donar in Model)
+            {
+                <div><a href="/Donar/Details/@Donar.DonarID">Details</a></div>
+
+                <a href="/Donar/Details/@Donar.DonarID"><h2>@Donar.DonarName</h2></a>
+                <div>Donated Research : @Donar.ResearchName</div>
+            }
+
+</div>
+
+    </div>
+</main>
