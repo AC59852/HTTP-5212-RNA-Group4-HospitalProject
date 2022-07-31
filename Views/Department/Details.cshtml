@@ -1,0 +1,17 @@
+﻿
+@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.DetailsDepartment
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <h2>@Model.SelectedDepartment.DepartmentName</h2>
+
+        <div class="row">
+            <div class="col-md-3"><a href="/Department/Edit/@Model.SelectedDepartment.DepartmentID">Edit</a></div>
+            <div class="col-md-3"><a style="color:#ab2020;" href="/Department/DeleteConfirm/@Model.SelectedDepartment.DepartmentID">Delete</a></div>
+        </div>
+    </div>
+</div>
+

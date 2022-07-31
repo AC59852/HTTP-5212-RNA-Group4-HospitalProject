@@ -1,0 +1,27 @@
+﻿@model IEnumerable<HTTP_5212_RNA_Group4_HospitalProject.Models.HUpdate>
+@{
+    ViewBag.Title = "Hospital Update List";
+}
+
+<h2>List Of all Updates</h2>
+@foreach(var hUpdate in Model)
+{
+    var type = "";
+    if(hUpdate.HUpdateType == 1)
+    {
+        type = "Update";
+    }
+    else
+    {
+        type = "Event";
+    }
+
+                <h3><a href="/HUpdate/Details/@hUpdate.HUpdateId">@hUpdate.HUpdateTitle</a></h3>
+                <p>It is an: @type</p>
+                <p>Taking place on: @hUpdate.HUpdateDate.ToLongDateString()</p>
+
+
+}
+
+<a href="/HUpdate/AddHUpdate">Add an Update or Event</a>
+

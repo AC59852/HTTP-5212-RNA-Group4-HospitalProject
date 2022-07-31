@@ -8,10 +8,22 @@
         <div class="anime__icons">
             @foreach (var Pharmacy in Model)
             {
-                <a href="/Pharmacy/Details/@Pharmacy.PharmacyID" class="anime__icon">
-                    <img src="/" alt="Small Clickable Icon of @Pharmacy.PharmacyName" />
-                    <h3>@Pharmacy.PharmacyName</h3>
-                </a>
+                <div>
+                    @{ 
+                        string pic = "/Content/Images/Pharmacies/default.jpg";
+                        string alt = "No Pharmacy Photo Provided";
+
+                        if (Pharmacy.PharmacyHasPic)
+                        {
+                            pic = "/Content/Images/Pharmacies/" + Pharmacy.PharmacyID + "." + Pharmacy.PicExtension;
+                            alt = "Photo of " + Pharmacy.PharmacyName + " Located at " + Pharmacy.PharmacyLocation;
+                        }
+                    }
+                    <a href="/Pharmacy/Details/@Pharmacy.PharmacyID" class="anime__icon">
+                        <img src="@pic" alt="@alt" />
+                        <h3>@Pharmacy.PharmacyName</h3>
+                    </a>
+                </div>
             }
         </div>
         <a href="/Pharmacy/New" class="">Add New</a>

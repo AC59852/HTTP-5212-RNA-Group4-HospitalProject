@@ -7,25 +7,62 @@
 
 <main>
     <div class="pharmacy__wrapper">
-        <section class="pharmacy__info">
-            <h2>@Model.SelectedPharmacy.PharmacyName</h2>
-            <div class="pharmacy__content">
-                <h2>Pharmacy Info</h2>
-                <ul class="pharmacy__text">
-                    <li>Location: @Model.SelectedPharmacy.PharmacyLocation</li>
-                    <li>Prescription Amount: @Model.RelatedPrescriptions.Count()</li>
-                    <li>Avg Wait Time: @Model.SelectedPharmacy.PharmacyWaitTime minutes</li>
-                    <li>Hours: @Model.SelectedPharmacy.PharmacyOpenTime - @Model.SelectedPharmacy.PharmacyCloseTime</li>
-                    <li>Delivery: @Model.SelectedPharmacy.PharmacyDelivery</li>
-                    <li><a href="#">View Prescriptions</a></li>
-                </ul>
+        <div class="pharmacy__content">
+            <div class="pharmacy__links">
+                <a href="/pharmacy/edit/@Model.SelectedPharmacy.PharmacyID">Edit</a>
+                <a href="/pharmacy/deleteconfirm/@Model.SelectedPharmacy.PharmacyID">Delete</a>
             </div>
-        </section>
-        <section class="pharmacy__staff">
-            <ul>
-                <li></li>
-            </ul>
-        </section>
+            <div class="pharmacy__photo">
+                @{
+                    string pic = "/Content/Images/Pharmacies/default.jpg";
+                    string alt = "No Pharmacy Photo Provided";
+
+                    if (Model.SelectedPharmacy.PharmacyHasPic)
+                    {
+                        pic = "/Content/Images/Pharmacies/" + Model.SelectedPharmacy.PharmacyID + "." + Model.SelectedPharmacy.PicExtension;
+                        alt = "Photo of " + Model.SelectedPharmacy.PharmacyName + " Located at " + Model.SelectedPharmacy.PharmacyLocation;
+                    }
+                }
+                <img src="@pic" alt="@alt" />
+            </div>
+            <section class="pharmacy__info">
+                <h2>@Model.SelectedPharmacy.PharmacyName</h2>
+                <div class="pharmacy__content">
+                    <h2>Pharmacy Info</h2>
+                    <ul class="pharmacy__text">
+                        <li>Location: @Model.SelectedPharmacy.PharmacyLocation</li>
+                        <li>Prescription Amount: @Model.RelatedPrescriptions.Count()</li>
+                        <li>Avg Wait Time: @Model.SelectedPharmacy.PharmacyWaitTime minutes</li>
+                        <li>Hours: @Model.SelectedPharmacy.PharmacyOpenTime - @Model.SelectedPharmacy.PharmacyCloseTime</li>
+                        <li>Delivery: @Model.SelectedPharmacy.PharmacyDelivery</li>
+                        <li><a href="/pharmacy/prescriptions/@Model.SelectedPharmacy.PharmacyID">View Prescriptions</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section class="pharmacy__staff">
+                <h2>Staff Working Here</h2>
+                <ul>
+                    @foreach (var staff in Model.RelatedStaff)
+                    {
+                        <li>
+                            <a href="/Staff/Details/@staff.StaffId">@staff.FirstName @staff.LastName</a>
+                            <span>|</span>
+                            <a href="/Pharmacy/Unassociate/@Model.SelectedPharmacy.PharmacyID?StaffId=@staff.StaffId">Remove</a>
+                        </li>
+                    }
+                </ul>
+                <form action="/Pharmacy/Associate/@Model.SelectedPharmacy.PharmacyID" method="POST">
+                    <select name="StaffId">
+                        <option value="">Select Staff</option>
+                        @foreach (var staff in Model.AvailableStaff)
+                        {
+                            <option value="@staff.StaffId">@staff.FirstName @staff.LastName | @staff.Title</option>
+                        }
+                    </select>
+                    <input type="submit" value="Add Staff" />
+                </form>
+            </section>
+        </div>
     </div>
 </main>
 <script type="text/javascript">

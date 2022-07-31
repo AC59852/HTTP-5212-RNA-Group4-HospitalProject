@@ -32,7 +32,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
                 LastName = st.LastName,
                 Title = st.Title,
                 Image = st.Image,
-                Department = st.Department.DepartmentName,
+                DepartmentName = st.Department.DepartmentName,
             }));
 
             return Ok(StaffsDtos);
@@ -52,7 +52,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
                 LastName = Staff.LastName,
                 Title = Staff.Title,
                 Image = Staff.Image,
-                Department = Staff.Department.DepartmentName,
+                DepartmentName = Staff.Department.DepartmentName,
             };
 
             if (Staff == null)
@@ -130,6 +130,49 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             db.SaveChanges();
 
             return Ok(staff);
+        }
+
+        [HttpGet]
+        [ResponseType(typeof(StaffDto))]
+        [Route("api/staffdata/liststaffforpharmacy/{id}")]
+        public IHttpActionResult ListStaffForPharmacy(int id)
+        {
+            List<Staff> Staffs = db.Staffs.Where(
+                s => s.Pharmacies.Any(
+                    p => p.PharmacyID == id)
+                ).ToList();
+            List<StaffDto> StaffDtos = new List<StaffDto>();
+
+            Staffs.ForEach(s => StaffDtos.Add(new StaffDto()
+            {
+                StaffId = s.StaffId,
+                FirstName = s.FirstName,
+                LastName = s.LastName
+            }));
+
+            return Ok(StaffDtos);
+        }
+
+        [HttpGet]
+        [ResponseType(typeof(StaffDto))]
+        [Route("api/staffdata/liststaffnotatpharmacy/{id}")]
+        public IHttpActionResult ListStaffNotAtPharmacy(int id)
+        {
+            List<Staff> Staffs = db.Staffs.Where(
+                s => !s.Pharmacies.Any(
+                    p => p.PharmacyID == id)
+                ).ToList();
+            List<StaffDto> StaffDtos = new List<StaffDto>();
+
+            Staffs.ForEach(s => StaffDtos.Add(new StaffDto()
+            {
+                StaffId = s.StaffId,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                Title = s.Title,
+            }));
+
+            return Ok(StaffDtos);
         }
 
         protected override void Dispose(bool disposing)

@@ -16,7 +16,15 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/PrescriptionData
+        /// <summary>
+        /// Returns all prescriptions in the database
+        /// </summary>
+        /// <returns>
+        /// CONTENT: All prescriptions in the database
+        /// </returns>
+        /// <example>
+        /// api/PrescriptionData/ListPrescriptions
+        /// </example>
         [HttpGet]
         public IEnumerable<PrescriptionDto> ListPrescriptions()
         {
@@ -26,14 +34,23 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             Prescriptions.ForEach(p => PrescriptionDtos.Add(new PrescriptionDto()
             {
                 PrescriptionID = p.PrescriptionID,
-                PrescriptionDrug = p.PrescriptionDrug,
-                PrescriptionDosage = p.PrescriptionDosage,
+                PatientName = p.PatientName,
                 PharmacyName = p.Pharmacy.PharmacyName
             }));
 
             return PrescriptionDtos;
         }
 
+        /// <summary>
+        /// List all prescriptions for a chosen pharmacy
+        /// </summary>
+        /// <param name="id">Pharmacy Primary Key</param>
+        /// <returns>
+        /// CONTENT: All prescriptions related to the chosen pharmacy
+        /// </returns>
+        /// <example>
+        /// api/PrescriptionData/ListPrescriptionsForPharmacy/8
+        /// </example>
         [HttpGet]
         [ResponseType(typeof(PrescriptionDto))]
         [Route("api/prescriptiondata/listprescriptionsforpharmacy/{id}")]
@@ -45,6 +62,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             Prescriptions.ForEach(p => PrescriptionDtos.Add(new PrescriptionDto()
             {
                 PrescriptionID = p.PrescriptionID,
+                PatientName= p.PatientName,
                 PrescriptionDosage = p.PrescriptionDosage,
                 PrescriptionDrug = p.PrescriptionDrug,
                 PrescriptionInstructions = p.PrescriptionInstructions,
@@ -56,7 +74,16 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(PrescriptionDtos);
         }
 
-        // GET: api/PrescriptionData/5
+        /// <summary>
+        /// Returns a chosen prescription in the database
+        /// </summary>
+        /// <param name="id">Prescription Primary Key</param>
+        /// <returns>
+        /// CONTENT: A specific prescription in the database
+        /// </returns>
+        /// <example>
+        /// api/PrescriptionData/FindPrescription/8
+        /// </example>
         [ResponseType(typeof(Prescription))]
         [HttpGet]
         [Route("api/Prescriptiondata/findPrescription/{id}")]
@@ -66,12 +93,17 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             PrescriptionDto PrescriptionDto = new PrescriptionDto()
             {
                 PrescriptionID = Prescription.PrescriptionID,
+                PatientName = Prescription.PatientName,
                 PrescriptionDosage = Prescription.PrescriptionDosage,
                 PrescriptionDrug = Prescription.PrescriptionDrug,
                 PrescriptionRefills= Prescription.PrescriptionRefills,
                 PrescriptionInstructions = Prescription.PrescriptionInstructions,
                 PharmacyID = Prescription.Pharmacy.PharmacyID,
-                PharmacyName = Prescription.Pharmacy.PharmacyName
+                PharmacyName = Prescription.Pharmacy.PharmacyName,
+                StaffId = Prescription.Staff.StaffId,
+                FirstName = Prescription.Staff.FirstName,
+                LastName = Prescription.Staff.LastName,
+                Title = Prescription.Staff.Title,
             };
 
             if (Prescription == null)
@@ -82,10 +114,21 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(PrescriptionDto);
         }
 
-
-        // PUT: api/PrescriptionData/5
+        /// <summary>
+        /// Updates a chosen prescription in the database using POST data provided
+        /// </summary>
+        /// <param name="prescription">Prescription Object Model with data from form</param>
+        /// <param name="id">Prescription Primary Key</param>
+        /// <returns>
+        /// CONTENT: Newly updated information for the specific prescription
+        /// </returns>
+        /// <example>
+        /// api/PrescriptionData/UpdatePrescription/8
+        /// </example>
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPrescription(int id, Prescription prescription)
+        [HttpPost]
+        [Route("api/prescriptiondata/updateprescription/{id}")]
+        public IHttpActionResult UpdatePrescription(int id, Prescription prescription)
         {
             if (!ModelState.IsValid)
             {
@@ -118,9 +161,20 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/PrescriptionData
+        /// <summary>
+        /// Adds a prescription into the database
+        /// </summary>
+        /// <param name="prescription">Prescription Object Model with data from form</param>
+        /// <returns>
+        /// CONTENT: A new prescription with provided POST data
+        /// </returns>
+        /// <example>
+        /// api/PrescriptionData/AddPrescription
+        /// </example>
         [ResponseType(typeof(Prescription))]
-        public IHttpActionResult PostPrescription(Prescription prescription)
+        [HttpPost]
+        [Route("api/prescriptiondata/addprescription")]
+        public IHttpActionResult AddPrescription(Prescription prescription)
         {
             if (!ModelState.IsValid)
             {
@@ -133,8 +187,19 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return CreatedAtRoute("DefaultApi", new { id = prescription.PrescriptionID }, prescription);
         }
 
-        // DELETE: api/PrescriptionData/5
+        /// <summary>
+        /// Deletes a prescription from the system by it's ID.
+        /// </summary>
+        /// <param name="id">Prescription Primary Key</param>
+        /// <returns>
+        /// CONTENT: No content, as the prescription is being deleted
+        /// </returns>
+        /// <example>
+        /// POST: api/PrescriptionData/DeletePrescription/8
+        /// </example>
         [ResponseType(typeof(Prescription))]
+        [HttpPost]
+        [Route("api/prescriptiondata/deleteprescription/{id}")]
         public IHttpActionResult DeletePrescription(int id)
         {
             Prescription prescription = db.Prescriptions.Find(id);
@@ -146,7 +211,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             db.Prescriptions.Remove(prescription);
             db.SaveChanges();
 
-            return Ok(prescription);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

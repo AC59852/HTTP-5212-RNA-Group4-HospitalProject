@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HTTP_5212_RNA_Group4_HospitalProject.Models.Staff>
+﻿@model IEnumerable<HTTP_5212_RNA_Group4_HospitalProject.Models.StaffDto>
 
 @{
     ViewBag.Title = "Index";
@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Image)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Department.DepartmentName)
+            @Html.DisplayNameFor(model => model.DepartmentName)
         </th>
         
         <th></th>
@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.Image)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+                @Html.DisplayFor(modelItem => item.DepartmentName)
             </td>
             
             <td>

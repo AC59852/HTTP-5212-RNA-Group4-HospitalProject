@@ -33,6 +33,6 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         public string LastName { get; set; }
         public string Title { get; set; }
         public string Image { get; set; }
-        public string Department { get; set; }
+        public string DepartmentName { get; set; }
     }
 }

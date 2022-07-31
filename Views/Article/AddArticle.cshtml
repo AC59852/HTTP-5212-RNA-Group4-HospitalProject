@@ -1,0 +1,29 @@
+﻿@model IEnumerable<HTTP_5212_RNA_Group4_HospitalProject.Models.HUpdate>
+@{
+    ViewBag.Title = "AddArticle";
+}
+
+<h2>Add a New Article</h2>
+<form action="/Article/Add" method="post">
+    <div>
+        <label for="article_ForHUpdate">Article is on which Update or Event?</label>
+        <select id="article_ForHUpdate" name="HUpdateId">
+            @foreach(var update in Model)
+            {
+                <option value="@update.HUpdateId">@update.HUpdateTitle</option>
+            }
+        </select>
+    </div>
+    <div>
+        <lable for="article_Title">Article Title:</lable>
+        <input type="text" id="article_Title" name="ArticleTitle" />
+    </div>
+
+    <div>
+        <label for="article_Content">Article Content:</label>
+        <textarea id="article_Content" name="ArticleContent" rows="4"></textarea>
+    </div>
+
+    <button type="submit">Add Article</button>
+</form>
+

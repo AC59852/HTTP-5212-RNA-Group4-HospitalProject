@@ -1,0 +1,20 @@
+﻿@model IEnumerable<HTTP_5212_RNA_Group4_HospitalProject.Models.PrescriptionDto>  
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+<section class="prescriptions">
+    <a href="/Prescription/New">Add New</a>
+    <div class="prescriptions__wrapper">
+        @foreach (var prescription in Model)
+            {
+                <a href="/prescription/details/@prescription.PrescriptionID">
+                    <h3>Prescription ID: @prescription.PrescriptionID</h3>
+                    <h3>Patient: @prescription.PatientName</h3>
+                    <h3>Pharmacy: @prescription.PharmacyName</h3>
+                </a>
+            }
+    </div>
+</section>
+

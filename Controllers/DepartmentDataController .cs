@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using HTTP_5212_RNA_Group4_HospitalProject.Models;
+using System.Diagnostics;
 
 namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 {
@@ -17,7 +18,13 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/DepartmentData/listdepartments
+        /// <summary>
+        /// Returns a list of department in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [HttpGet]
+        [Route("api/DepartmentData/listdepartments")]
         public IEnumerable<DepartmentDto> ListDepartments()
         {
             List<Department> Departments = db.Departments.ToList();
@@ -35,6 +42,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
 
         // GET: api/DepartmentData/findDepartment/5
+        /// <summary>
+        /// Returns a page a department based on id in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [ResponseType(typeof(Department))]
         [HttpGet]
         [Route("api/Departmentdata/findDepartment/{id}")]
@@ -57,8 +69,15 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
 
-        // PUT: api/DepartmentData/updateDepartment/5
+        // POST: api/DepartmentData/updateDepartment/5
+        /// <summary>
+        ///Updates a department in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [ResponseType(typeof(void))]
+        [HttpPost]
+        [Route("api/DepartmentData/updateDepartment/{id}")]
         public IHttpActionResult updateDepartment(int id, Department Department)
         {
             if (!ModelState.IsValid)
@@ -93,14 +112,23 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // POST: api/DepartmentData/AddDepartment
+        /// <summary>
+        /// Adds a new department in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [ResponseType(typeof(Department))]
+        [HttpPost]
+        [Route("api/DepartmentData/AddDepartment")]
         public IHttpActionResult AddDepartment(Department Department)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            Debug.WriteLine("am there");
 
+            Debug.WriteLine(Department);
             db.Departments.Add(Department);
             db.SaveChanges();
 
@@ -108,7 +136,14 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // DELETE: api/DepartmentData/DeleteDepartment/5
+        /// <summary>
+        /// deletes a department in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [ResponseType(typeof(Department))]
+        [HttpPost]
+        [Route("api/departmentdata/deletedepartment/{id}")]
         public IHttpActionResult DeleteDepartment(int id)
         {
             Department Department = db.Departments.Find(id);
@@ -132,6 +167,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// checks if a department exists in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         private bool DepartmentExists(int id)
         {
             return db.Departments.Count(e => e.DepartmentID == id) > 0;

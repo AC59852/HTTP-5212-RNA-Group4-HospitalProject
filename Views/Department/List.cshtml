@@ -1,0 +1,20 @@
+﻿@model IEnumerable<HTTP_5212_RNA_Group4_HospitalProject.Models.DepartmentDto>
+@{
+    ViewBag.Title = "Departments";
+}
+<div class="row">
+    <div class="col-md-7">
+        <h2 class="bottom-border-line">Departments </h2>
+        <div class="anime__wrapper">
+            <div class="anime__icons">
+                @foreach (var Department in Model)
+                {
+                    <a href="/Department/Details/@Department.DepartmentID" class="anime__icon">
+                        <h3>@Department.DepartmentName</h3>
+                    </a>
+                }
+            </div>
+            <a href="/Department/New" class="">Add New</a>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Web;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -8,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Diagnostics;
 using HTTP_5212_RNA_Group4_HospitalProject.Models;
 
 namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
@@ -17,6 +20,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/ServiceData/listservice
+        /// <summary>
+        /// returns a list of service in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [HttpGet]
         [Route("api/ServiceData/ListServices")]
         [ResponseType(typeof(ServiceDto))]
@@ -38,6 +46,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: api/ServiceData/findservice/5
+        /// <summary>
+        /// returns a service based on id in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [HttpGet]
         [ResponseType(typeof(ServiceDto))]
         [Route("api/Servicedata/findService/{id}")]
@@ -62,10 +75,15 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // PUT: api/ServiceData/updateservice/5
+        /// <summary>
+        /// updates a service in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [ResponseType(typeof(void))]
         [HttpPost]
         [Route("api/Servicedata/updateService/{id}")]
-        public IHttpActionResult PutService(int id, Service Service)
+        public IHttpActionResult updateService(int id, Service Service)
         {
             if (!ModelState.IsValid)
             {
@@ -79,6 +97,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
             db.Entry(Service).State = EntityState.Modified;
 
+            // Picture update is handled by another method
+            db.Entry(Service).Property(s => s.ServiceImage).IsModified = false;
             try
             {
                 db.SaveChanges();
@@ -99,6 +119,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // POST: api/ServiceData/addservice
+        /// <summary>
+        /// adds a service in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         [ResponseType(typeof(Service))]
         [Route("api/Servicedata/addService")]
         public IHttpActionResult PostService(Service Service)
@@ -114,8 +139,16 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return CreatedAtRoute("DefaultApi", new { id = Service.ServiceID }, Service);
         }
 
+
         // DELETE: api/ServiceData/deleteservice/5
+        /// <summary>
+        /// deletes a service in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>        
         [ResponseType(typeof(Service))]
+        [HttpPost]
+        [Route("api/ServiceData/deleteservice/{id}")]
         public IHttpActionResult DeleteService(int id)
         {
             Service Service = db.Services.Find(id);
@@ -123,6 +156,17 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             {
                 return NotFound();
             }
+            /*
+            if ( Service.ServiceImage != "" || Service.ServiceImage != null )
+            {
+                //also delete image from path
+                string path = HttpContext.Current.Server.MapPath("~/Content/Images/Services/" + id + "." + Service.ServiceImage);
+                if (System.IO.File.Exists(path))
+                {
+                    Debug.WriteLine("File exists... preparing to delete!");
+                    System.IO.File.Delete(path);
+                }
+            }*/
 
             db.Services.Remove(Service);
             db.SaveChanges();
@@ -130,6 +174,90 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(Service);
         }
 
+        /// <summary>
+        /// Receives service picture data, uploads it to the webserver
+        /// </summary>
+        /// <param name="id">the service id</param>
+        /// <returns>status code 200 if successful.</returns>
+        /// <example>
+        /// curl -F serviceimage=@file.jpg "https://localhost:xx/api/servicedata/uploadserviceimage/2"
+        /// POST: api/serviceData/Updateserviceimage/3
+        /// HEADER: enctype=multipart/form-data
+        /// FORM-DATA: image
+        /// </example>
+        /// https://stackoverflow.com/questions/28369529/how-to-set-up-a-web-api-controller-for-multipart-form-data
+
+        [HttpPost]
+        public IHttpActionResult UploadServiceImage(int id)
+        {
+
+           
+            string picextension;
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                Debug.WriteLine("Received multipart form data.");
+
+                int numfiles = HttpContext.Current.Request.Files.Count;
+                Debug.WriteLine("Files Received: " + numfiles);
+
+                
+                //Check if a file is posted
+                if (numfiles == 1 && HttpContext.Current.Request.Files[0] != null)
+                {
+                    var serviceImage = HttpContext.Current.Request.Files[0];
+                    //Check if the file is empty
+                    if (serviceImage.ContentLength > 0)
+                    {
+                        //establish valid file types (can be changed to other file extensions if desired!)
+                        var valtypes = new[] { "jpeg", "jpg", "png", "gif" };
+                        var extension = Path.GetExtension(serviceImage.FileName).Substring(1);
+                        //Check the extension of the file
+                        if (valtypes.Contains(extension))
+                        {
+                            try
+                            {
+                                //file name is the id of the image
+                                string fn = id + "." + extension;
+
+                                //get a direct file path to ~/Content/services/{id}.{extension}
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Images/Services/"), fn);
+                                Debug.WriteLine(path);
+
+                                //save the file
+                                serviceImage.SaveAs(path);
+
+                                //if these are all successful then we can set these fields
+                                picextension = extension;
+
+                                //Update the service haspic and picextension fields in the database
+                                Service Selectedservice = db.Services.Find(id);
+                                Selectedservice.ServiceImage = extension;
+                                db.Entry(Selectedservice).State = EntityState.Modified;
+
+                                db.SaveChanges();
+
+                            }
+                            catch (Exception ex)
+                            {
+                              
+                                return BadRequest();
+                            }
+                        }
+                    }
+
+                }
+
+                return Ok();
+            }
+            else
+            {
+                //not multipart form data
+                return BadRequest();
+
+            }
+
+        }
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -138,7 +266,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             }
             base.Dispose(disposing);
         }
-
+        /// <summary>
+        /// checks if a service exists in the system
+        /// </summary>
+        /// <returns>
+        /// </returns>
         private bool ServiceExists(int id)
         {
             return db.Services.Count(e => e.ServiceID == id) > 0;
