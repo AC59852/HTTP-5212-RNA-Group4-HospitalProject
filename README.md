@@ -35,3 +35,5 @@ Below are the tables in the Hosiptal Project.
 3 - Temi Babalola: Developer for CRUD for Staff and appointments, linked staff to department.
 <br>
 4 - Akhilender Vallab: Developer for Research and Donar CRUD.
+<br>
+5 - Siddhant Patel: Developer for HUpdates and Articles, also linked HUpdate to Departments Module.
