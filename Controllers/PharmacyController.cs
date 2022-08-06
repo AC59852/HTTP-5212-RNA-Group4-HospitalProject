@@ -18,8 +18,36 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         static PharmacyController()
         {
-            client = new HttpClient();
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                AllowAutoRedirect = false,
+                //cookies are manually set in RequestHeader
+                UseCookies = false
+            };
+
+            client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44353/api/");
+        }
+
+        /// <summary>
+        /// Grabs the authentication cookie sent to this controller.
+        /// </summary>
+        private void GetApplicationCookie()
+        {
+            string token = "";
+
+            //HTTP client is set up to be reused, otherwise it will exhaust server resources.
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            //collect token as it is submitted to the controller
+            //use it to pass along to the WebAPI.
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
         }
 
         // GET: Pharmacy
@@ -31,12 +59,18 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// </returns>
         public ActionResult List()
         {
+            PharmacyList ViewModel = new PharmacyList();
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin")) ViewModel.IsAdmin = true;
+            else ViewModel.IsAdmin = false;
+
             string url = "pharmacydata/listpharmacies";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             IEnumerable<PharmacyDto> Pharmacies = response.Content.ReadAsAsync<IEnumerable<PharmacyDto>>().Result;
 
-            return View(Pharmacies);
+            ViewModel.Pharmacies = Pharmacies;
+
+            return View(ViewModel);
         }
 
         /// <summary>
@@ -53,6 +87,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         public ActionResult Details(int id)
         {
             DetailsPharmacy ViewModel = new DetailsPharmacy();
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin")) ViewModel.IsAdmin = true;
+            else ViewModel.IsAdmin = false;
 
             //objective: communicate with our pharmacy data api to retrieve one pharmacy
 
@@ -139,8 +175,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// api/Pharmacy/Associate/8?StaffId=3
         /// </example>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Associate(int id, int StaffId)
         {
+            GetApplicationCookie();//get token credentials
+
             // call the function in the PharmacyDataController.cs file to
             // associate a chosen staff member with the specific pharmacy
             string url = "pharmacydata/associatepharmacywithstaff/" + id + "/" + StaffId;
@@ -162,8 +201,10 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// api/Pharmacy/Unassociate/8?StaffId=3
         /// </example>
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult UnAssociate(int id, int StaffId)
         {
+            GetApplicationCookie();//get token credentials
 
             // call the function in the PharmacyDataController.cs file to
             // unassociate a chosen staff member with the specific pharmacy
@@ -180,6 +221,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// Render a webpage for creating a new pharmacy
         /// </summary>
         /// <returns>a webpage for creating a new pharmacy</returns>
+        [Authorize(Roles = "Admin")]
         public ActionResult New()
         {
             return View();
@@ -191,8 +233,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// <param name="Pharmacy">Pharmacy Object Model</param>
         /// <returns>A new pharmacy in the database based on the information provided</returns>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(Pharmacy Pharmacy)
         {
+            GetApplicationCookie();//get token credentials
+
             // call the function in the PharmacyDataController.cs file to
             // add a new pharmacy to the database
             string url = "pharmacydata/addpharmacy";
@@ -215,6 +260,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// <example>
         /// api/Pharmacy/Edit/8
         /// </example>
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             UpdatePharmacy ViewModel = new UpdatePharmacy();
@@ -240,8 +286,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// <param name="Pharmacy">Pharmacy Object Model</param>
         /// <returns>Updates pharmacy information in the database based on the information provided</returns>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Update(int id, Pharmacy Pharmacy, HttpPostedFileBase PharmacyPic)
         {
+            GetApplicationCookie();//get token credentials
+
             string url = "pharmacydata/updatepharmacy/" + id;
             string jsonpayload = jss.Serialize(Pharmacy);
 
@@ -286,6 +335,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// </summary>
         /// <param name="id">Pharmacy Primary Key</param>
         /// <returns>a webpage for confirming the deletion of a chosen pharmacy</returns>
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "pharmacydata/findpharmacy/" + id;
@@ -304,6 +354,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();//get token credentials
+
             string url = "pharmacydata/deletepharmacy/" + id;
             HttpContent content = new StringContent("");
 

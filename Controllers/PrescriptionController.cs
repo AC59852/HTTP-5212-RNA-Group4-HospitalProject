@@ -18,8 +18,36 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         static PrescriptionController()
         {
-            client = new HttpClient();
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                AllowAutoRedirect = false,
+                //cookies are manually set in RequestHeader
+                UseCookies = false
+            };
+
+            client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44353/api/");
+        }
+
+        /// <summary>
+        /// Grabs the authentication cookie sent to this controller.
+        /// </summary>
+        private void GetApplicationCookie()
+        {
+            string token = "";
+
+            //HTTP client is set up to be reused, otherwise it will exhaust server resources.
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            //collect token as it is submitted to the controller
+            //use it to pass along to the WebAPI.
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
         }
 
 
@@ -30,6 +58,10 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// <returns>A page containing basic information about all prescriptions</returns>
         public ActionResult List()
         {
+            PrescriptionList ViewModel = new PrescriptionList();
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin")) ViewModel.IsAdmin = true;
+            else ViewModel.IsAdmin = false;
+
             //Obj: Communicate with the PrescriptionData API to retrieve the list of prescriptions
 
             // call the function in the PrescriptionDataController.cs file to list all prescriptions
@@ -41,8 +73,9 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             // Format the data as an object for the view to use
             IEnumerable<PrescriptionDto> Prescriptions = response.Content.ReadAsAsync<IEnumerable<PrescriptionDto>>().Result;
 
-            // Render the view "List" with the data provided
-            return View(Prescriptions);
+            ViewModel.Prescriptions = Prescriptions;
+
+            return View(ViewModel);
         }
 
         /// <summary>
@@ -55,6 +88,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         {
             // Use the Model "DetailsPrescription" as the base model for data that will be used in the view
             DetailsPrescription ViewModel = new DetailsPrescription();
+            if (User.Identity.IsAuthenticated && User.IsInRole("Admin")) ViewModel.IsAdmin = true;
+            else ViewModel.IsAdmin = false;
 
             // call the function in the PrescriptionDataController.cs file to list
             // data about the chosen prescription based on its id
@@ -77,6 +112,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// a webpage for the user to create a new prescription, allowing them to enter data
         /// as well as choose a pharmacy for the prescription, and the staff member who created it
         /// </returns>
+        [Authorize(Roles = "Admin")]
         public ActionResult New()
         {
             // Use the Model "UpdatePrescription" as the base model for data that will be used in the view
@@ -111,8 +147,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// <param name="prescription">Prescription Object Model</param>
         /// <returns>A new prescription in the database based on the information provided</returns>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(Prescription prescription)
         {
+            GetApplicationCookie();//get token credentials
+
             // call the function in the PrescriptionDataController.cs file to
             // add a new prescription in the database
             string url = "prescriptiondata/addprescription";
@@ -141,6 +180,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// a webpage for the user to edit a chosen prescription's information
         /// as well as the chosen pharmacy
         /// </returns>
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             // Use the Model "UpdatePrescription" as the base model for data that will be used in the view
@@ -176,8 +216,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// <param name="prescription">Prescription Object Model</param>
         /// <returns>The chosen prescription updated with the new information</returns>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Update(int id, Prescription prescription)
         {
+            GetApplicationCookie();//get token credentials
+
             // calls the function in the PrescriptionDataController.cs file to
             // update the prescription with the newly added content
             string url = "prescriptiondata/updateprescription/" + id;
@@ -206,6 +249,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// </summary>
         /// <param name="id">Prescription Primary Key</param>
         /// <returns>a webpage for confirming the deletion of a chosen prescription</returns>
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
             // calls the function in the PrescriptionDataController.cs file to
@@ -226,8 +270,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// <param name="id">Prescription Primary Key</param>
         /// <returns>Nothing, as the content is being deleted, it removed data from the database</returns>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();//get token credentials
+
             // calls the function in the PrescriptionDataController.cs file to
             // delete the chosen prescription
             string url = "prescriptiondata/deleteprescription/" + id;

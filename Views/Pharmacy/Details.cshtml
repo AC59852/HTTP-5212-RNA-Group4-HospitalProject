@@ -39,6 +39,8 @@
                     </ul>
                 </div>
             </section>
+            @if (Model.IsAdmin)
+            {
             <section class="pharmacy__staff">
                 <h2>Staff Working Here</h2>
                 <ul>
@@ -49,7 +51,7 @@
                             <span>|</span>
                             <a href="/Pharmacy/Unassociate/@Model.SelectedPharmacy.PharmacyID?StaffId=@staff.StaffId">Remove</a>
                         </li>
-                    }
+                }
                 </ul>
                 <form action="/Pharmacy/Associate/@Model.SelectedPharmacy.PharmacyID" method="POST">
                     <select name="StaffId">
@@ -62,6 +64,7 @@
                     <input type="submit" value="Add Staff" />
                 </form>
             </section>
+            }
         </div>
     </div>
 </main>

@@ -5,9 +5,9 @@ using System.Web;
 
 namespace HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels
 {
-    public class DetailsPrescription
+    public class PrescriptionList
     {
         public bool IsAdmin { get; set; }
-        public PrescriptionDto SelectedPrescription { get; set; }
+        public IEnumerable<PrescriptionDto> Prescriptions { get; set; }
     }
 }

@@ -102,6 +102,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("api/pharmacydata/updatepharmacy/{id}")]
         public IHttpActionResult UpdatePharmacy(int id, Pharmacy pharmacy)
         {
@@ -151,6 +152,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// </example>
         [ResponseType(typeof(Pharmacy))]
         [Route("api/pharmacydata/addpharmacy")]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult PostPharmacy(Pharmacy pharmacy)
         {
             if (!ModelState.IsValid)
@@ -177,6 +179,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         [ResponseType(typeof(Pharmacy))]
         [HttpPost]
         [Route("api/pharmacydata/deletepharmacy/{id}")]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult DeletePharmacy(int id)
         {
             Pharmacy pharmacy = db.Pharmacies.Find(id);
@@ -214,7 +217,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// </example>
         [HttpPost]
         [Route("api/PharmacyData/AssociatePharmacyWithStaff/{PharmacyID}/{StaffId}")]
-        public IHttpActionResult AssociateAnimalWithKeeper(int PharmacyID, int StaffId)
+        [Authorize(Roles = "Admin")]
+        public IHttpActionResult AssociatePharmacyWithStaff(int PharmacyID, int StaffId)
         {
 
             Pharmacy SelectedPharmacy = db.Pharmacies.Include(p => p.Staffs).Where(p => p.PharmacyID == PharmacyID).FirstOrDefault();
@@ -245,7 +249,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// </example>
         [HttpPost]
         [Route("api/PharmacyData/UnAssociatePharmacyWithStaff/{PharmacyID}/{StaffId}")]
-        public IHttpActionResult UnAssociateAnimalWithKeeper(int PharmacyID, int StaffId)
+        [Authorize(Roles = "Admin")]
+        public IHttpActionResult UnAssociatePharmacyWithStaff(int PharmacyID, int StaffId)
         {
 
             Pharmacy SelectedPharmacy = db.Pharmacies.Include(p => p.Staffs).Where(p => p.PharmacyID == PharmacyID).FirstOrDefault();
@@ -274,6 +279,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// Content: input image from form
         /// </example>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("api/pharmacydata/uploadpharmacypic/{id}")]
         public IHttpActionResult UploadPharmacyPic(int id)
         {

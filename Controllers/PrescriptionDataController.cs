@@ -127,6 +127,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("api/prescriptiondata/updateprescription/{id}")]
         public IHttpActionResult UpdatePrescription(int id, Prescription prescription)
         {
@@ -173,6 +174,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// </example>
         [ResponseType(typeof(Prescription))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("api/prescriptiondata/addprescription")]
         public IHttpActionResult AddPrescription(Prescription prescription)
         {
@@ -199,6 +201,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// </example>
         [ResponseType(typeof(Prescription))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [Route("api/prescriptiondata/deleteprescription/{id}")]
         public IHttpActionResult DeletePrescription(int id)
         {
