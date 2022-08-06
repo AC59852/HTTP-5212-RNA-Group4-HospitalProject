@@ -283,6 +283,7 @@
     <Compile Include="Models\ViewModels\DetailsStaff.cs" />
     <Compile Include="Models\ViewModels\EditArticle.cs" />
     <Compile Include="Models\ViewModels\EditHUpdate.cs" />
+    <Compile Include="Models\ViewModels\PharmacyList.cs" />
     <Compile Include="Models\ViewModels\UpdatePharmacy.cs" />
     <Compile Include="Models\ViewModels\UpdatePrescription.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -151,6 +151,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         /// </example>
         [ResponseType(typeof(Pharmacy))]
         [Route("api/pharmacydata/addpharmacy")]
+        [Authorize]
         public IHttpActionResult PostPharmacy(Pharmacy pharmacy)
         {
             if (!ModelState.IsValid)

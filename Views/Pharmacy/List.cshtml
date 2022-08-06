@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HTTP_5212_RNA_Group4_HospitalProject.Models.PharmacyDto>
+﻿@model HTTP_5212_RNA_Group4_HospitalProject.Models.ViewModels.PharmacyList
 @{
     ViewBag.Title = "Pharmacies";
 }
@@ -6,10 +6,10 @@
 <main>
     <div class="anime__wrapper">
         <div class="anime__icons">
-            @foreach (var Pharmacy in Model)
+            @foreach (var Pharmacy in Model.Pharmacies)
             {
                 <div>
-                    @{ 
+                    @{
                         string pic = "/Content/Images/Pharmacies/default.jpg";
                         string alt = "No Pharmacy Photo Provided";
 
@@ -26,6 +26,9 @@
                 </div>
             }
         </div>
-        <a href="/Pharmacy/New" class="">Add New</a>
+        @if (Model.IsAdmin)
+        {
+            <a href="/Pharmacy/New">New Animal</a>
+        }
     </div>
 </main>
