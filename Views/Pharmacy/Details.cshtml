@@ -6,13 +6,10 @@
 }
 
 <main>
-    <div class="pharmacy__wrapper">
-        <div class="pharmacy__content">
-            <div class="pharmacy__links">
-                <a href="/pharmacy/edit/@Model.SelectedPharmacy.PharmacyID">Edit</a>
-                <a href="/pharmacy/deleteconfirm/@Model.SelectedPharmacy.PharmacyID">Delete</a>
-            </div>
-            <div class="pharmacy__photo">
+    <section>
+        <div class="pharmacy__wrapper">
+            <section class="pharmacy__hero">
+                <h1>@Model.SelectedPharmacy.PharmacyName</h1>
                 @{
                     string pic = "/Content/Images/Pharmacies/default.jpg";
                     string alt = "No Pharmacy Photo Provided";
@@ -24,50 +21,105 @@
                     }
                 }
                 <img src="@pic" alt="@alt" />
-            </div>
-            <section class="pharmacy__info">
-                <h2>@Model.SelectedPharmacy.PharmacyName</h2>
-                <div class="pharmacy__content">
+            </section>
+            <div class="pharmacy__content">
+                <section class="pharmacy__info">
                     <h2>Pharmacy Info</h2>
-                    <ul class="pharmacy__text">
-                        <li>Location: @Model.SelectedPharmacy.PharmacyLocation</li>
-                        <li>Prescription Amount: @Model.RelatedPrescriptions.Count()</li>
-                        <li>Avg Wait Time: @Model.SelectedPharmacy.PharmacyWaitTime minutes</li>
-                        <li>Hours: @Model.SelectedPharmacy.PharmacyOpenTime - @Model.SelectedPharmacy.PharmacyCloseTime</li>
-                        <li>Delivery: @Model.SelectedPharmacy.PharmacyDelivery</li>
-                        <li><a href="/pharmacy/prescriptions/@Model.SelectedPharmacy.PharmacyID">View Prescriptions</a></li>
+                    <ul class="pharmacy__list">
+                        <li class="list__item list__item--location">Location: <span>@Model.SelectedPharmacy.PharmacyLocation</span></li>
+                        <li class="list__item list__item--prescriptions">Prescription Amount: <span>@Model.RelatedPrescriptions.Count()</span></li>
+                        <li class="list__item list__item--wait">Avg Wait Time: <span>@Model.SelectedPharmacy.PharmacyWaitTime minutes</span></li>
+                        <li class="list__item list__item--hours">Hours: <span><span class="pharmacy__open">@Model.SelectedPharmacy.PharmacyOpenTime</span> - <span class="pharmacy__close">@Model.SelectedPharmacy.PharmacyCloseTime</span></span></li>
+                        <li class="list__item list__item--delivery">Delivery: <span class="pharmacy__delivery">@Model.SelectedPharmacy.PharmacyDelivery</span></li>
+                        <li class="list__item list__item--link"><a href="/pharmacy/prescriptions/@Model.SelectedPharmacy.PharmacyID">View Prescriptions</a></li>
                     </ul>
-                </div>
-            </section>
-            @if (Model.IsAdmin)
-            {
-            <section class="pharmacy__staff">
-                <h2>Staff Working Here</h2>
-                <ul>
-                    @foreach (var staff in Model.RelatedStaff)
-                    {
-                        <li>
-                            <a href="/Staff/Details/@staff.StaffId">@staff.FirstName @staff.LastName</a>
-                            <span>|</span>
-                            <a href="/Pharmacy/Unassociate/@Model.SelectedPharmacy.PharmacyID?StaffId=@staff.StaffId">Remove</a>
-                        </li>
-                }
-                </ul>
-                <form action="/Pharmacy/Associate/@Model.SelectedPharmacy.PharmacyID" method="POST">
-                    <select name="StaffId">
-                        <option value="">Select Staff</option>
-                        @foreach (var staff in Model.AvailableStaff)
+                </section>
+                <section class="pharmacy__staff">
+                    <h2>Staff Working Here</h2>
+                    <ul class="pharmacy__list">
+                        @foreach (var staff in Model.RelatedStaff)
                         {
-                            <option value="@staff.StaffId">@staff.FirstName @staff.LastName | @staff.Title</option>
+                            <li class="list__item list__item--staff">
+                                <a href="/Staff/Details/@staff.StaffId">@staff.FirstName @staff.LastName</a>
+                                @if (Model.IsAdmin)
+                                {
+                                    <span class="staff__line">|</span>
+                                    <a href="/Pharmacy/Unassociate/@Model.SelectedPharmacy.PharmacyID?StaffId=@staff.StaffId">Remove</a>
+                                }
+                            </li>
                         }
-                    </select>
-                    <input type="submit" value="Add Staff" />
-                </form>
-            </section>
-            }
+                    </ul>
+                    @if (Model.IsAdmin)
+                    {
+                        <form action="/Pharmacy/Associate/@Model.SelectedPharmacy.PharmacyID" method="POST">
+                            <select name="StaffId">
+                                <option value="">Select Staff</option>
+                                @foreach (var staff in Model.AvailableStaff)
+                                {
+                                    <option value="@staff.StaffId">@staff.FirstName @staff.LastName | @staff.Title</option>
+                                }
+                            </select>
+                            <input type="submit" value="Add Staff" />
+                        </form>
+                    }
+                </section>
+            </div>
         </div>
-    </div>
+        @if (Model.IsAdmin)
+        {
+            <div class="pharmacy__links">
+                <a href="/pharmacy/edit/@Model.SelectedPharmacy.PharmacyID" class="pharmacy__link--edit">Edit</a>
+                <a href="/pharmacy/deleteconfirm/@Model.SelectedPharmacy.PharmacyID" class="pharmacy__link--delete">Delete</a>
+            </div>
+        }
+    </section>
 </main>
+<style>
+    .body-content {
+        padding: 0;
+        margin: 0 auto;
+    }
+</style>
 <script type="text/javascript">
+    var openTime = "@Model.SelectedPharmacy.PharmacyOpenTime";
+    var closeTime = "@Model.SelectedPharmacy.PharmacyCloseTime";
+
+    pharmacyOpen()
+    pharmacyClose()
+
+    @* format @Model.SelectedPharmacy.Pharmacytime from military  to 12 hour *@
+    function setTime(time) {
+        @* add a 0 to the front if there are only 3 numbers *@
+        if (time.length == 3) {
+            time = "0" + time;
+        }
+        var hours = time.substring(0, 2);
+        console.log(hours)
+        var minutes = time.substring(2, 4);
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+
+        return strTime;
+    }
+
+    @* pharmacy__open to strTime*@
+    function pharmacyOpen() {
+        var strTime = setTime(openTime);
+        document.getElementsByClassName("pharmacy__open")[0].innerHTML = strTime;
+    }
+
+    @* pharmacy__close to strTime*@
+    function pharmacyClose() {
+        var strTime = setTime(closeTime);
+        document.getElementsByClassName("pharmacy__close")[0].innerHTML = strTime;
+    }
+
+    var delivery = "@Model.SelectedPharmacy.PharmacyDelivery";
+      if (delivery == "True") { document.querySelector(".pharmacy__delivery").innerHTML = "Yes";}
+      else { document.querySelector(".pharmacy__delivery").innerHTML = "No"; }
+    
 </script>
 

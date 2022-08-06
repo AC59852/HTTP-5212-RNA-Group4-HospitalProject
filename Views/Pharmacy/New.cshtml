@@ -3,32 +3,42 @@
     ViewBag.Title = "New";
 }
 
-<h2>Create Pharmacy</h2>
-<form action="/Pharmacy/Create" method="POST">
-    <div>
-        <label for="PharmacyName">Enter Pharmacy Name</label>
-        <input type="text" name="PharmacyName" placeholder="E.g: Riverside Healthcare Pharmacy" value=""/>
+<h1 class="pForm__title">Create Pharmacy</h1>
+<form action="/Pharmacy/Create" class="pForm" method="POST">
+    <div class="pForm__wrapper">
+        <label for="PharmacyName" class="pForm__label">Enter Pharmacy Name</label>
+        <input type="text" name="PharmacyName" class="pForm__input" placeholder="E.g: Riverside Healthcare Pharmacy" value=""/>
     </div>
-    <div>
-        <label for="PharmacyLocation">Enter Pharmacy Location</label>
-        <input type="text" name="PharmacyLocation" placeholder="E.g: 123 Some St, Toronto" value=""/>
+    <div class="pForm__wrapper">
+        <label for="PharmacyLocation" class="pForm__label">Enter Pharmacy Location</label>
+        <input type="text" name="PharmacyLocation" class="pForm__input" placeholder="E.g: 123 Some St, Toronto" value=""/>
     </div>
-    <div>
-        <label for="PharmacyWaitTime">Enter Pharmacy Wait Time (Minutes)</label>
-        <input type="number" name="PharmacyWaitTime" placeholder="E.g: 25" value=""/>
+    <div class="pForm__wrapper">
+        <label for="PharmacyWaitTime" class="pForm__label">Enter Pharmacy Wait Time (Minutes)</label>
+        <input type="number" name="PharmacyWaitTime" class="pForm__input" placeholder="E.g: 25" value=""/>
     </div>
-    <div>
-        <label for="PharmacyOpenTime">Enter Pharmacy Open Time (Military Time)</label>
-        <input type="number" name="PharmacyOpenTime" placeholder="Example: 0900" value=""/>
+    <div class="pForm__wrapper">
+        <label for="PharmacyOpenTime" class="pForm__label">Enter Pharmacy Open Time (Military Time)</label>
+        <input type="number" name="PharmacyOpenTime" class="pForm__input" placeholder="Example: 0900" value=""/>
     </div>
-    <div>
-        <label for="PharmacyCloseTime">Enter Pharmacy Close Time (Military Time)</label>
-        <input type="number" name="PharmacyCloseTime" placeholder="Example: 1800" value=""/>
+    <div class="pForm__wrapper">
+        <label for="PharmacyCloseTime" class="pForm__label">Enter Pharmacy Close Time (Military Time)</label>
+        <input type="number" name="PharmacyCloseTime" class="pForm__input" placeholder="Example: 1800" value=""/>
     </div>
-    <div>
-        <label for="PharmacyDelivery">Is There Delivery?</label>
-        <input type="checkbox" name="PharmacyDelivery" value="true"/>
+    <div class="pForm__wrapper pForm__wrapper--check">
+        <label for="PharmacyDelivery" class="pForm__label">Is There Delivery?</label>
+        <input class="pharmacy__checkbox" type="checkbox" name="PharmacyDelivery" value="true"/>
+        <span class="pharmacy__checked">No</span>
     </div>
-    <input type="submit" name="Submit" value="Create" />
+    <input type="submit" class="pForm__submit" name="Submit" value="Create" />
 </form>
+<script>
+  document.querySelector(".pharmacy__checkbox").addEventListener("click", function() {
+        if (this.checked) {
+            document.querySelector(".pharmacy__checked").innerHTML = "Yes";
+        } else {
+            document.querySelector(".pharmacy__checked").innerHTML = "No";
+        }
+    });
+</script>
 
