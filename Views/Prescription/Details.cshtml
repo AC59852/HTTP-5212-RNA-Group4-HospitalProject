@@ -3,33 +3,36 @@
     ViewBag.Title = "Details";
 }
 <section class="prescription">
-    <div class="prescription__wrapper">
-        <h2>@Model.SelectedPrescription.PatientName</h2>
-        <div class="prescription__content">
-            <div class="prescription__data">
-                <div class="prescription__drug">
-                    <h3>Drug Information</h3>
-                    <ul>
-                        <li><h4>Drug: @Model.SelectedPrescription.PrescriptionDrug</h4></li>
-                        <li><h4>Dosage: @Model.SelectedPrescription.PrescriptionDosage</h4></li>
-                        <li><h4>Refills: @Model.SelectedPrescription.PrescriptionRefills</h4></li>
+    <div class="pharmacy__wrapper">
+        <h1 class="pForm__title">@Model.SelectedPrescription.PatientName</h1>
+        <div class="pharmacy__content">
+            <div class="pharmacy__content">
+                <section class="prescription__drug">
+                    <h2>Drug Information</h2>
+                    <ul class="pharmacy__list">
+                        <li class="list__item">Drug: <span>@Model.SelectedPrescription.PrescriptionDrug</span></li>
+                        <li class="list__item">Dosage: <span>@Model.SelectedPrescription.PrescriptionDosage</span></li>
+                        <li class="list__item">Refills: <span>@Model.SelectedPrescription.PrescriptionRefills</span></li>
+                        <li class="list__item">Instructions: <span>@Model.SelectedPrescription.PrescriptionInstructions</span></li>
                     </ul>
-                    <p>Instructions: @Model.SelectedPrescription.PrescriptionInstructions</p>
-                    <div class="prescription__links">
-                        <a href="/prescription/edit/@Model.SelectedPrescription.PrescriptionID">Edit</a>
-                        <a href="/prescription/deleteconfirm/@Model.SelectedPrescription.PrescriptionID">Delete</a>
-                    </div>
-                </div>
-                <div class="prescription__pharmacy">
-                    <h3>Pharmacy Information</h3>
-                    <ul>
-                        <li><h4>Pharmacy ID: @Model.SelectedPrescription.PharmacyID</h4></li>
-                        <li><h4>Pharmacy Name: @Model.SelectedPrescription.PharmacyName</h4></li>
-                        <li><h4>Pharmacist: @Model.SelectedPrescription.FirstName @Model.SelectedPrescription.LastName | @Model.SelectedPrescription.Title</h4></li>
+                </section>
+                <section>
+                    <h2>Pharmacy Information</h2>
+                    <ul class="pharmacy__list">
+                        <li class="list__item">Pharmacy ID: <span>@Model.SelectedPrescription.PharmacyID</span></li>
+                        <li class="list__item">Pharmacy Name: <span>@Model.SelectedPrescription.PharmacyName</span></li>
+                        <li class="list__item">Pharmacist: <span>@Model.SelectedPrescription.FirstName @Model.SelectedPrescription.LastName | @Model.SelectedPrescription.Title</span></li>
                     </ul>
-                </div>
+                </section>
             </div>
         </div>
     </div>
+    @if (Model.IsAdmin)
+    {
+        <div class="pharmacy__links">
+            <a href="/prescription/edit/@Model.SelectedPrescription.PrescriptionID" class="pharmacy__link--edit">Edit</a>
+            <a href="/prescription/deleteconfirm/@Model.SelectedPrescription.PrescriptionID" class="pharmacy__link--delete">Delete</a>
+        </div>
+    }
 </section>
 

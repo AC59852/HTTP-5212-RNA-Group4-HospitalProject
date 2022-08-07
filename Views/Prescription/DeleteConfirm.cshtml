@@ -4,13 +4,25 @@
     ViewBag.Title = "DeleteConfirm";
 }
 
-<h1>Delete @Model.PharmacyName</h1>
-<h2>Are you sure you want to delete the prescription for @Model.PatientName?</h2>
-<div>
-    <h3>@Model.PrescriptionDrug</h3>
-    <p>@Model.PrescriptionInstructions</p>
-</div>
-<form action="/Prescription/Delete/@Model.PrescriptionID" method="POST">
-    <input type="submit" value="Delete" />
+<h1 class="pharmacies__title">Delete Prescription</h1>
+<h2 class="delete__subtitle">Are you sure you want to delete the prescription for @Model.PatientName?</h2>
+<h3 class="delete__subtitle">@Model.PrescriptionDrug</h3>
+<form action="/Prescription/Delete/@Model.PrescriptionID" class="pharmacy__links" method="POST">
+    <input class="pharmacy__link--delete" type="submit" value="Delete" />
 </form>
+<style>
+    .pharmacy__link--delete {
+        border: none;
+        border-bottom: solid 4px rgb(243, 67, 67);
+        background: transparent;
+    }
 
+    .delete__subtitle {
+        text-align: center;
+        font-family: "Rubik", sans-serif;
+        width: 80%;
+        max-width: 600px;
+        margin: 50px auto;
+        line-height: 1.5;
+    }
+</style>

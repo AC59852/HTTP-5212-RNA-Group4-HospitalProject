@@ -191,18 +191,27 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             string url = "prescriptiondata/findprescription/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            // Format the staff data to be used in the view
+            // Format the prescription data to be used in the view
             PrescriptionDto SelectedPrescription = response.Content.ReadAsAsync<PrescriptionDto>().Result;
             ViewModel.SelectedPrescription = SelectedPrescription;
 
             // call the function in the PharmacyDataController.cs file to list
-            // all staff in the database
+            // all pharmacies in the database
             url = "pharmacydata/listpharmacies";
             response = client.GetAsync(url).Result;
 
-            // Format the staff data to be used in the view
+            // Format the pharmacy data to be used in the view
             IEnumerable<PharmacyDto> PharmacyOptions = response.Content.ReadAsAsync<IEnumerable<PharmacyDto>>().Result;
             ViewModel.PharmacyOptions = PharmacyOptions;
+
+            // call the function in the StaffDataController.cs file to list
+            // all staff in the database
+            url = "staffdata/liststaffs";
+            response = client.GetAsync(url).Result;
+
+            // Format the staff data to be used in the view
+            IEnumerable<StaffDto> StaffOptions = response.Content.ReadAsAsync<IEnumerable<StaffDto>>().Result;
+            ViewModel.StaffOptions = StaffOptions;
 
             // Render the Edit page with content from the chosen prescription
             // to be used as base values in the form

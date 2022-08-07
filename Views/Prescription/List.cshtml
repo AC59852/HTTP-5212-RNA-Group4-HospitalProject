@@ -3,21 +3,22 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
-<section class="prescriptions">
-    <div class="prescriptions__wrapper">
+<section class="pharmacies">
+    <h1 class="pharmacies__title">All Prescriptions</h1>
+    <div class="pharmacies__wrapper">
         @foreach (var prescription in Model.Prescriptions)
         {
-            <a href="/prescription/details/@prescription.PrescriptionID">
-                <h3>Prescription ID: @prescription.PrescriptionID</h3>
-                <h3>Patient: @prescription.PatientName</h3>
-                <h3>Pharmacy: @prescription.PharmacyName</h3>
+            <a class="pForm__input pForm__input--prescriptions" href="/prescription/details/@prescription.PrescriptionID">
+                <h3 class="prescriptions__name">Patient: <span>@prescription.PatientName</span></h3>
+                <h3 class="prescriptions__name">Pharmacy: <span>@prescription.PharmacyName</span></h3>
             </a>
         }
     </div>
     @if (Model.IsAdmin)
     {
-        <a href="/Prescription/New">Add New</a>
+        <div class="pharmacies__new">
+            <a href="/Prescription/New">Add Prescription</a>
+        </div>
     }
 </section>
 

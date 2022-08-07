@@ -3,46 +3,45 @@
     ViewBag.Title = "New";
 }
 
-<h2>New Prescription</h2>
-<form action="/Prescription/Create" method="POST">
-    <div>
-        <label for="PatientName">Enter Patient Name</label>
-        <input type="text" name="PatientName" placeholder="E.g: John Doe" value="" />
+<h1 class="pForm__title">New Prescription</h1>
+<form action="/Prescription/Create" class="pForm" method="POST">
+    <div class="pForm__wrapper">
+        <label for="PatientName" class="pForm__label">Enter Patient Name</label>
+        <input type="text" name="PatientName" class="pForm__input" placeholder="E.g: John Doe" value="" />
     </div>
-    <div>
-        <label for="PrescriptionDrug">Enter Drug Name</label>
-        <input type="text" name="PrescriptionDrug" placeholder="E.g Antibacterial Eardrops" value="" />
+    <div class="pForm__wrapper">
+        <label for="PrescriptionDrug" class="pForm__label">Enter Drug Name</label>
+        <input type="text" name="PrescriptionDrug" class="pForm__input" placeholder="E.g Antibacterial Eardrops" value="" />
     </div>
-    <div>
-        <label for="PrescriptionRefills">Enter Prescription Refills</label>
-        <input type="number" name="PrescriptionRefills" placeholder="E.g 2" value="" />
+    <div class="pForm__wrapper">
+        <label for="PrescriptionRefills" class="pForm__label">Enter Prescription Refills</label>
+        <input type="number" name="PrescriptionRefills" class="pForm__input" placeholder="E.g 2" value="" />
     </div>
-
-    <div>
-        <label for="PrescriptionDosage">Enter Prescription Dosage</label>
-        <input type="text" name="PrescriptionDosage" placeholder="E.g 200ml" value="" />
+    <div class="pForm__wrapper">
+        <label for="PrescriptionDosage" class="pForm__label">Enter Prescription Dosage</label>
+        <input type="text" name="PrescriptionDosage" class="pForm__input" placeholder="E.g 200ml" value="" />
     </div>
-    <div>
-        <label for="PrescriptionInstructions">Enter Prescription Instructions</label>
-        <textarea name="PrescriptionInstructions" value=""></textarea>
+    <div class="pForm__wrapper">
+        <label for="PrescriptionInstructions" class="pForm__label">Enter Prescription Instructions</label>
+        <textarea name="PrescriptionInstructions" class="pForm__input" value=""></textarea>
     </div>
-    <div class="">
-        <label>Choose a Pharmacy</label>
-        <select name="PharmacyID">
+    <div class="pForm__wrapper">
+        <label class="pForm__label">Choose a Pharmacy</label>
+        <select name="PharmacyID" class="pForm__input">
             @foreach (var pharmacy in Model.PharmacyOptions)
             {
                 <option value="@pharmacy.PharmacyID">@pharmacy.PharmacyName</option>
             }
         </select>
     </div>
-    <div class="">
-        <label>Who Wrote the Prescription</label>
-        <select name="StaffId">
+    <div class="pForm__wrapper">
+        <label class="pForm__label">Who Wrote the Prescription</label>
+        <select name="StaffId" class="pForm__input">
             @foreach (var staff in Model.StaffOptions)
             {
                 <option value="@staff.StaffId">@staff.FirstName</option>
             }
         </select>
     </div>
-    <input type="submit" name="Submit" value="Update" />
+    <input class="pForm__submit" type="submit" name="Submit" value="Create" />
 </form>

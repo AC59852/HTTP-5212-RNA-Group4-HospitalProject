@@ -3,38 +3,34 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
-<form action="/Prescription/Update/@Model.SelectedPrescription.PrescriptionID" method="POST">
+<h1 class="pForm__title">Edit @Model.SelectedPrescription.PrescriptionID For @Model.SelectedPrescription.PatientName</h1>
+<form action="/Prescription/Update/@Model.SelectedPrescription.PrescriptionID" class="pForm" method="POST">
     <div style="display:none;">
-        <input type="text" name="PrescriptionID" value="@Model.SelectedPrescription.PrescriptionID" />
+        <input type="text" name="PrescriptionID" class="pForm" value="@Model.SelectedPrescription.PrescriptionID" />
     </div>
-    <div>
-        <label for="PatientName">Enter Patient Name</label>
-        <input type="text" name="PatientName" placeholder="E.g: John Doe" value="@Model.SelectedPrescription.PatientName" />
+    <div class="pForm__wrapper">
+        <label for="PatientName" class="pForm__label">Enter Patient Name</label>
+        <input type="text" name="PatientName" class="pForm__input" placeholder="E.g: John Doe" value="@Model.SelectedPrescription.PatientName" />
     </div>
-    <div>
-        <label for="PrescriptionDrug">Enter Drug Name</label>
-        <input type="text" name="PrescriptionDrug" placeholder="E.g Antibacterial Eardrops" value="@Model.SelectedPrescription.PrescriptionDrug" />
+    <div class="pForm__wrapper">
+        <label for="PrescriptionDrug" class="pForm__label">Enter Drug Name</label>
+        <input type="text" name="PrescriptionDrug" class="pForm__input" placeholder="E.g Antibacterial Eardrops" value="@Model.SelectedPrescription.PrescriptionDrug" />
     </div>
-    <div>
-        <label for="PrescriptionRefills">Enter Prescription Refills</label>
-        <input type="number" name="PrescriptionRefills" placeholder="E.g 2" value="@Model.SelectedPrescription.PrescriptionRefills" />
+    <div class="pForm__wrapper">
+        <label for="PrescriptionRefills" class="pForm__label">Enter Prescription Refills</label>
+        <input type="number" name="PrescriptionRefills" class="pForm__input" placeholder="E.g 2" value="@Model.SelectedPrescription.PrescriptionRefills" />
     </div>
-    <div>
-        <label for="PrescriptionRefills">Enter Prescription Refills</label>
-        <input type="number" name="PrescriptionRefills" placeholder="E.g 2" value="@Model.SelectedPrescription.PrescriptionRefills" />
+    <div class="pForm__wrapper">
+        <label for="PrescriptionDosage" class="pForm__label">Enter Prescription Dosage</label>
+        <input type="text" name="PrescriptionDosage" class="pForm__input" placeholder="E.g 200ml" value="@Model.SelectedPrescription.PrescriptionDosage" />
     </div>
-    <div>
-        <label for="PrescriptionDosage">Enter Prescription Dosage</label>
-        <input type="number" name="PrescriptionDosage" placeholder="E.g 200ml" value="@Model.SelectedPrescription.PrescriptionDosage" />
+    <div class="pForm__wrapper">
+        <label for="PrescriptionInstructions" class="pForm__label">Enter Prescription Instructions</label>
+        <textarea name="PrescriptionInstructions" rows="10" class="pForm__input">@Model.SelectedPrescription.PrescriptionInstructions</textarea>
     </div>
-    <div>
-        <label for="PrescriptionRefills">Enter Prescription Instructions</label>
-        <textarea name="PrescriptionRefills" value="@Model.SelectedPrescription.PrescriptionInstructions"></textarea>
-    </div>
-    <div class="">
-        <label>Choose a Pharmacy</label>
-        <select name="PharmacyID">
+    <div class="pForm__wrapper">
+        <label class="pForm__label">Choose a Pharmacy</label>
+        <select name="PharmacyID" class="pForm__input">
             @foreach (var pharmacy in Model.PharmacyOptions)
             {
                 string selected = "";
@@ -46,5 +42,19 @@
             }
         </select>
     </div>
-    <input type="submit" name="Submit" value="Update" />
+    <div class="pForm__wrapper">
+        <label class="pForm__label">Who Wrote the Prescription</label>
+        <select name="StaffId" class="pForm__input">
+            @foreach (var staff in Model.StaffOptions)
+            {
+                string selected = "";
+                if (staff.StaffId == Model.SelectedPrescription.StaffId)
+                {
+                    selected = "selected";
+                }
+                <option value="@staff.StaffId" @selected>@staff.FirstName @staff.LastName</option>
+            }
+        </select>
+    </div>
+    <input type="submit" class="pForm__submit" name="Submit" value="Update" />
 </form>
