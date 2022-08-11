@@ -39,7 +39,9 @@ Below are the tables in the Hosiptal Project.
 5 - Siddhant Patel: Developer for HUpdates and Articles, also linked HUpdate to Departments Module.
 
 ## Latest additions
-1 - Austin Caron: Added administrator role/access to Create, Update and Delete features of prescriptions and pharmacies
+1 - Austin Caron: 
+<br>
+Added administrator role/access to Create, Update and Delete features of prescriptions and pharmacies
 <br>
 Added scaling visuals for prescriptions and pharmacies
 <br>
