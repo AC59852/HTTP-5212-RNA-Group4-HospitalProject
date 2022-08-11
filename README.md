@@ -41,11 +41,11 @@ Below are the tables in the Hosiptal Project.
 ## Latest additions
 1 - Austin Caron: 
 <br>
-Added administrator role/access to Create, Update and Delete features of prescriptions and pharmacies
+ * Added administrator role/access to Create, Update and Delete features of prescriptions and pharmacies
 <br>
-Added scaling visuals for prescriptions and pharmacies
+ * Added scaling visuals for prescriptions and pharmacies
 <br>
-Created method of converting military time to 12-hour format with minutes supported for the Pharmacy details
+ * Created method of converting military time to 12-hour format with minutes supported for the Pharmacy details
 <br>
-Consistently attempted to aid group members in their bugs/issues
+ * Consistently attempted to aid group members in their bugs/issues
 
