@@ -119,6 +119,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         [HttpPost]
         [Route("api/HUpdateData/EditHUpdate/{id}")]
         [ResponseType(typeof(void))]
+        [Authorize(Roles = "Admin")]
+
         public IHttpActionResult EditHUpdate(int id, HUpdate hUpdate)
         {
             if (!ModelState.IsValid)
@@ -171,6 +173,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         [HttpPost]
         [Route("api/HUpdateData/AddHUpdate")]
         [ResponseType(typeof(HUpdate))]
+        [Authorize(Roles = "Admin")]
+
         public IHttpActionResult AddHUpdate(HUpdate hUpdate)
         {
             if (!ModelState.IsValid)
@@ -204,6 +208,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         [HttpPost]
         [Route("api/HUpdateData/DeleteHUpdate/{id}")]
         [ResponseType(typeof(HUpdate))]
+        [Authorize(Roles = "Admin")]
+
         public IHttpActionResult DeleteHUpdate(int id)
         {
             HUpdate hUpdate = db.HUpdates.Find(id);

@@ -3,11 +3,17 @@
     ViewBag.Title = "List";
 }
 
-<h2>List of all articles</h2>
+<div class="article_header">
+    <h2>List of all articles</h2>
+    <a href="/Article/AddArticle">New Article <i class="bi bi-plus-square"></i></a>
+</div>
 
 @foreach(var article in Model)
             {
-                <h3><a href="/Article/Details/@article.ArticleID">@article.ArticleTitle</a></h3>
+    string imgUrl = "/Content/Images/Articles/" + article.ArticleID + "." + article.PicExtension;
+    <div class="article_list_card">
+        <img src="@imgUrl" width="100" />
+        <span><a href="/Article/Details/@article.ArticleID">@article.ArticleTitle</a></span>
+    </div>
             }
-<a href="/Article/AddArticle">Add an Article</a>
 

@@ -4,9 +4,11 @@ using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using HTTP_5212_RNA_Group4_HospitalProject.Models;
@@ -35,6 +37,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         [HttpGet]
         [Route("api/ArticleData/ListArticles")]
         [ResponseType(typeof(ArticleDto))]
+        
         public IEnumerable<ArticleDto> ListArticles()
         {
             List<Article> Articles = db.Articles.ToList();
@@ -45,6 +48,10 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
                 ArticleID = a.ArticleID,
                 ArticleTitle = a.ArticleTitle,
                 ArticleContent = a.ArticleContent,
+
+                //image info
+                ArticleHasPic = a.ArticleHasPic,
+                PicExtension = a.PicExtension,
 
                 // info related to Update
                 HUpdateId = a.HUpdate.HUpdateId,
@@ -82,6 +89,10 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
                 ArticleID = article.ArticleID,
                 ArticleTitle = article.ArticleTitle,
                 ArticleContent = article.ArticleContent,
+
+                //image realted data
+                ArticleHasPic = article.ArticleHasPic,
+                PicExtension = article.PicExtension,
 
                 // info related to Update
                 HUpdateId = article.HUpdate.HUpdateId,
@@ -154,6 +165,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
        
         [HttpPost]
         [Route("api/ArticleData/EditArticle/{id}")]
+        [Authorize]
         [ResponseType(typeof(void))]
         public IHttpActionResult EditArticle(int id, Article article)
         {
@@ -168,6 +180,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             }
 
             db.Entry(article).State = EntityState.Modified;
+
+            // we are not checking or storing image in this method so
+            db.Entry(article).Property(a => a.ArticleHasPic).IsModified = false;
+            db.Entry(article).Property(a => a.PicExtension).IsModified = false;
+
 
             try
             {
@@ -189,6 +206,95 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
 
+        // ************* uploading Article picture *************
+        // ************* uploading Article picture *************
+
+        /// <summary>
+        /// check if we got any file data, upload image file to server, and update article hasPic  
+        /// </summary>
+        /// <param name="id">the animal id</param>
+        /// <returns>status code 200 if successful.</returns>
+
+
+        [HttpPost]
+        [Authorize]
+        [Route("api/ArticleData/UploadArticlePic/{id}")]
+        public IHttpActionResult UploadArticlePic(int id)
+        {
+            bool haspic = false;
+            string picextension;
+            // checking if we got file data or not
+            if(Request.Content.IsMimeMultipartContent())
+            {
+                // counting number of incoming files (it should be one)
+                int numOfFiles = HttpContext.Current.Request.Files.Count;
+
+                // checking if there is 1 file posted
+                if (numOfFiles == 1 && HttpContext.Current.Request.Files[0] != null)
+                {
+                    var articlePic = HttpContext.Current.Request.Files[0];
+                    
+                    // Checking if the file is not empty
+                    if (articlePic.ContentLength > 0)
+                    {
+                        // deciding valid extetion for files
+                        var valtypes = new[] { "jpeg", "jpg", "png", "gif" };
+                        var extension = Path.GetExtension(articlePic.FileName).Substring(1);
+                        
+                        // Checking the extension of the file
+                        if (valtypes.Contains(extension))
+                        {
+                            try
+                            {
+                                // setting file name 
+                                string fn = id + "." + extension;
+                                Debug.WriteLine("extension is" + extension);
+
+                                // get a direct file path to ~/Content/animals/{id}.{extension}
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Images/Articles/"), fn);
+
+                                // saveing the file
+                                articlePic.SaveAs(path);
+
+                                // chaning haspic state
+                                haspic = true;
+                                picextension = extension;
+
+                                //Update the Articl haspic and picextension fields in the database
+                                Article Selectedarticle = db.Articles.Find(id);
+                                Debug.WriteLine("this is selected article"+Selectedarticle);
+                                Debug.WriteLine("has piccc" + Selectedarticle.ArticleHasPic);
+                                Selectedarticle.ArticleHasPic = haspic;
+                                Debug.WriteLine("has piccc" + Selectedarticle.ArticleHasPic);
+                                Selectedarticle.PicExtension = extension;
+                                db.Entry(Selectedarticle).State = EntityState.Modified;
+
+                                db.SaveChanges();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                return BadRequest();
+                            }
+                        }
+                    }
+
+                }
+
+                return Ok();
+            }
+            else
+            {
+               
+                return BadRequest();
+
+            }
+
+
+        }
+        
+
+
         // ************** adding an Article ******************
         // ************** adding an Article ******************
 
@@ -206,6 +312,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         [HttpPost]
         [Route("api/ArticleData/AddArticle")]
+        [Authorize] 
         [ResponseType(typeof(Article))]
         public IHttpActionResult AddArticle(Article article)
         {
@@ -240,6 +347,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         [HttpPost]
         [Route("api/ArticleData/DeleteArticle/{id}")]
         [ResponseType(typeof(Article))]
+        [Authorize]
         public IHttpActionResult DeleteArticle(int id)
         {
             Article article = db.Articles.Find(id);

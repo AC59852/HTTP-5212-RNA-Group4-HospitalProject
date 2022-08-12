@@ -1,0 +1,124 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+.article_header {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    padding: 2rem;
+}
+
+.article_header h2{
+    margin-bottom:1rem;
+}
+
+.article_header a{
+    all:unset;
+    display:inline-block;
+
+
+    background-color:white;
+    color: red;
+    font-weight:500;
+    padding: 1rem;
+    border-radius:10px;
+    border: 1px solid red;
+
+}
+
+    .article_header a:hover {
+        all: unset;
+        display: inline-block;
+        background-color: red;
+        color: white;
+        font-weight: 500;
+        padding: 1rem;
+        border-radius: 10px;
+        cursor: pointer;
+        border: 1px solid red;
+    }
+
+    .article_list_card{
+        display:flex;
+        align-items:center;
+        gap:2rem;
+        border-bottom: 1px solid black;
+        padding: 1rem 1rem;
+    }
+
+    .article_list_card:hover{
+        background-color:ghostwhite
+    }
+
+    .article_list_card a{
+        all:unset;
+    }
+
+       .article_list_card a:hover {
+            all: unset;
+            cursor:pointer;
+        }
+
+    .article_list_card span{
+        font-size:1.8rem;
+        font-weight:600;
+    }
+
+
+    .article_content_card{
+        display: flex;
+        gap: 1rem;
+    }
+
+    .article_content_card h3{
+        font-weight: 600;
+    }
+
+    .modify_article{
+        display:flex;
+        align-items: center;
+        gap:2rem;
+    }
+
+        .modify_article a {
+            all: unset;
+            display: inline-block;
+            
+    
+            font-weight: 500;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid red;
+        }
+
+            .modify_article a:hover {
+                all: unset;
+                display: inline-block;
+                
+                font-weight: 500;
+                padding: 1rem;
+                border-radius: 10px;
+                cursor: pointer;
+                border: 1px solid red;
+            }
+
+            .modify_article .edit a{
+                background-color:green;
+            }
+
+            .delete_btn{
+                all:unset;
+
+                padding:1rem;
+
+                border:1px solid black;
+
+                border-radius:10px;
+
+                font-weight:600;
+
+
+            }
+
+            .delete_btn:hover{
+                background-color:red;
+                color:white;
+            }
