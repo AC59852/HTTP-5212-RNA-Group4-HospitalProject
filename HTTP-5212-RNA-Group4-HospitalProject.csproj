@@ -267,6 +267,10 @@
     <Compile Include="Migrations\202208060654381_testingFix.designer.cs">
       <DependentUpon>202208060654381_testingFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202208101928432_Added_pic_to_Article.cs" />
+    <Compile Include="Migrations\202208101928432_Added_pic_to_Article.designer.cs">
+      <DependentUpon>202208101928432_Added_pic_to_Article.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -305,6 +309,7 @@
   <ItemGroup>
     <Content Include=".gitattributes" />
     <Content Include=".gitignore" />
+    <Content Include="Content\ArticleStyle.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -419,6 +424,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\Articles\" />
     <Folder Include="Content\Images\Pharmacies\" />
     <Folder Include="Views\AppointmentData\" />
     <Folder Include="Views\PrescriptionData\" />
@@ -482,6 +488,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202208060654381_testingFix.resx">
       <DependentUpon>202208060654381_testingFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202208101928432_Added_pic_to_Article.resx">
+      <DependentUpon>202208101928432_Added_pic_to_Article.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

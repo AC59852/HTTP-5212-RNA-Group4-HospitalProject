@@ -3,13 +3,42 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details of Article on @Model.SelectedArticle.HUpdateTitle</h2>
-<h3>Article Title: @Model.SelectedArticle.ArticleTitle</h3>
-<h3>Article Content</h3>
-<p>@Model.SelectedArticle.ArticleContent</p>
+@{
+    //creating image url
+    string imageurl = "";
+    if (Model.SelectedArticle.ArticleHasPic)
+    {
+        imageurl = "/Content/Images/Articles/" + Model.SelectedArticle.ArticleID + "." + Model.SelectedArticle.PicExtension;
+    }
 
-<hr />
-<a href="/Article/EditPage/@Model.SelectedArticle.ArticleID">Edit Article</a>
+    string update_type = "";
+    if(Model.SelectedArticle.HUpdateType == 1)
+    {
+        update_type = "Update";
+    }
+    else
+    {
+        update_type = "Event";
+    }
+}
+
+<h2 class="article_header">@Model.SelectedArticle.ArticleTitle</h2>
+
+<div class="article_content_card">
+<img src="@imageurl" alt="@Model.SelectedArticle.ArticleTitle" width="400"/>
+    <div class="article_info">
+<h3>Article On: @Model.SelectedArticle.HUpdateTitle (@update_type)</h3>
+
+<h3>Article Content:</h3>
+<p>@Model.SelectedArticle.ArticleContent</p>
+<div class="modify_article">
+
+<a href="/Article/EditPage/@Model.SelectedArticle.ArticleID" class="edit_btn">Edit Article <i class="bi bi-pencil-square"></i></a>
+<a href="/Article/DeletePage/@Model.SelectedArticle.ArticleID" class="delete_btn">Delete <i class="bi bi-file-earmark-x"></i></a>
+</div>
+    </div>
+
+</div>
+
 <br />
-<a href="/Article/DeletePage/@Model.SelectedArticle.ArticleID" style="color:red">Delete</a>
 

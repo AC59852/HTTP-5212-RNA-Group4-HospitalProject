@@ -17,8 +17,36 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         static HUpdateController()
         {
-            client = new HttpClient();
+            // for authentication and authorization
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                AllowAutoRedirect = false,
+                //cookies are manually set in RequestHeader
+                UseCookies = false
+            };
+            client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44353/api/");
+        }
+
+        /// <summary>
+        /// Grabs the authentication cookie sent to this controller.
+        /// </summary>
+        private void GetApplicationCookie()
+        {
+            string token = "";
+
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            //collect token as it is submitted to the controller
+            //use it to pass along to the WebAPI.
+
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
         }
 
         // ********************* List of all HUpdates **********************
@@ -68,6 +96,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         // GET: HUpdate/AddHUpdate
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult AddHUpdate()
         {
             string url = "DepartmentData/listdepartments";
@@ -80,8 +109,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         // POST: HUpdate/Add
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Add(HUpdateDto hUpdateDto)
         {
+            GetApplicationCookie();
             string url = "HUpdateData/AddHUpdate";
             string jsonpayload = jss.Serialize(hUpdateDto);
 
@@ -100,6 +132,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         // GET: HUpdate/EditPage/5
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult EditPage(int id)
         {
             // our view will also contain list of Departments so creating new ViewModel containg HUpdateDTO and Department
@@ -124,8 +158,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         // POST: HUpdate/Edit/5
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Edit(int id, HUpdateDto hUpdateDto)
         {
+            GetApplicationCookie();
             string url = "HUpdateData/EditHUpdate/" + id;
             string jsonpayload = jss.Serialize(hUpdateDto);
 
@@ -146,6 +183,8 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         // GET: HUpdate/DeletePage/5
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult DeletePage(int id)
         {
             string url = "HUpdateData/FindHUpdate/" + id;
@@ -160,8 +199,11 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         // POST: HUpdate/Delete/5
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Delete(int id, HUpdateDto hUpdateDto)
         {
+            GetApplicationCookie();
             string url = "HUpdateData/DeleteHUpdate/" + id;
 
             HttpContent content = new StringContent("");

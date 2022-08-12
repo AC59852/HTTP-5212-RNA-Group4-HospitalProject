@@ -17,8 +17,36 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         static ArticleController()
         {
-            client = new HttpClient();
+            // for authentication and authorization
+            HttpClientHandler handler = new HttpClientHandler()
+            {
+                AllowAutoRedirect = false,
+                //cookies are manually set in RequestHeader
+                UseCookies = false
+            };
+            client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44353/api/");
+        }
+
+        /// <summary>
+        /// Grabs the authentication cookie sent to this controller.
+        /// </summary>
+        private void GetApplicationCookie()
+        {
+            string token = "";
+            
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            //collect token as it is submitted to the controller
+            //use it to pass along to the WebAPI.
+
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
         }
 
         // *********** List of all Articles *************
@@ -62,6 +90,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         // GET: Article/AddArticle
 
         [HttpGet]
+        [Authorize(Roles ="Admin")]
         public ActionResult AddArticle()
         {
             // getting list of HUpdates for showing list in dropdown
@@ -74,8 +103,10 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         // POST: Article/Add
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Add(ArticleDto articleDto)
         {
+            GetApplicationCookie();
             string url = "ArticleData/AddArticle";
             string jsonpayload = jss.Serialize(articleDto);
 
@@ -90,9 +121,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
 
+        // ******************* Edit article *********************
+        // ******************* Edit article *********************
 
         // GET: Article/EditPage/5
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditPage(int id)
         {
             // our view will also contain list of HUpdates so creating new ViewModel containg ArticleDTO and HUpdate
@@ -115,8 +149,10 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         // POST: Article/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, ArticleDto articleDto)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(int id, ArticleDto articleDto, HttpPostedFileBase ArticlePic)
         {
+            GetApplicationCookie();
             string url = "ArticleData/EditArticle/" + id;
             string jsonpayload = jss.Serialize(articleDto);
 
@@ -124,6 +160,21 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             content.Headers.ContentType.MediaType = "application/json";
 
             HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            // handling if image has been added, if added then only we will run below method
+            // also if incase image uploading will take time, till then our text data would be uploaded
+            if(response.IsSuccessStatusCode && ArticlePic != null)
+            {
+                url = "ArticleData/UploadArticlePic/" + id;
+
+                // as it is multiform data (same as we did in form)
+                MultipartFormDataContent incomingcontent = new MultipartFormDataContent();
+                HttpContent imagecontent = new StreamContent(ArticlePic.InputStream);
+                incomingcontent.Add(imagecontent, "ArticlePic", ArticlePic.FileName);
+                response = client.PostAsync(url, incomingcontent).Result;
+
+                return RedirectToAction("List");
+            }
 
             return RedirectToAction("List");
             
@@ -136,6 +187,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         // GET: Article/DeletePage/5
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeletePage(int id)
         {
             string url = "ArticleData/FindArticle/" + id;
@@ -149,8 +201,10 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
 
         // POST: Article/Delete/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id, ArticleDto articleDto)
         {
+            GetApplicationCookie();
             string url = "ArticleData/DeleteArticle/" + id;
 
 

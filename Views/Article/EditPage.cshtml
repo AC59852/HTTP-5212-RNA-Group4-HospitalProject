@@ -4,7 +4,7 @@
 }
 
 <h2>Edit Article @Model.editArticle.ArticleTitle</h2>
-<form action="/Article/Edit/@Model.editArticle.ArticleID" method="post">
+<form action="/Article/Edit/@Model.editArticle.ArticleID" method="post" enctype="multipart/form-data">
     <input type="number" name="ArticleId" value="@Model.editArticle.ArticleID" style="display:none"/>
     <div>
         <label for="article_ForHUpdate">Article is on which Update or Event?</label>
@@ -30,6 +30,10 @@
     <div>
         <label for="article_Content">Article Content:</label>
         <textarea id="article_Content" name="ArticleContent" rows="4">@Model.editArticle.ArticleContent</textarea>
+    </div>
+
+    <div>
+        <input type="file" name="ArticlePic"/>
     </div>
 
     <button type="submit">Edit Article</button>
