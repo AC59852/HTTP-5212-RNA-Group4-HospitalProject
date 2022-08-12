@@ -37,3 +37,12 @@ Below are the tables in the Hosiptal Project.
 4 - Akhilender Vallab: Developer for Research and Donar CRUD.
 <br>
 5 - Siddhant Patel: Developer for HUpdates and Articles, also linked HUpdate to Departments Module.
+
+## Latest additions
+1 - Austin Caron: 
+<br>
+ * Added administrator role/access to Create, Update and Delete features of prescriptions and pharmacies
+ * Added scaling visuals for prescriptions and pharmacies
+ * Created method of converting military time to 12-hour format with minutes supported for the Pharmacy details
+ * Consistently attempted to aid group members in their bugs/issues
+
