@@ -66,7 +66,13 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View();
         }
 
-        // POST: Staff/Create
+        /// <summary>
+        /// Creates a record in the database, 
+        /// </summary>
+        /// <param name="Staff">Staff</param>
+        /// <returns>
+        /// <example>
+        // POST: Staff/Create        
         [HttpPost]
         public ActionResult Create(Staff Staff)
         {
@@ -82,6 +88,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return RedirectToAction("List");
         }
 
+        /// <summary>
+        /// Gets a staff entity in the database, forupdate using its id
+        /// </summary>
+        /// <param name="id">Staff Primary Key</param>
+        /// <returns>
+        /// <example>
         // GET: Staff/Edit/5
         public ActionResult Edit(int id)
         {
@@ -93,6 +105,13 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View(selectedstaff);
         }
 
+        /// <summary>
+        /// Updates a staff entity in the database, 
+        /// </summary>
+        /// <param name="id">Staff Primary Key</param>
+        /// <param name="Staff">Staff Object</param>
+        /// <returns>
+        /// <example>
         // POST: Staff/Update/5
         [HttpPost]
         public ActionResult Edit(int id, Staff Staff)
@@ -115,6 +134,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             }
         }
 
+        /// <summary>
+        /// Confirm staff delete from the database, 
+        /// </summary>
+        /// <param name="id">Staff Primary Key</param>
+        /// <returns>
+        /// <example>
         public ActionResult DeleteConfirm(int id)
         {
             string url = "staffdata/findstaff/" + id;
@@ -125,6 +150,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View(selectedstaff);
         }
 
+        /// <summary>
+        /// Deletes a staff entity from the database, 
+        /// </summary>
+        /// <param name="id">Staff Primary Key</param>
+        /// <returns>
+        /// <example>
         // POST: Staff/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)

@@ -17,6 +17,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/StaffData
+        //Data controller endpoint to retrieve list of users
         [HttpGet]
         [Route("api/StaffData/ListStaffs")]
         [ResponseType(typeof(StaffDto))]
@@ -39,6 +40,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: api/StaffData/5
+        //Data controller endpoint to retrieve a user detail by specifying its id
         [HttpGet]
         [ResponseType(typeof(StaffDto))]
         [Route("api/staffdata/findstaff/{id}")]
@@ -64,6 +66,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // PUT: api/StaffData/5
+        //Data controller endpoint to update a user details
         [ResponseType(typeof(void))]
         [HttpPost]
         [Route("api/staffdata/updatestaff/{id}")]
@@ -101,6 +104,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // POST: api/StaffData
+        //Data controller endpoint to create a new user
         [ResponseType(typeof(Staff))]
         [Route("api/stafftdata/addstaff")]
         public IHttpActionResult PostStaff(Staff staff)
@@ -117,6 +121,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // DELETE: api/StaffData/5
+        //Data controller endpoint to delete a user
         [ResponseType(typeof(Staff))]
         public IHttpActionResult DeleteStaff(int id)
         {
@@ -132,6 +137,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(staff);
         }
 
+        //Get a collection of staff attched to a particular specified pharmacy
         [HttpGet]
         [ResponseType(typeof(StaffDto))]
         [Route("api/staffdata/liststaffforpharmacy/{id}")]
@@ -153,6 +159,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(StaffDtos);
         }
 
+        //Get a collection of staff not attched to a particular specified pharmacy
         [HttpGet]
         [ResponseType(typeof(StaffDto))]
         [Route("api/staffdata/liststaffnotatpharmacy/{id}")]
@@ -175,6 +182,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(StaffDtos);
         }
 
+        /// <summary>
+        /// dispose db connection resource
+        /// </summary>
+        /// <param name="disposing">boolean flag</param>
+        /// <returns>
+        /// <example>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -184,6 +197,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// check if an staff with a sepcified id exists
+        /// </summary>
+        /// <param name="id">Staff Primary Key</param>
+        /// <returns>
+        /// <example>
         private bool StaffExists(int id)
         {
             return db.Staffs.Count(e => e.StaffId == id) > 0;

@@ -17,6 +17,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/AppointmentData
+        //Data controller endpoint to retrieve list of appointments
         [HttpGet]
         [Route("api/AppointmentData/ListAppointments")]
         [ResponseType(typeof(AppointmentDto))]
@@ -38,6 +39,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // GET: api/AppointmentData/5
+        //Data controller endpoint to retrieve an appointment detail by specifying its id
         [HttpGet]
         [ResponseType(typeof(AppointmentDto))]
         [Route("api/appointmentdata/findappointment/{id}")]
@@ -62,6 +64,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // PUT: api/AppointmentData/5
+        //Data controller endpoint to update an appointment details
         [ResponseType(typeof(void))]
         [HttpPost]
         [Route("api/appointmentdata/updateappointment/{id}")]
@@ -99,6 +102,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // POST: api/AppointmentData
+        //Data controller endpoint to create an appointment 
         [ResponseType(typeof(Appointment))]
         [Route("api/appointmentdata/addappointment")]
         public IHttpActionResult PostAppointment(Appointment appointment)
@@ -115,6 +119,7 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         }
 
         // DELETE: api/AppointmentData/5
+        //Data controller endpoint to delete an appointment by id
         [ResponseType(typeof(Appointment))]
         public IHttpActionResult DeleteAppointment(int id)
         {
@@ -130,6 +135,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return Ok(appointment);
         }
 
+        /// <summary>
+        /// dispose db connection resource
+        /// </summary>
+        /// <param name="disposing">boolean flag</param>
+        /// <returns>
+        /// <example>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -139,6 +150,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// check if an aappointment with a sepcified id exists
+        /// </summary>
+        /// <param name="id">Appointment Primary Key</param>
+        /// <returns>
+        /// <example>
         private bool AppointmentExists(int id)
         {
             return db.Appointments.Count(e => e.AppointmentId == id) > 0;

@@ -77,6 +77,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Creates a record in the database, 
+        /// </summary>
+        /// <param name="Appointment">Appointment</param>
+        /// <returns>
+        /// <example>
         // POST: Appointment/Create
         [HttpPost]
         public ActionResult Create(Appointment Appointment)
@@ -93,6 +99,13 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return RedirectToAction("List");
         }
 
+
+        /// <summary>
+        /// Gets a appointment entity in the database, forupdate using its id
+        /// </summary>
+        /// <param name="id">appointment Primary Key</param>
+        /// <returns>
+        /// <example>
         // GET: Appointment/Edit/5
         public ActionResult Edit(int id)
         {
@@ -104,6 +117,13 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View(selectedappointment);
         }
 
+        /// <summary>
+        /// Updates an appointment entity in the database, 
+        /// </summary>
+        /// <param name="id">Appointmnet Primary Key</param>
+        /// <param name="Appointment">Appointmnet Object</param>
+        /// <returns>
+        /// <example>
         // POST: Appointment/Update/5
         [HttpPost]
         public ActionResult Edit(int id, Appointment Appointment)
@@ -126,6 +146,13 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Confirm appointment delete from the database, 
+        /// </summary>
+        /// <param name="id">Appointmnet Primary Key</param>
+        /// <returns>
+        /// <example>
         public ActionResult DeleteConfirm(int id)
         {
             string url = "appointmentdata/findappointment/" + id;
@@ -136,6 +163,12 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View(selectedappointment);
         }
 
+        /// <summary>
+        /// Deletes an appointment entity from the database, 
+        /// </summary>
+        /// <param name="id">Appointmnet Primary Key</param>
+        /// <returns>
+        /// <example>
         // POST: Appointment/Delete/5
         [HttpPost]
         public ActionResult Delete(int id)
