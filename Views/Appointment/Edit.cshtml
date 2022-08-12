@@ -40,6 +40,16 @@
             </div>
         </div>
 
+        <div class="pForm__wrapper">
+            <label class="pForm__label">Staff</label>
+            <select name="StaffId" class="pForm__input">
+                @foreach (var staff in model.Staffs)
+                {
+                    <option value="@staff.StaffId">@staff.FirstName @staff.LastName</option>
+                }
+            </select>
+        </div>
+
 
     </div>
 

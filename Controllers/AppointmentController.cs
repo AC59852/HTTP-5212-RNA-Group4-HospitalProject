@@ -67,14 +67,29 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
             return View(ViewModel);
         }
 
-        //GET: Appointment/New
         /// <summary>
-        /// Returns the appointments page containing all appointments
+        /// Returns a webpage for the user to create a new appointment
         /// </summary>
-        /// <param name="id">appointment Primary Key</param>
+        /// <returns>
+        /// a webpage for the user to create a new appointment, allowing them to enter data
+        /// as well as choose a staff for the appointment
+        /// </returns>
         public ActionResult New()
         {
-            return View();
+            // Use the Model "AppointmentsVM" as the base model for data that will be used in the view
+            AppointmentsVM ViewModel = new AppointmentsVM();
+
+            // call the function in the StaffDataController.cs file to list
+            // all staff in the database
+            url = "staffdata/liststaffs";
+            response = client.GetAsync(url).Result;
+
+            // Format the staff data to be used in the view
+            IEnumerable<StaffDto> Staffs = response.Content.ReadAsAsync<IEnumerable<StaffDto>>().Result;
+            ViewModel.Staffs = Staffs;
+
+            // Render the view with the provided content
+            return View(ViewModel);
         }
 
         /// <summary>
@@ -109,12 +124,26 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Controllers
         // GET: Appointment/Edit/5
         public ActionResult Edit(int id)
         {
-            string url = "appointmentdata/findappointment/" + id;
+            // Use the Model "AppointmentsVM" as the base model for data that will be used in the view
+            AppointmentsVM ViewModel = new AppointmentsVM();
+
+            // call the function in the StaffDataController.cs file to list
+            // all staff in the database
+            url = "staffdata/liststaffs";
+            response = client.GetAsync(url).Result;
+
+            // Format the staff data to be used in the view
+            IEnumerable<StaffDto> Staffs = response.Content.ReadAsAsync<IEnumerable<StaffDto>>().Result;
+            ViewModel.Staffs = Staffs;
+
+            //Get actual appoint for the view
+            url = "appointmentdata/findappointment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             AppointmentDto selectedappointment = response.Content.ReadAsAsync<AppointmentDto>().Result;
+            ViewModel.Appointment = selectedappointment;
 
-            return View(selectedappointment);
+            return View(ViewModel);
         }
 
         /// <summary>

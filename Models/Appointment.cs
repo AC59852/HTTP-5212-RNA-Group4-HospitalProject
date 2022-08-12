@@ -30,4 +30,10 @@ namespace HTTP_5212_RNA_Group4_HospitalProject.Models
         public DateTime AppointmentDate { get; set; }
         public string PatientNotes { get; set; }
     }
+
+    public class AppointmentsVM
+    {
+        public AppointmentDto Appointment { get; set; }
+        public IEnumerable<StaffDto> Staffs {get; set;}
+    }
 }
