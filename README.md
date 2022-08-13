@@ -45,4 +45,8 @@ Below are the tables in the Hosiptal Project.
  * Added scaling visuals for prescriptions and pharmacies
  * Created method of converting military time to 12-hour format with minutes supported for the Pharmacy details
  * Consistently attempted to aid group members in their bugs/issues
+ <br>
+ 2 - Temi Babalola
+ <br>
+ Added functionaity to edit staff and add staff for appointment entity
 
